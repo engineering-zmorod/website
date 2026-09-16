@@ -1,0 +1,97 @@
+---
+import { getImage } from 'astro:assets';
+import posterSrc from '../../assets/about-video-poster.jpg';
+import { press } from '../lib/site';
+
+const videoSrc = `${import.meta.env.BASE_URL}/about-video.mp4`.replace(/\/+/g, '/');
+const poster = await getImage({ src: posterSrc, width: 1200, format: 'webp', quality: 60 });
+---
+
+<section id="press" class="relative overflow-hidden bg-ink-950 pt-36 pb-24 lg:pt-52 lg:pb-32">
+  <div class="absolute inset-0 bg-blueprint opacity-35"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.13] mix-blend-overlay"></div>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <p class="annot-he flex items-center gap-3" data-press-in>
+      <span class="inline-block h-px w-8 bg-gold-600"></span>
+      וידאו ופודקאסט
+    </p>
+
+    <h1
+      class="mt-6 font-display text-[clamp(2.8rem,6vw,5.5rem)] leading-[1.02] font-light text-steel-100"
+      data-press-in
+    >
+      כדאי <span class="text-gold-gradient">לשמוע</span>
+    </h1>
+
+    <!-- 40 under 40 -->
+    <section class="mt-16 border-t border-ink-800 pt-14 lg:mt-24">
+      <div class="flex flex-wrap items-end justify-between gap-4" data-press-in>
+        <div>
+          <span class="annot nums text-gold-500">{press.video.date}</span>
+          <h2 class="mt-2.5 font-display text-3xl font-light text-steel-100 lg:text-4xl">
+            {press.video.title}
+          </h2>
+          <p class="mt-2 font-sans text-base text-steel-400 lg:text-lg">{press.video.subtitle}</p>
+        </div>
+      </div>
+
+      <div
+        class="mt-8 overflow-hidden border border-ink-800 bg-black lg:mt-10"
+        data-press-card
+      >
+        {/* Source is only 640×352, so the frame is capped rather than full-bleed */}
+        <video
+          class="mx-auto block max-h-[70vh] w-full max-w-4xl"
+          src={videoSrc}
+          poster={poster.src}
+          controls
+          preload="none"
+          playsinline
+        ></video>
+      </div>
+    </section>
+
+    <!-- Podcast -->
+    <section class="mt-20 border-t border-ink-800 pt-14 lg:mt-28">
+      <div data-press-in>
+        <span class="annot-he text-gold-500">פודקאסט</span>
+        <h2 class="mt-2.5 font-display text-3xl font-light text-steel-100 lg:text-4xl">
+          {press.podcast.title}
+        </h2>
+        <p class="mt-2 flex flex-wrap items-center gap-x-3 font-sans text-base text-steel-400 lg:text-lg">
+          <span>{press.podcast.show}</span>
+          <span class="text-ink-600">·</span>
+          <span class="nums">{press.podcast.date}</span>
+        </p>
+      </div>
+
+      <div class="mt-7 space-y-4" data-press-in>
+        {
+          press.podcast.body.map((para) => (
+            <p class="font-sans text-base leading-relaxed text-steel-300 lg:text-lg">{para}</p>
+          ))
+        }
+      </div>
+
+      <div class="mt-9" data-press-card>
+        <iframe
+          src={press.podcast.url}
+          title={`${press.podcast.title} — ${press.podcast.show}`}
+          class="block h-[22rem] w-full"
+          style="border: 0;"
+          loading="lazy"
+          allow="encrypted-media; clipboard-write; picture-in-picture; autoplay; fullscreen"
+        ></iframe>
+      </div>
+
+      <div class="mt-7 space-y-1.5 border-t border-ink-800 pt-6" data-press-in>
+        {
+          press.podcast.credits.map((line) => (
+            <p class="font-sans text-sm text-steel-500">{line}</p>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</section>

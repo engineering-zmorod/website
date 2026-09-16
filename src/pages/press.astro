@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Press from '../components/Press.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../lib/site';
+---
+
+<Layout
+  title={`כדאי לשמוע | ${site.legal}`}
+  description="כתבות, פרסים וראיונות על זמורוד חסן — הנדסת מבנים."
+>
+  <Press />
+  <Contact />
+</Layout>

@@ -1,5 +1,13 @@
 ---
-import { aboutExtra } from '../lib/site';
+import { Image } from 'astro:assets';
+import award2019 from '../../assets/award-2019.jpg';
+import award2020 from '../../assets/award-2020.jpg';
+import { aboutExtra, href } from '../lib/site';
+
+const awardImages: Record<string, ImageMetadata> = {
+  'award-2019.jpg': award2019,
+  'award-2020.jpg': award2020,
+};
 ---
 
 <section id="recognition" class="relative overflow-hidden bg-ink-950 pb-24 lg:pb-32">
@@ -7,75 +15,114 @@ import { aboutExtra } from '../lib/site';
 
   <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <!-- Vision -->
-    <figure class="border-t border-ink-800 pt-14" data-rec-in>
-      <p class="annot-he text-gold-600">החזון שלנו</p>
+    <figure class="border-t border-ink-800 pt-16 text-center" data-rec-in>
+      <p class="annot-he flex items-center justify-center gap-3 text-gold-600">
+        <span class="inline-block h-px w-8 bg-gold-700"></span>
+        החזון שלנו
+        <span class="inline-block h-px w-8 bg-gold-700"></span>
+      </p>
+
       <blockquote
-        class="mt-6 max-w-4xl font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-snug font-light text-steel-100"
+        class="mx-auto mt-8 max-w-4xl font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-snug font-light text-balance text-steel-100"
       >
         “{aboutExtra.vision}”
       </blockquote>
     </figure>
 
-    <div class="mt-20 grid gap-16 lg:grid-cols-2 lg:gap-24">
-      <!-- Awards -->
-      <div>
-        <h2 class="font-display text-3xl font-light text-steel-100 lg:text-4xl" data-rec-in>
-          הצטיינות
+    <!-- Courses -->
+    <div class="mt-20">
+      <div
+        class="relative mx-auto max-w-3xl border border-ink-800 bg-ink-900/50 p-8 lg:p-11"
+        data-rec-in
+      >
+        <!-- Verified badge, top-left of the card -->
+        <span class="absolute top-6 end-6 text-gold-600 lg:top-8 lg:end-8">
+          <svg
+            class="size-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 2.6l2.3 1.7 2.8-.2.9 2.7 2.3 1.6-1 2.7 1 2.7-2.3 1.6-.9 2.7-2.8-.2L12 21.4l-2.3-1.7-2.8.2-.9-2.7-2.3-1.6 1-2.7-1-2.7 2.3-1.6.9-2.7 2.8.2z"
+              opacity="0.4"
+            />
+            <path d="m8.6 12.2 2.4 2.4 4.4-4.9" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+
+        <h2 class="font-display text-2xl font-light text-steel-100 lg:text-3xl">
+          קורסים והכשרות
         </h2>
 
-        <ul class="mt-8 border-t border-ink-800">
-          {
-            aboutExtra.awards.map((a) => (
-              <li class="flex gap-6 border-b border-ink-800 py-6" data-rec-in>
-                <span class="annot nums shrink-0 pt-1.5 text-gold-500">{a.year}</span>
-                <div>
-                  <h3 class="font-display text-xl text-steel-100 lg:text-2xl">{a.title}</h3>
-                  <p class="mt-1.5 font-sans text-base text-steel-400">{a.body}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <!-- Press -->
-      <div>
-        <h2 class="font-display text-3xl font-light text-steel-100 lg:text-4xl" data-rec-in>
-          מן העיתונות
-        </h2>
-
-        <ul class="mt-8 border-t border-ink-800">
-          {
-            aboutExtra.press.map((p) => (
-              <li class="flex gap-6 border-b border-ink-800 py-6" data-rec-in>
-                <span class="annot nums shrink-0 pt-1.5 text-gold-500">{p.year}</span>
-                <div>
-                  <p class="font-display text-xl text-steel-100 lg:text-2xl">“{p.quote}”</p>
-                  <p class="mt-1.5 font-sans text-base text-steel-400">{p.source}</p>
-                </div>
-              </li>
-            ))
-          }
+        <ul
+          class="mt-7 list-disc space-y-3 pe-1 ps-5 font-sans text-base leading-relaxed text-steel-300 marker:text-gold-600 lg:text-lg"
+        >
+          {aboutExtra.training.map((t) => <li>{t}</li>)}
         </ul>
       </div>
     </div>
 
-    <!-- Training -->
-    <div class="mt-20">
-      <h2 class="font-display text-3xl font-light text-steel-100 lg:text-4xl" data-rec-in>
-        הכשרות נוספות
+
+    <!-- Prizes -->
+    <div class="mt-24">
+      <p class="annot-he flex items-center gap-3" data-rec-in>
+        <span class="inline-block h-px w-8 bg-gold-600"></span>
+        הכרה מקצועית
+      </p>
+
+      <h2
+        class="mt-5 font-display text-gold-gradient text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light"
+        data-rec-in
+      >
+        הצטייניות
       </h2>
 
-      <ul class="mt-8 grid gap-x-10 gap-y-4 border-t border-ink-800 pt-8 sm:grid-cols-2">
+      <div class="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
         {
-          aboutExtra.training.map((t) => (
-            <li class="flex gap-4 font-sans text-base leading-relaxed text-steel-300 lg:text-lg" data-rec-in>
-              <span class="mt-3 block h-px w-5 shrink-0 bg-gold-600" />
-              {t}
-            </li>
+          aboutExtra.awards.map((a) => (
+            <figure class="flex flex-col" data-rec-in>
+              <span class="annot nums text-gold-500">{a.year}</span>
+              <h3 class="mt-2.5 font-display text-2xl leading-snug text-steel-100 lg:text-3xl">
+                {a.title}
+              </h3>
+              <p class="mt-2 font-sans text-base leading-relaxed text-steel-400">{a.body}</p>
+
+              <div class="mt-6 overflow-hidden border border-ink-800 bg-ink-900">
+                <Image
+                  src={awardImages[a.image]}
+                  alt={a.title}
+                  widths={[600, 1000]}
+                  sizes="(max-width: 1024px) 92vw, 46vw"
+                  class="w-full object-contain"
+                />
+              </div>
+
+              {
+                'video' in a && a.video && (
+                  <a
+                    href={href('/press')}
+                    class="group mt-6 flex w-full flex-1 flex-col items-center justify-center gap-4 border border-ink-800 bg-ink-900/60 p-8 text-center transition-colors duration-400 hover:border-gold-700"
+                  >
+                    <span class="grid size-14 place-items-center rounded-full border border-gold-700 text-gold-500 transition-colors duration-400 group-hover:bg-gold-600 group-hover:text-ink-950">
+                      <svg class="size-5 -scale-x-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M8 5.2v13.6L19 12z" />
+                      </svg>
+                    </span>
+                    <span>
+                      <span class="block font-display text-xl text-steel-100">צפו בכתבה המלאה</span>
+                      <span class="annot-he mt-1.5 block text-steel-500">כדאי לשמוע</span>
+                    </span>
+                  </a>
+                )
+              }
+            </figure>
           ))
         }
-      </ul>
+      </div>
     </div>
+
   </div>
 </section>

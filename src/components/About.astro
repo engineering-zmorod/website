@@ -4,13 +4,20 @@ import portrait from '../../assets/founder-cutout.png';
 import { about, credentials, href } from '../lib/site';
 
 interface Props {
-  /** On the About page the page head already carries the kicker and CTA. */
+  /** On the About page itself, suppress the CTA that points back to it
+      and give the section room to clear the fixed header. */
   headless?: boolean;
 }
 const { headless = false } = Astro.props;
 ---
 
-<section id="about" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
+<section
+  id="about"
+  class:list={[
+    'relative overflow-hidden bg-ink-950 pb-24 lg:pb-32',
+    headless ? 'pt-36 lg:pt-52' : 'pt-24 lg:pt-32',
+  ]}
+>
   <div class="absolute inset-0 bg-blueprint opacity-40"></div>
   <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.14] mix-blend-overlay"></div>
 
@@ -19,16 +26,12 @@ const { headless = false } = Astro.props;
   >
     <!-- Copy -->
     <div class="order-2 lg:order-1">
-      {
-        !headless && (
-          <p class="annot-he flex items-center gap-3" data-about-in>
-            <span class="inline-block h-px w-8 bg-gold-600" />
-            {about.kicker}
-          </p>
-        )
-      }
+      <p class="annot-he flex items-center gap-3" data-about-in>
+        <span class="inline-block h-px w-8 bg-gold-600"></span>
+        {about.kicker}
+      </p>
 
-      <h2 class:list={[!headless && 'mt-6', 'font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100']}>
+      <h2 class:list={['mt-6', 'font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100']}>
         <span class="block" data-about-in>{about.headingTop}</span>
         <span class="block text-gold-gradient" data-about-in>{about.headingBottom}</span>
       </h2>

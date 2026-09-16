@@ -22,6 +22,7 @@ export const nav = [
   { label: 'אודות', href: href('/about') },
   { label: 'שירותים', href: href('/services') },
   { label: 'פרויקטים', href: href('/projects') },
+  { label: 'כדאי לשמוע', href: href('/press') },
   { label: 'יצירת קשר', href: href('/#contact') },
 ] as const;
 
@@ -156,14 +157,19 @@ export const aboutExtra = {
 
   awards: [
     {
+      year: '2019',
+      title: 'פרס מהנדס צעיר מצטיין',
+      body: 'בתחום התכנון, מטעם איגוד המהנדסים והתשתיות בישראל.',
+      image: 'award-2019.jpg',
+    },
+    {
       year: '2020',
       title: '40 הצעירים המבטיחים',
       body: 'בנדל"ן ובהתחדשות עירונית.',
-    },
-    {
-      year: '2019',
-      title: 'מהנדס צעיר מצטיין בתחום התכנון',
-      body: 'מטעם איגוד המהנדסים והתשתיות בישראל.',
+      image: 'award-2020.jpg',
+      // Square clipping, so this column runs short next to the portrait one —
+      // the video fills it rather than leaving dead space.
+      video: true,
     },
   ],
 
@@ -174,4 +180,36 @@ export const aboutExtra = {
       source: 'ידיעות צפון',
     },
   ],
+} as const;
+
+/**
+ * Press and media. Fields marked TODO are placeholders awaiting the client —
+ * publication names, dates, and the podcast URL.
+ */
+export const press = {
+  video: {
+    title: '40 הצעירים המבטיחים',
+    subtitle: 'בנדל"ן ובהתחדשות עירונית',
+    date: '2020',
+  },
+
+  podcast: {
+    title: 'תכנון נכון',
+    show: 'הטכניוניסטים',
+    date: 'אוגוסט 2026',
+    // Spotify's /embed/ path, minus the share-tracking query string.
+    url: 'https://open.spotify.com/embed/episode/7JzfwKmQNoTFV0somVUNf8',
+
+    body: [
+      'זמורוד חסן היא מהנדסת קונסטרוקציה, בקרית תכן מבנים, יציבות ומיגון, ובוגרת גאה של הפקולטה להנדסה אזרחית וסביבתית בטכניון.',
+      'היא המייסדת והבעלים של חברה לתכנון והנדסת מבנים הנושאת את שמה, ומובילה מגה-פרוייקטים ברחבי הארץ.',
+      'בשיחה פתוחה ומרגשת היא מספרת על האומץ ״לקפוץ למים״ ולהקים חברה משלה, על הכניסה לתחום גברי מאוד, על השאיפה להמשיך להתקדם — וגם על המקומות שבהם היא לא מוכנה להתפשר, אפילו אם המשמעות היא לעצור עבודה באמצע.',
+      'בפרק תוכלו לשמוע איך נראה יום בחייה של מהנדסת, בעלת חברה ואשת משפחה, מה מניע אותה להמשיך קדימה ולמה חשוב לה לקדם תעסוקה, לפתוח דלתות וליצור הזדמנויות לנשים נוספות בחברה הדרוזית ובכלל.',
+    ],
+
+    credits: [
+      'הפרק הוקלט בבית הסטודנט. תודה לאס"ט על האירוח.',
+      'מראיינת: רותי דונג, מנכ״לית ארגון בוגרי הטכניון.',
+    ],
+  },
 } as const;
