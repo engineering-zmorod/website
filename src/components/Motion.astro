@@ -1,5 +1,6 @@
 ---
-/** Scroll + entrance choreography. One place so timings stay consistent. */
+/** Scroll + entrance choreography for every page. One place so timings stay
+    consistent, and so sections that aren't on the current page are skipped. */
 ---
 
 <script>
@@ -10,18 +11,7 @@
   gsap.registerPlugin(ScrollTrigger);
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* A looping hero video is motion too — hold on the poster frame instead. */
-  const heroVideo = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-  if (reduced && heroVideo) {
-    heroVideo.removeAttribute('autoplay');
-    heroVideo.pause();
-  } else if (heroVideo) {
-    // Drone footage reads as sluggish at native speed behind a static headline.
-    const rate = 1.7;
-    heroVideo.playbackRate = rate;
-    heroVideo.addEventListener('loadedmetadata', () => (heroVideo.playbackRate = rate));
-  }
+  const has = (sel: string) => Boolean(document.querySelector(sel));
 
   /* ---- Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync */
   if (!reduced) {
@@ -30,43 +20,61 @@
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        if (!id || id === '#') return;
-        const target = document.querySelector(id);
-        if (!target) return;
-        e.preventDefault();
-        lenis.scrollTo(target as HTMLElement, { offset: -80 });
-      });
+    // Delegated so it also catches absolute links like /website/#about, which
+    // the nav uses in order to work from any page.
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement)?.closest?.('a');
+      if (!a || a.target === '_blank') return;
+
+      const url = new URL(a.href, location.href);
+      if (url.pathname !== location.pathname || !url.hash) return;
+
+      const target = document.querySelector(url.hash);
+      if (!target) return;
+
+      e.preventDefault();
+      lenis.scrollTo(target as HTMLElement, { offset: -80 });
     });
   }
 
-  /* ---- Hero entrance. Offset before the timeline builds, so the first
-     tick never paints the un-offset state. */
-  gsap.set('[data-reveal]', { y: 26 });
-
+  /* ---- Hero -------------------------------------------------------------- */
   const hero = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-  hero.fromTo(
-    '[data-hero-clip]',
-    { clipPath: 'inset(0% 0% 100% 0%)' },
-    { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5 }
-  )
-    .fromTo(
-      '[data-hero-img]',
-      { scale: 1.18 },
-      { scale: 1, duration: 2.2, ease: 'power2.out' },
-      '<'
-    )
-    .to(
-      '[data-reveal]',
-      { opacity: 1, y: 0, duration: 1.1, stagger: 0.09 },
-      '-=0.35'
-    );
+  if (has('#top')) {
+    const heroVideo = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+    if (reduced && heroVideo) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+    } else if (heroVideo) {
+      // Drone footage reads as sluggish at native speed behind a static headline.
+      const rate = 1.7;
+      heroVideo.playbackRate = rate;
+      heroVideo.addEventListener('loadedmetadata', () => (heroVideo.playbackRate = rate));
+    }
 
+    // Offset before the timeline builds, so the first tick never paints the
+    // un-offset state.
+    gsap.set('[data-reveal]', { y: 26 });
 
-  /* ---- Counters. Large figures count faster so they finish together. */
+    hero
+      .fromTo(
+        '[data-hero-clip]',
+        { clipPath: 'inset(0% 0% 100% 0%)' },
+        { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5 }
+      )
+      .fromTo('[data-hero-img]', { scale: 1.18 }, { scale: 1, duration: 2.2, ease: 'power2.out' }, '<')
+      .to('[data-reveal]', { opacity: 1, y: 0, duration: 1.1, stagger: 0.09 }, '-=0.35');
+
+    if (!reduced) {
+      gsap.to('[data-hero-media]', {
+        yPercent: 12,
+        ease: 'none',
+        scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true },
+      });
+    }
+  }
+
+  /* ---- Counters. Large figures count faster so they finish together. ----- */
   document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
     const target = Number(el.dataset.count ?? 0);
     const obj = { n: 0 };
@@ -81,25 +89,11 @@
     });
   });
 
-  /* ---- Hero parallax: the tower drifts slower than the page */
-  if (!reduced) {
-    gsap.to('[data-hero-media]', {
-      yPercent: 12,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#top',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-  }
-
-  /* ---- About ------------------------------------------------------------
+  /* ---- About -------------------------------------------------------------
      Hidden up front so it can never animate alongside the hero intro, then
      wired to scroll once that intro has finished. A visitor who lands mid-page
      (refresh, deep link) gets it wired immediately instead. */
-  if (document.querySelector('#about')) {
+  if (has('#about')) {
     gsap.set('[data-about-in]', { opacity: 0, y: 28 });
     gsap.set('[data-about-clip]', { clipPath: 'inset(0% 0% 100% 0%)' });
 
@@ -129,61 +123,41 @@
       }
     };
 
-    if (window.scrollY > 120) initAbout();
-    else hero.eventCallback('onComplete', initAbout);
+    if (has('#top') && window.scrollY <= 120) hero.eventCallback('onComplete', initAbout);
+    else initAbout();
   }
 
-  /* ---- Projects: heading reveals, then cards stagger in --------------- */
-  if (document.querySelector('#projects')) {
-    gsap.from('[data-proj-in]', {
+  /* ---- Generic section reveals ------------------------------------------ */
+  const reveal = (scope: string, itemSel: string, cardSel?: string) => {
+    if (!has(scope)) return;
+
+    gsap.from(itemSel, {
       opacity: 0,
       y: 28,
       duration: 1,
       stagger: 0.08,
       ease: 'expo.out',
-      scrollTrigger: { trigger: '#projects', start: 'top 70%' },
+      scrollTrigger: { trigger: scope, start: 'top 72%' },
     });
 
-    gsap.utils.toArray<HTMLElement>('[data-proj-card]').forEach((card) => {
-      gsap.from(card, {
-        opacity: 0,
-        y: 46,
-        duration: 1.1,
-        ease: 'expo.out',
-        scrollTrigger: { trigger: card, start: 'top 85%' },
+    if (cardSel) {
+      gsap.utils.toArray<HTMLElement>(cardSel).forEach((card) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 46,
+          duration: 1.1,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: card, start: 'top 88%' },
+        });
       });
-    });
-  }
+    }
+  };
 
-  /* ---- Services ------------------------------------------------------- */
-  if (document.querySelector('#services')) {
-    gsap.from('[data-srv-in]', {
-      opacity: 0,
-      y: 28,
-      duration: 1,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: '#services', start: 'top 70%' },
-    });
-
-    gsap.from('[data-srv-card]', {
-      opacity: 0,
-      y: 46,
-      duration: 1.1,
-      stagger: 0.12,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: '#services', start: 'top 62%' },
-    });
-  }
-
-  /* ---- Contact -------------------------------------------------------- */
-  if (document.querySelector('#contact')) {
-    gsap.from('[data-ct-in]', {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      stagger: 0.08,
-      ease: 'expo.out',
-      scrollTrigger: { trigger: '#contact', start: 'top 72%' },
-    });
-  }
+  reveal('#projects', '[data-proj-in]', '[data-proj-card]');
+  reveal('#services', '[data-srv-in]', '[data-srv-card]');
+  reveal('#contact', '[data-ct-in]');
+  reveal('#page-head', '[data-head-in]');
+  reveal('#more-projects', '[data-more-in]');
+  reveal('#service-rows', '[data-row]');
+  reveal('#recognition', '[data-rec-in]');
 </script>

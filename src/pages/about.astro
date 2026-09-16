@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
+import About from '../components/About.astro';
+import Recognition from '../components/Recognition.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../lib/site';
+---
+
+<Layout
+  title={`אודות | ${site.legal}`}
+  description="זמורוד חסן — בוגרת הטכניון בהצטיינות, מבקרת תכן מוסמכת RICS, וזוכת פרסי הנדסה ונדל״ן."
+>
+  <PageHead
+    kicker="מי אנחנו"
+    title="אודות"
+    lead="משרד הנדסת מבנים מגוליס, בבעלות מהנדסת זמורוד חסן — עם התמחות בתכנון לרעידות אדמה ובבקרת תכן קונסטרוקטיבית."
+  />
+
+  <About headless />
+  <Recognition />
+  <Contact />
+</Layout>

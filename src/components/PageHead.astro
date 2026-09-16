@@ -1,0 +1,42 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  accent?: string;
+  lead?: string;
+}
+const { kicker, title, accent, lead } = Astro.props;
+---
+
+<section id="page-head" class="relative overflow-hidden bg-ink-950 pt-40 pb-16 lg:pt-52 lg:pb-24">
+  <div class="absolute inset-0 bg-blueprint opacity-40"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.14] mix-blend-overlay"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-l from-transparent via-ink-700 to-transparent"></div>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    {
+      kicker && (
+        <p class="annot-he flex items-center gap-3" data-head-in>
+          <span class="inline-block h-px w-8 bg-gold-600" />
+          {kicker}
+        </p>
+      )
+    }
+
+    <h1
+      class="mt-6 font-display text-[clamp(2.8rem,6vw,5.5rem)] leading-[1.02] font-light text-steel-100"
+      data-head-in
+    >
+      {title}
+      {accent && <span class="text-gold-gradient">{accent}</span>}
+    </h1>
+
+    {
+      lead && (
+        <p class="mt-8 max-w-2xl font-sans text-lg leading-relaxed text-steel-300 lg:text-xl" data-head-in>
+          {lead}
+        </p>
+      )
+    }
+  </div>
+</section>

@@ -1,7 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import portrait from '../../assets/founder-cutout.png';
-import { about, credentials } from '../lib/site';
+import { about, credentials, href } from '../lib/site';
+
+interface Props {
+  /** On the About page the page head already carries the kicker and CTA. */
+  headless?: boolean;
+}
+const { headless = false } = Astro.props;
 ---
 
 <section id="about" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
@@ -13,12 +19,16 @@ import { about, credentials } from '../lib/site';
   >
     <!-- Copy -->
     <div class="order-2 lg:order-1">
-      <p class="annot-he flex items-center gap-3" data-about-in>
-        <span class="inline-block h-px w-8 bg-gold-600"></span>
-        {about.kicker}
-      </p>
+      {
+        !headless && (
+          <p class="annot-he flex items-center gap-3" data-about-in>
+            <span class="inline-block h-px w-8 bg-gold-600" />
+            {about.kicker}
+          </p>
+        )
+      }
 
-      <h2 class="mt-6 font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100">
+      <h2 class:list={[!headless && 'mt-6', 'font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100']}>
         <span class="block" data-about-in>{about.headingTop}</span>
         <span class="block text-gold-gradient" data-about-in>{about.headingBottom}</span>
       </h2>
@@ -40,9 +50,9 @@ import { about, credentials } from '../lib/site';
         }
       </ul>
 
-      <div class="mt-12" data-about-in>
+      <div class="mt-12" data-about-in hidden={headless}>
         <a
-          href="#contact"
+          href={href('/about')}
           class="group inline-flex items-center gap-4 border border-ink-700 px-9 py-4.5 font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
         >
           קראו עוד עלינו

@@ -1,7 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import posterSrc from '../../assets/hero-poster.jpg';
-import { site, stats } from '../lib/site';
+import { href, site, stats } from '../lib/site';
 
 // Video lives in public/ — Astro's asset pipeline only processes images.
 const videoSrc = `${import.meta.env.BASE_URL}/hero.mp4`.replace(/\/+/g, '/');
@@ -56,7 +56,7 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
   </div>
 
   <!-- Content -->
-  <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-24 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+  <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-16 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <div class="max-w-2xl">
       <p class="annot-he flex items-center gap-3" data-reveal>
         <span class="inline-block h-px w-8 bg-gold-600"></span>
@@ -92,7 +92,7 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
 
       <div class="mt-11 flex flex-wrap items-center gap-4" data-reveal>
         <a
-          href="#projects"
+          href={href('/projects')}
           class="group relative overflow-hidden border border-gold-600 bg-gold-600 px-9 py-4.5 font-sans text-base font-medium text-ink-950 transition-colors duration-400"
         >
           <span class="relative z-10">צפו בפרויקטים</span>
@@ -135,17 +135,17 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
   <!-- Scroll cue -->
   <a
     href="#about"
-    class="group absolute bottom-5 start-1/2 flex -translate-x-1/2 flex-col items-center gap-2 lg:bottom-9 lg:gap-3"
+    class="group absolute bottom-9 start-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
     aria-label="גלול למטה"
     data-reveal
   >
     <span
-      class="annot-he hidden text-gold-500 transition-colors duration-300 group-hover:text-gold-300 lg:block"
+      class="annot-he text-gold-500 transition-colors duration-300 group-hover:text-gold-300"
     >
       גלול
     </span>
 
-    <span class="relative block h-8 w-px overflow-hidden bg-ink-600 lg:h-16">
+    <span class="relative block h-16 w-px overflow-hidden bg-ink-600">
       <span class="absolute inset-x-0 top-0 h-5 animate-[cue_2.2s_ease-in-out_infinite] bg-gold-400"></span>
     </span>
 

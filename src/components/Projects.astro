@@ -1,5 +1,11 @@
 ---
-import { projects } from '../lib/site';
+import { href, projects } from '../lib/site';
+
+interface Props {
+  /** On the projects page the PageHead already carries the title. */
+  headless?: boolean;
+}
+const { headless = false } = Astro.props;
 ---
 
 <section id="projects" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
@@ -8,7 +14,7 @@ import { projects } from '../lib/site';
 
   <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <!-- Heading -->
-    <div class="flex flex-wrap items-end justify-between gap-8">
+    <div class="flex flex-wrap items-end justify-between gap-8" hidden={headless}>
       <h2
         class="font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100"
         data-proj-in
@@ -17,7 +23,7 @@ import { projects } from '../lib/site';
       </h2>
 
       <a
-        href="#contact"
+        href={href('/projects')}
         class="group inline-flex items-center gap-3 border-b border-ink-600 pb-2 font-sans text-base text-steel-300 transition-colors duration-400 hover:border-gold-600 hover:text-gold-300"
         data-proj-in
       >
@@ -32,7 +38,7 @@ import { projects } from '../lib/site';
     </div>
 
     <!-- Grid -->
-    <div class="mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2">
+    <div class:list={["grid gap-x-10 gap-y-14 md:grid-cols-2", headless ? "mt-0" : "mt-16"]}>
       {
         projects.map((p, i) => (
           <article class="group" data-proj-card>

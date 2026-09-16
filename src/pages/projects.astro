@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
+import Projects from '../components/Projects.astro';
+import ProjectCarousel from '../components/ProjectCarousel.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../lib/site';
+---
+
+<Layout
+  title={`פרויקטים | ${site.legal}`}
+  description="מגדלי מגורים, מבני ציבור, תעשייה ומסחר — מבחר מהפרויקטים של זמורוד חסן הנדסת מבנים."
+>
+  <PageHead
+    kicker="עבודות נבחרות"
+    title="פרויקטים"
+    lead="ממבני בוטיק בני 10 קומות ועד מגדלים בני 30 — מבחר מהפרויקטים שתוכננו ולוו על ידי המשרד."
+  />
+
+  <Projects headless />
+  <ProjectCarousel />
+  <Contact />
+</Layout>

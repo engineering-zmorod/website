@@ -17,12 +17,12 @@ export const site = {
   since: 2008,
 } as const;
 
+/** Absolute so the nav works from any page, not just the homepage. */
 export const nav = [
-  { label: 'אודות', hash: '#about' },
-  { label: 'שירותים', hash: '#services' },
-  { label: 'פרויקטים', hash: '#projects' },
-  { label: 'הצטיינות', hash: '#awards' },
-  { label: 'יצירת קשר', hash: '#contact' },
+  { label: 'אודות', href: href('/about') },
+  { label: 'שירותים', href: href('/services') },
+  { label: 'פרויקטים', href: href('/projects') },
+  { label: 'יצירת קשר', href: href('/#contact') },
 ] as const;
 
 /** Headline figures. The old site had these three counters stuck at 0. */
@@ -127,3 +127,51 @@ export const services = [
     ],
   },
 ] as const;
+
+/** The remaining work, shown as a carousel under the featured projects. */
+export const moreProjects = [
+  { name: 'בייליס 4', place: 'חיפה', fact: '5,730 מ"ר' },
+  { name: 'סימולנסקין 6', place: 'חיפה', fact: '3,731 מ"ר' },
+  { name: 'העלייה 36‑38', place: 'נהריה', fact: '30 יח"ד' },
+  { name: 'ויתקין 16', place: 'חיפה', fact: 'מבנה בוטיק' },
+  { name: 'מגרשים 7 ו‑8', place: 'נהריה', fact: '4 מבני מגורים' },
+  { name: 'שמעייה 1‑3', place: 'הרצליה', fact: 'מבני מגורים' },
+  { name: 'משה רינת, מגרש 208', place: 'חולון', fact: 'מבני מגורים' },
+  { name: '6 גני ילדים', place: 'נהריה', fact: 'מבני ציבור' },
+  { name: 'בית חולים סעודי', place: 'הוד השרון', fact: 'מבנה ציבור' },
+  { name: 'בית חולים סעודי ותיקים', place: 'בני ברק', fact: 'מבנה ציבור' },
+] as const;
+
+/** Everything the old אודות page carried beyond the homepage summary. */
+export const aboutExtra = {
+  vision:
+    'מתן שירות מקצועי מאוד, תכנון ותוכניות ברמה גבוהה מאוד, עמידה בלוחות זמנים ותכנון כדאי כלכלי ליזם.',
+
+  training: [
+    'קורס מתן חוות דעת מקצועית',
+    'קורס תכן עגורנים',
+    'קורס עריכת מכרזים',
+    'קורס חיזוק מבנים לרעידות אדמה במסגרת תמ"א 38',
+  ],
+
+  awards: [
+    {
+      year: '2020',
+      title: '40 הצעירים המבטיחים',
+      body: 'בנדל"ן ובהתחדשות עירונית.',
+    },
+    {
+      year: '2019',
+      title: 'מהנדס צעיר מצטיין בתחום התכנון',
+      body: 'מטעם איגוד המהנדסים והתשתיות בישראל.',
+    },
+  ],
+
+  press: [
+    {
+      year: '2016',
+      quote: 'אני אגיע רחוק',
+      source: 'ידיעות צפון',
+    },
+  ],
+} as const;

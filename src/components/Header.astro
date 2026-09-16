@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import mark from '../../assets/logo-mark.png';
-import { nav, site } from '../lib/site';
+import { href, nav, site } from '../lib/site';
 ---
 
 <header
@@ -18,7 +18,7 @@ import { nav, site } from '../lib/site';
   <!-- Gutter must match Hero's so the wordmark lines up with the headline -->
   <nav class="flex h-20 items-center justify-between px-6 lg:h-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <!-- Mark + wordmark -->
-    <a href="#top" class="group flex items-center gap-3.5" aria-label={site.legal}>
+    <a href={href('/#top')} class="group flex items-center gap-3.5" aria-label={site.legal}>
       <Image
         src={mark}
         alt=""
@@ -43,7 +43,7 @@ import { nav, site } from '../lib/site';
         nav.map((item) => (
           <li>
             <a
-              href={item.hash}
+              href={item.href}
               class="group relative block py-2 font-sans text-[1.0625rem] text-steel-300 transition-colors duration-300 hover:text-steel-100"
             >
               {item.label}
@@ -94,7 +94,7 @@ import { nav, site } from '../lib/site';
     {
       nav.map((item, i) => (
         <li class="translate-y-6 opacity-0 transition-all duration-500 ease-[var(--ease-out-expo)]" data-menu-item style={`transition-delay:${80 + i * 55}ms`}>
-          <a href={item.hash} class="flex items-baseline gap-5 border-b border-ink-800 py-5" data-menu-link>
+          <a href={item.href} class="flex items-baseline gap-5 border-b border-ink-800 py-5" data-menu-link>
             <span class="annot text-gold-700">{String(i + 1).padStart(2, '0')}</span>
             <span class="font-display text-3xl text-steel-100">{item.label}</span>
           </a>
