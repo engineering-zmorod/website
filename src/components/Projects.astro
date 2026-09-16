@@ -1,0 +1,71 @@
+---
+import { projects } from '../lib/site';
+---
+
+<section id="projects" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
+  <div class="absolute inset-0 bg-blueprint opacity-30"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay"></div>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <!-- Heading -->
+    <div class="flex flex-wrap items-end justify-between gap-8">
+      <h2
+        class="font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100"
+        data-proj-in
+      >
+        פרויקטים <span class="text-gold-gradient">נבחרים</span>
+      </h2>
+
+      <a
+        href="#contact"
+        class="group inline-flex items-center gap-3 border-b border-ink-600 pb-2 font-sans text-base text-steel-300 transition-colors duration-400 hover:border-gold-600 hover:text-gold-300"
+        data-proj-in
+      >
+        כל הפרויקטים
+        <svg
+          class="size-4 -scale-x-100 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1.5"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Grid -->
+    <div class="mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2">
+      {
+        projects.map((p, i) => (
+          <article class="group" data-proj-card>
+            <div class="relative aspect-[4/3] overflow-hidden bg-ink-850">
+              {/* Placeholder until real photography lands */}
+              <div class="absolute inset-0 bg-blueprint opacity-70" />
+              <div class="absolute inset-0 grid place-items-center">
+                <span class="annot-he text-ink-600">תמונה בקרוב</span>
+              </div>
+
+              {/* Drafting corner marks */}
+              <span class="absolute top-4 start-4 size-7 border-s border-t border-gold-800/60" />
+              <span class="absolute bottom-4 end-4 size-7 border-e border-b border-gold-800/60" />
+
+              <span class="annot nums absolute top-4 end-5 text-ink-600">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+
+            <div class="mt-6">
+              <p class="annot-he text-gold-600">{p.place}</p>
+              <h3 class="mt-3 font-display text-2xl text-steel-100 lg:text-3xl">{p.name}</h3>
+              <p class="mt-3 max-w-md font-sans text-base leading-relaxed text-steel-400">{p.body}</p>
+
+              <ul class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ink-700 pt-4">
+                {p.facts.map((f) => (
+                  <li class="font-mono text-sm text-gold-400">{f}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

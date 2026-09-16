@@ -132,4 +132,46 @@
     if (window.scrollY > 120) initAbout();
     else hero.eventCallback('onComplete', initAbout);
   }
+
+  /* ---- Projects: heading reveals, then cards stagger in --------------- */
+  if (document.querySelector('#projects')) {
+    gsap.from('[data-proj-in]', {
+      opacity: 0,
+      y: 28,
+      duration: 1,
+      stagger: 0.08,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: '#projects', start: 'top 70%' },
+    });
+
+    gsap.utils.toArray<HTMLElement>('[data-proj-card]').forEach((card) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 46,
+        duration: 1.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: card, start: 'top 85%' },
+      });
+    });
+  }
+
+  /* ---- Services ------------------------------------------------------- */
+  if (document.querySelector('#services')) {
+    gsap.from('[data-srv-in]', {
+      opacity: 0,
+      y: 28,
+      duration: 1,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: '#services', start: 'top 70%' },
+    });
+
+    gsap.from('[data-srv-card]', {
+      opacity: 0,
+      y: 46,
+      duration: 1.1,
+      stagger: 0.12,
+      ease: 'expo.out',
+      scrollTrigger: { trigger: '#services', start: 'top 62%' },
+    });
+  }
 </script>

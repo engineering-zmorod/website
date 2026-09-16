@@ -115,7 +115,17 @@
   &::after  { inset-inline-end: 0; }
 }
 
-/* Small mono annotation, the way a drawing labels a detail */
+/* Hebrew label. Plex Mono carries no Hebrew, and wide tracking pulls Hebrew
+   letterforms apart — so Hebrew annotations get Heebo and tight spacing. */
+@utility annot-he {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-gold-500);
+}
+
+/* Small mono annotation, the way a drawing labels a detail. Latin only. */
 @utility annot {
   font-family: var(--font-mono);
   font-size: 0.78rem;

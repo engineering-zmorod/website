@@ -58,9 +58,9 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
   <!-- Content -->
   <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-24 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <div class="max-w-2xl">
-      <p class="annot flex items-center gap-3" data-reveal>
+      <p class="annot-he flex items-center gap-3" data-reveal>
         <span class="inline-block h-px w-8 bg-gold-600"></span>
-        <span class="nums">EST. {site.since}</span>
+        <span class="nums font-mono tracking-[0.2em]">EST. {site.since}</span>
         <span class="text-steel-500">·</span>
         <span>גוליס</span>
       </p>
@@ -141,7 +141,7 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
     data-reveal
   >
     <span
-      class="annot hidden text-gold-500 transition-colors duration-300 group-hover:text-gold-300 lg:block"
+      class="annot-he hidden text-gold-500 transition-colors duration-300 group-hover:text-gold-300 lg:block"
     >
       גלול
     </span>
