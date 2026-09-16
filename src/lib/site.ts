@@ -32,3 +32,34 @@ export const stats = [
   { value: 100, suffix: '+', unit: '', label: 'לקוחות' },
   { value: 17, suffix: '', unit: 'שנים', label: 'ניסיון' },
 ] as const;
+
+/** Credentials, stepped through one at a time as the About section scrolls. */
+export const credentials = [
+  {
+    year: '2008',
+    title: 'הטכניון — בהצטיינות',
+    body: 'בוגרת הפקולטה להנדסה אזרחית וסביבתית, בהתמחות תכנון מבנים לרעידות אדמה.',
+  },
+  {
+    year: '2018',
+    title: 'RICS לונדון',
+    body: 'בקרית תכן מבנים מורשית, בוגרת הארגון הבריטי RICS.',
+  },
+  {
+    year: '2019',
+    title: 'מהנדס צעיר מצטיין בתחום התכנון',
+    body: 'פרס מטעם איגוד המהנדסים והתשתיות בישראל.',
+  },
+  {
+    year: '2020',
+    title: '40 הצעירים המבטיחים',
+    body: 'בנדל"ן ובהתחדשות עירונית.',
+  },
+] as const;
+
+export const about = {
+  kicker: 'מי אנחנו',
+  headingTop: 'אישה אחת,',
+  headingBottom: 'רזומה ארוך.',
+  lead: 'בעלת המניות הבלעדית בחברה הינה מהנדסת זמורוד חסן. כל פרויקט עובר תחת ידיה — מהתכנון הראשוני ועד הפיקוח באתר.',
+} as const;

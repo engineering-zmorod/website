@@ -94,4 +94,42 @@
       },
     });
   }
+
+  /* ---- About ------------------------------------------------------------
+     Hidden up front so it can never animate alongside the hero intro, then
+     wired to scroll once that intro has finished. A visitor who lands mid-page
+     (refresh, deep link) gets it wired immediately instead. */
+  if (document.querySelector('#about')) {
+    gsap.set('[data-about-in]', { opacity: 0, y: 28 });
+    gsap.set('[data-about-clip]', { clipPath: 'inset(0% 0% 100% 0%)' });
+
+    const initAbout = () => {
+      gsap.to('[data-about-in]', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.07,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: '#about', start: 'top 68%' },
+      });
+
+      gsap.to('[data-about-clip]', {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.3,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: '#about', start: 'top 68%' },
+      });
+
+      if (!reduced) {
+        gsap.to('[data-about-media]', {
+          yPercent: -7,
+          ease: 'none',
+          scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      }
+    };
+
+    if (window.scrollY > 120) initAbout();
+    else hero.eventCallback('onComplete', initAbout);
+  }
 </script>

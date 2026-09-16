@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../../assets/founder-cutout.png';
+import { about, credentials } from '../lib/site';
+---
+
+<section id="about" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
+  <div class="absolute inset-0 bg-blueprint opacity-40"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.14] mix-blend-overlay"></div>
+
+  <div
+    class="relative mx-auto grid max-w-[100rem] items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
+  >
+    <!-- Copy -->
+    <div class="order-2 lg:order-1">
+      <p class="annot flex items-center gap-3" data-about-in>
+        <span class="inline-block h-px w-8 bg-gold-600"></span>
+        {about.kicker}
+      </p>
+
+      <h2 class="mt-6 font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100">
+        <span class="block" data-about-in>{about.headingTop}</span>
+        <span class="block text-gold-gradient" data-about-in>{about.headingBottom}</span>
+      </h2>
+
+      <p class="mt-8 max-w-xl font-sans text-lg leading-relaxed text-steel-300 lg:text-xl" data-about-in>
+        {about.lead}
+      </p>
+
+      <!-- Credentials — all visible, no scrolling needed -->
+      <ul class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {
+          credentials.map((c) => (
+            <li class="border-s-2 border-gold-700 ps-5" data-about-in>
+              <span class="annot nums block text-gold-500">{c.year}</span>
+              <h3 class="mt-2.5 font-display text-2xl leading-snug text-steel-100">{c.title}</h3>
+              <p class="mt-2 font-sans text-base leading-relaxed text-steel-400">{c.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-12" data-about-in>
+        <a
+          href="#contact"
+          class="group inline-flex items-center gap-4 border border-ink-700 px-9 py-4.5 font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
+        >
+          קראו עוד עלינו
+          <svg
+            class="size-4 -scale-x-100 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Portrait -->
+    <div class="order-1 lg:order-2" data-about-media>
+      <div class="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md">
+        <!-- Depth behind a cut-out figure, so she isn't floating on the grid -->
+        <div class="pointer-events-none absolute -inset-x-[22%] -top-[6%] bottom-[2%] -z-10 portrait-glow blur-2xl"></div>
+
+        <div data-about-clip>
+          <Image
+            src={portrait}
+            alt="זמורוד חסן, מהנדסת ובעלת החברה"
+            widths={[440, 720, 932]}
+            sizes="(max-width: 1024px) 70vw, 440px"
+            class="w-full"
+            data-about-img
+          />
+        </div>
+
+        <!-- Baseline the figure is cut off against -->
+        <span class="absolute inset-x-[-12%] bottom-0 h-px bg-gradient-to-l from-transparent via-gold-600 to-transparent"></span>
+
+        <p class="mt-6 font-sans text-sm text-steel-400" data-about-in>
+          <span class="block font-display text-xl text-steel-100">זמורוד חסן</span>
+          <span class="mt-1 block font-mono text-[0.7rem] tracking-[0.16em] text-gold-600">
+            מהנדסת אזרחית · בעלת החברה
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
