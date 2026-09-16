@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* ---- Brand tokens (from the Zmorod Hassan logo: gold on deep navy) ---- */
+@theme {
+  --color-navy-950: #0b131c;
+  --color-navy-900: #111d2a;
+  --color-navy-800: #1a2b3d;
+  --color-navy-700: #26405a;
+  --color-navy-100: #e6ebf1;
+
+  --color-gold-700: #8a6a2a;
+  --color-gold-600: #b8862f;
+  --color-gold-500: #d4a949;
+  --color-gold-400: #e8c877;
+  --color-gold-200: #f5e1a4;
+
+  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Heebo", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Gold gradient used by the logo mark — reuse for headings/accents */
+@utility text-gradient-gold {
+  background-image: linear-gradient(
+    150deg,
+    var(--color-gold-700) 0%,
+    var(--color-gold-200) 45%,
+    var(--color-gold-600) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lenis handles smooth scrolling once initialised; opt out of native */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-navy-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
