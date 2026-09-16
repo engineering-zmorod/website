@@ -1,0 +1,78 @@
+---
+import { site } from '../lib/site';
+
+const channels = [
+  { label: 'טלפון', value: site.phone, href: site.phoneHref, mono: true },
+  { label: 'דוא"ל', value: site.email, href: `mailto:${site.email}`, mono: true },
+  { label: 'מיקום', value: site.address, href: null, mono: false },
+];
+---
+
+<section id="contact" class="relative overflow-hidden bg-ink-950 py-24 lg:py-36">
+  <div class="absolute inset-0 bg-blueprint opacity-40"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.14] mix-blend-overlay"></div>
+
+  <!-- Light pooling behind the call to action -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold-700 to-transparent"></div>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <div class="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
+      <!-- Call to action -->
+      <div>
+        <h2
+          class="font-display text-[clamp(2.6rem,5.2vw,4.8rem)] leading-[1.02] font-light text-steel-100"
+          data-ct-in
+        >
+          נשמח לשמוע
+          <span class="block text-gold-gradient">על הפרויקט שלכם.</span>
+        </h2>
+
+        <p class="mt-8 max-w-xl font-sans text-lg leading-relaxed text-steel-300 lg:text-xl" data-ct-in>
+          צרו קשר עכשיו לקבלת הצעת מחיר ופרטים על השירותים.
+        </p>
+
+        <div class="mt-11 flex flex-wrap items-center gap-4" data-ct-in>
+          <a
+            href={site.phoneHref}
+            class="group relative overflow-hidden border border-gold-600 bg-gold-600 px-9 py-4.5 font-sans text-base font-medium text-ink-950 transition-colors duration-400"
+          >
+            <span class="relative z-10 flex items-center gap-3">
+              <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+              </svg>
+              התקשרו עכשיו
+            </span>
+            <span class="absolute inset-0 origin-right scale-x-0 bg-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100"></span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Details, set like a drawing schedule -->
+      <dl class="self-center border-t border-ink-800">
+        {
+          channels.map((c) => (
+            <div class="border-b border-ink-800 py-6" data-ct-in>
+              <dt class="annot-he text-steel-500">{c.label}</dt>
+              <dd class="mt-2">
+                {c.href ? (
+                  <a
+                    href={c.href}
+                    class:list={[
+                      'nums text-2xl text-steel-100 transition-colors duration-300 hover:text-gold-300 lg:text-3xl',
+                      c.mono ? 'font-mono' : 'font-sans',
+                    ]}
+                  >
+                    {c.value}
+                  </a>
+                ) : (
+                  <span class="font-sans text-xl text-steel-100 lg:text-2xl">{c.value}</span>
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

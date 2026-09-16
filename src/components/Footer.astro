@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import mark from '../../assets/logo-mark.png';
+import { nav, site } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-ink-800 bg-ink-900">
+  <div
+    class="mx-auto flex max-w-[100rem] flex-col gap-10 px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
+  >
+    <!-- Identity -->
+    <a href="#top" class="group flex items-center gap-3.5" aria-label={site.legal}>
+      <Image
+        src={mark}
+        alt=""
+        widths={[80, 160]}
+        sizes="40px"
+        class="h-9 w-auto opacity-80 transition-opacity duration-400 group-hover:opacity-100"
+      />
+      <span class="leading-none">
+        <span class="block font-display text-base text-steel-200">{site.legal}</span>
+        <span class="mt-1.5 block font-sans text-xs text-steel-500">{site.tagline}</span>
+      </span>
+    </a>
+
+    <!-- Nav -->
+    <nav>
+      <ul class="flex flex-wrap items-center gap-x-7 gap-y-3">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.hash}
+                class="font-sans text-sm text-steel-400 transition-colors duration-300 hover:text-gold-300"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Social -->
+    <div class="flex items-center gap-3">
+      <a
+        href={site.facebook}
+        target="_blank"
+        rel="noopener"
+        aria-label="פייסבוק"
+        class="grid size-10 place-items-center border border-ink-700 text-steel-400 transition-colors duration-300 hover:border-gold-700 hover:text-gold-300"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1Z" />
+        </svg>
+      </a>
+      <a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener"
+        aria-label="אינסטגרם"
+        class="grid size-10 place-items-center border border-ink-700 text-steel-400 transition-colors duration-300 hover:border-gold-700 hover:text-gold-300"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Legal strip -->
+  <div class="border-t border-ink-800">
+    <div
+      class="mx-auto flex max-w-[100rem] flex-col gap-2 px-6 py-5 font-sans text-xs text-steel-500 sm:flex-row sm:items-center sm:justify-between lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
+    >
+      <p>© <span class="nums">{year}</span> {site.legal}. כל הזכויות שמורות.</p>
+      <p class="nums font-mono">{site.phone} · {site.email}</p>
+    </div>
+  </div>
+</footer>

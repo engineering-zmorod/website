@@ -10,7 +10,6 @@ export const site = {
   tagline: 'תכנון קונסטרוקציה, בקרת תכן מבנים וייעוץ הנדסי',
   phone: '04-6116777',
   phoneHref: 'tel:+97246116777',
-  whatsapp: 'https://wa.me/97246116777',
   email: 'eng.zmorod@gmail.com',
   address: 'גוליס, ת.ד 1183, מיקוד 24980',
   facebook: 'https://www.facebook.com/Eng.zmorod',
