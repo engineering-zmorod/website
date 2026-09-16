@@ -11,6 +11,18 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* A looping hero video is motion too — hold on the poster frame instead. */
+  const heroVideo = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  if (reduced && heroVideo) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+  } else if (heroVideo) {
+    // Drone footage reads as sluggish at native speed behind a static headline.
+    const rate = 1.7;
+    heroVideo.playbackRate = rate;
+    heroVideo.addEventListener('loadedmetadata', () => (heroVideo.playbackRate = rate));
+  }
+
   /* ---- Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync */
   if (!reduced) {
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
@@ -50,7 +62,7 @@
     .to(
       '[data-reveal]',
       { opacity: 1, y: 0, duration: 1.1, stagger: 0.09 },
-      '-=1.15'
+      '-=0.35'
     );
 
 

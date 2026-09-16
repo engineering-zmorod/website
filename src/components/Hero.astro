@@ -1,9 +1,13 @@
 ---
-import { Image } from 'astro:assets';
-import tower from '../../assets/hero-tower.avif';
+import { getImage } from 'astro:assets';
+import posterSrc from '../../assets/hero-poster.jpg';
 import { site, stats } from '../lib/site';
 
-const year = new Date().getFullYear();
+// Video lives in public/ — Astro's asset pipeline only processes images.
+const videoSrc = `${import.meta.env.BASE_URL}/hero.mp4`.replace(/\/+/g, '/');
+
+// Poster carries first paint, so it goes through the image pipeline.
+const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', quality: 55 });
 ---
 
 <section id="top" class="relative min-h-svh overflow-hidden bg-ink-950">
@@ -17,16 +21,20 @@ const year = new Date().getFullYear();
     data-hero-media
   >
     <div class="h-full w-full overflow-hidden" data-hero-clip>
-      <Image
-        src={tower}
-        alt="מגדל מגורים בשעת בין ערביים"
-        widths={[640, 1024, 1600]}
-        sizes="(max-width: 1024px) 100vw, 52vw"
+      <video
         class="h-full w-full object-cover object-center"
-        loading="eager"
-        fetchpriority="high"
+        poster={poster.src}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        data-hero-video
         data-hero-img
-      />
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
     </div>
 
     <!-- Fade the photograph into the drafting surface -->
