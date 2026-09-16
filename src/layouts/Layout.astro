@@ -1,19 +1,17 @@
 ---
 import '../styles/global.css';
+import { site } from '../lib/site';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'זמורוד חסן — הנדסת מבנים בע"מ',
-  description = 'תכנון קונסטרוקציה, בקרת תכן מבנים וייעוץ הנדסי',
-} = Astro.props;
+const { title = `${site.legal} | ${site.tagline}`, description = site.tagline } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" class="scroll-pt-24">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,33 +20,27 @@ const {
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#060b11" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="he_IL" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
     />
+
+    <!-- Mark JS-capable up front so reveal targets aren't hidden for no-JS visitors -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
   </head>
 
-  <body class="font-sans">
+  <body class="font-sans antialiased">
     <slot />
-
-    <script>
-      import Lenis from 'lenis';
-      import { gsap } from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-      gsap.registerPlugin(ScrollTrigger);
-
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!reduced) {
-        const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-      }
-    </script>
   </body>
 </html>

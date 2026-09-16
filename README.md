@@ -1,6 +1,6 @@
-# Zmorod Hassan — Structural Engineering
+# Zmorod Hassan — Civil Engineering
 
-Static site for Zmorod Hassan Structural Engineering. Hebrew, RTL.
+Static site for Zmorod Hassan Civil Engineering. Hebrew, RTL.
 
 ## URLs
 

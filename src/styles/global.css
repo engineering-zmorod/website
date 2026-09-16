@@ -1,51 +1,166 @@
 @import "tailwindcss";
 
-/* ---- Brand tokens (from the Zmorod Hassan logo: gold on deep navy) ---- */
-@theme {
-  --color-navy-950: #0b131c;
-  --color-navy-900: #111d2a;
-  --color-navy-800: #1a2b3d;
-  --color-navy-700: #26405a;
-  --color-navy-100: #e6ebf1;
+/* =========================================================================
+   Zmorod Hassan — civil engineering
+   Direction: a drafting table at night. Blueprint grid, gold dimension
+   lines, numbers treated as typography. Hebrew serif for authority, mono
+   for technical annotations the way a drawing sheet labels them.
+   ========================================================================= */
 
+@theme {
+  /* Ink — the drafting surface */
+  --color-ink-950: #060b11;
+  --color-ink-900: #0a121b;
+  --color-ink-850: #0e1826;
+  --color-ink-800: #132132;
+  --color-ink-700: #1c2f45;
+  --color-ink-600: #2a4562;
+
+  /* Steel — secondary text and rules */
+  --color-steel-500: #5d7490;
+  --color-steel-400: #7b91a8;
+  --color-steel-300: #9dafc2;
+  --color-steel-200: #c2cfdd;
+  --color-steel-100: #e2e9f1;
+
+  /* Gold — the one accent, sampled from the logo gradient */
+  --color-gold-800: #6d5220;
   --color-gold-700: #8a6a2a;
   --color-gold-600: #b8862f;
   --color-gold-500: #d4a949;
   --color-gold-400: #e8c877;
+  --color-gold-300: #f0d894;
   --color-gold-200: #f5e1a4;
 
+  --font-display: "Frank Ruhl Libre", ui-serif, Georgia, serif;
   --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Gold gradient used by the logo mark — reuse for headings/accents */
-@utility text-gradient-gold {
+/* ---- Texture -------------------------------------------------------- */
+
+/* Faint drafting grid. Two scales, like a sheet ruled in cm and mm. */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(to left, color-mix(in oklab, var(--color-ink-600) 26%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink-600) 26%, transparent) 1px, transparent 1px),
+    linear-gradient(to left, color-mix(in oklab, var(--color-ink-600) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink-600) 12%, transparent) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+}
+
+/* Film grain, so large dark areas never look like flat fill */
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* Dissolves the hero photograph into the drafting surface. Physical `right`
+   is deliberate: the media sits on the physical left in this RTL layout. */
+@utility hero-fade {
   background-image: linear-gradient(
-    150deg,
+    to right,
+    transparent 0%,
+    color-mix(in srgb, var(--color-ink-950) 25%, transparent) 38%,
+    color-mix(in srgb, var(--color-ink-950) 85%, transparent) 72%,
+    var(--color-ink-950) 100%
+  );
+}
+
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    155deg,
     var(--color-gold-700) 0%,
-    var(--color-gold-200) 45%,
-    var(--color-gold-600) 100%
+    var(--color-gold-200) 42%,
+    var(--color-gold-500) 68%,
+    var(--color-gold-700) 100%
   );
   background-clip: text;
   color: transparent;
 }
 
-html {
-  scroll-behavior: smooth;
+/* A dimension line off a technical drawing: hairline with tick ends */
+@utility rule-dim {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--color-gold-700) 12%,
+    var(--color-gold-700) 88%,
+    transparent
+  );
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: var(--color-gold-600);
+  }
+  &::before { inset-inline-start: 0; }
+  &::after  { inset-inline-end: 0; }
 }
 
-/* Lenis handles smooth scrolling once initialised; opt out of native */
+/* Small mono annotation, the way a drawing labels a detail */
+@utility annot {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-500);
+}
+
+/* ---- Base ------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis drives scrolling once it initialises */
 html.lenis {
   scroll-behavior: auto;
 }
 
 body {
-  background-color: var(--color-navy-950);
-  color: var(--color-navy-100);
+  background-color: var(--color-ink-950);
+  color: var(--color-steel-200);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold-600);
+  color: var(--color-ink-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
+
+/* Hebrew numerals should never flip in an RTL run */
+.nums {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Elements GSAP reveals start hidden — but only when JS will actually run,
+   otherwise no-JS visitors get a blank page. */
+.js [data-reveal] {
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   *,
   *::before,
   *::after {

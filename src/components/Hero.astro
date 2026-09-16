@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import tower from '../../assets/hero-tower.avif';
+import { site, stats } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<section id="top" class="relative min-h-svh overflow-hidden bg-ink-950">
+  <!-- Drafting surface -->
+  <div class="absolute inset-0 bg-blueprint opacity-[0.55]"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.16] mix-blend-overlay"></div>
+
+  <!-- Tower, bleeding off the end edge -->
+  <div
+    class="absolute inset-y-0 end-0 w-full lg:w-[68%]"
+    data-hero-media
+  >
+    <div class="h-full w-full overflow-hidden" data-hero-clip>
+      <Image
+        src={tower}
+        alt="מגדל מגורים בשעת בין ערביים"
+        widths={[640, 1024, 1600]}
+        sizes="(max-width: 1024px) 100vw, 52vw"
+        class="h-full w-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+        data-hero-img
+      />
+    </div>
+
+    <!-- Fade the photograph into the drafting surface -->
+    <div class="absolute inset-0 bg-ink-950/78 lg:bg-ink-950/50"></div>
+    <div
+      class="absolute inset-0 hero-fade"
+    >
+    </div>
+    <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink-950 to-transparent"></div>
+    <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink-950/80 to-transparent"></div>
+  </div>
+
+  <!-- Title-block rail, like the edge of a drawing sheet -->
+  <div class="pointer-events-none absolute inset-y-0 start-0 hidden w-12 border-e border-ink-800/70 xl:block">
+    <div class="absolute bottom-14 start-1/2 -translate-x-1/2 [writing-mode:vertical-rl] rotate-180">
+      <span class="annot text-steel-500">ZMOROD HASSAN · CIVIL ENGINEERING</span>
+    </div>
+    <div class="absolute top-32 start-1/2 h-24 w-px -translate-x-1/2 bg-gradient-to-b from-gold-700 to-transparent"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-16 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <div class="max-w-2xl">
+      <p class="annot flex items-center gap-3" data-reveal>
+        <span class="inline-block h-px w-8 bg-gold-600"></span>
+        <span class="nums">EST. {site.since}</span>
+        <span class="text-steel-500">·</span>
+        <span>גוליס</span>
+      </p>
+
+      <h1 class="mt-7 font-display leading-[0.92] tracking-tight">
+        <span class="block text-[clamp(3rem,9vw,6.5rem)] font-light text-steel-100" data-reveal>
+          זמורוד חסן
+        </span>
+        <span
+          class="mt-2 block text-gold-gradient text-[clamp(1.6rem,4vw,3rem)] font-medium"
+          data-reveal
+        >
+          הנדסת מבנים
+        </span>
+      </h1>
+
+      <div class="mt-9 max-w-md rule-dim" data-reveal></div>
+
+      <p
+        class="mt-8 max-w-lg font-sans text-lg leading-relaxed text-steel-300 lg:text-xl"
+        data-reveal
+      >
+        {site.tagline}
+      </p>
+
+      <p class="mt-4 max-w-md font-sans text-sm leading-relaxed text-steel-400" data-reveal>
+        מגדלי מגורים, בנייה רוויה ומבני ציבור — כולל חיזוק מבנים לרעידות אדמה
+        ותכנון תת־קרקעי.
+      </p>
+
+      <div class="mt-11 flex flex-wrap items-center gap-4" data-reveal>
+        <a
+          href="#projects"
+          class="group relative overflow-hidden border border-gold-600 bg-gold-600 px-8 py-4 font-sans text-sm font-medium text-ink-950 transition-colors duration-400"
+        >
+          <span class="relative z-10">צפו בפרויקטים</span>
+          <span
+            class="absolute inset-0 origin-right scale-x-0 bg-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100"
+          ></span>
+        </a>
+
+        <a
+          href="#contact"
+          class="border border-ink-700 px-8 py-4 font-sans text-sm text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
+        >
+          יצירת קשר
+        </a>
+      </div>
+    </div>
+
+    <!-- Figures, set like a drawing schedule -->
+    <dl
+      class="mt-16 grid max-w-2xl grid-cols-3 border-t border-ink-800 pt-8 lg:mt-24"
+      data-reveal
+    >
+      {
+        stats.map((s) => (
+          <div class="border-s border-ink-800 px-4 first:border-s-0 first:ps-0">
+            <dd class="font-mono text-2xl text-gold-400 lg:text-4xl">
+              <span class="nums" data-count={s.value}>0</span>
+              <span class="text-gold-700">{s.suffix}</span>
+              {s.unit && <span class="ms-1.5 font-sans text-xs text-steel-500">{s.unit}</span>}
+            </dd>
+            <dt class="mt-2 font-sans text-xs tracking-wide text-steel-400 lg:text-sm">
+              {s.label}
+            </dt>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <!-- Scroll cue -->
+  <a
+    href="#about"
+    class="group absolute bottom-8 start-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
+    aria-label="גלול למטה"
+  >
+    <span class="annot text-steel-500 transition-colors group-hover:text-gold-500">גלול</span>
+    <span class="relative block h-12 w-px overflow-hidden bg-ink-700">
+      <span class="absolute inset-x-0 top-0 h-4 animate-[cue_2.2s_ease-in-out_infinite] bg-gold-500"></span>
+    </span>
+  </a>
+</section>
+
+<style>
+  @keyframes cue {
+    0% { transform: translateY(-100%); }
+    60%, 100% { transform: translateY(300%); }
+  }
+</style>

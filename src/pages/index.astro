@@ -1,19 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Motion from '../components/Motion.astro';
 ---
 
 <Layout>
-  <main class="grid min-h-dvh place-items-center px-6 text-center">
-    <div>
-      <h1 class="text-gradient-gold font-display text-5xl font-black sm:text-7xl">
-        זמורוד חסן
-      </h1>
-      <p class="mt-4 text-lg text-navy-100/70">
-        תכנון קונסטרוקציה, בקרת תכן מבנים וייעוץ הנדסי
-      </p>
-      <p class="mt-10 text-sm text-navy-100/40">
-        Astro · Tailwind · GSAP · Lenis — הפרויקט מוכן לפיתוח
-      </p>
-    </div>
+  <Header />
+  <main>
+    <Hero />
   </main>
+  <Motion />
 </Layout>

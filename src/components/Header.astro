@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import mark from '../../assets/logo-mark.png';
+import { nav, site } from '../lib/site';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500"
+  data-header
+>
+  <div
+    class="pointer-events-none absolute inset-0 -z-10 border-b border-transparent bg-ink-950/0 backdrop-blur-0 transition-all duration-500"
+    data-header-bg
+  >
+  </div>
+
+  <!-- Gutter must match Hero's so the wordmark lines up with the headline -->
+  <nav class="flex h-20 items-center justify-between px-6 lg:h-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <!-- Mark + wordmark -->
+    <a href="#top" class="group flex items-center gap-3.5" aria-label={site.legal}>
+      <Image
+        src={mark}
+        alt=""
+        widths={[96, 192]}
+        sizes="48px"
+        class="h-9 w-auto transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 lg:h-11"
+        loading="eager"
+      />
+      <span class="leading-none">
+        <span class="block font-display text-lg font-medium tracking-tight text-steel-100 lg:text-xl">
+          {site.name}
+        </span>
+        <span class="mt-1.5 block font-mono text-[0.6rem] tracking-[0.2em] text-steel-400">
+          הנדסת מבנים
+        </span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden items-center gap-8 lg:flex xl:gap-10">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.hash}
+              class="group relative block py-2 font-sans text-[1.0625rem] text-steel-300 transition-colors duration-300 hover:text-steel-100"
+            >
+              {item.label}
+              <span class="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-gold-500 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:scale-x-100" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Phone + burger -->
+    <div class="flex items-center gap-4">
+      <a
+        href={site.phoneHref}
+        class="hidden items-center gap-2.5 border border-gold-800 px-5 py-2.5 font-mono text-xs tracking-[0.12em] text-gold-400 transition-colors duration-300 hover:border-gold-500 hover:bg-gold-500/10 md:flex"
+      >
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />
+        </svg>
+        <span class="nums">{site.phone}</span>
+      </a>
+
+      <button
+        type="button"
+        class="relative z-50 flex size-11 flex-col items-center justify-center gap-[5px] lg:hidden"
+        aria-label="תפריט"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-burger
+      >
+        <span class="block h-px w-6 bg-steel-100 transition-transform duration-400 ease-[var(--ease-out-expo)]" data-bar-1></span>
+        <span class="block h-px w-6 bg-steel-100 transition-opacity duration-200" data-bar-2></span>
+        <span class="block h-px w-6 bg-steel-100 transition-transform duration-400 ease-[var(--ease-out-expo)]" data-bar-3></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile overlay -->
+<div
+  id="mobile-menu"
+  class="invisible fixed inset-0 z-40 flex flex-col justify-center bg-ink-950/98 px-8 opacity-0 backdrop-blur-xl transition-[opacity,visibility] duration-500 lg:hidden"
+  data-menu
+>
+  <div class="absolute inset-0 -z-10 bg-blueprint opacity-40"></div>
+
+  <ul class="space-y-1">
+    {
+      nav.map((item, i) => (
+        <li class="translate-y-6 opacity-0 transition-all duration-500 ease-[var(--ease-out-expo)]" data-menu-item style={`transition-delay:${80 + i * 55}ms`}>
+          <a href={item.hash} class="flex items-baseline gap-5 border-b border-ink-800 py-5" data-menu-link>
+            <span class="annot text-gold-700">{String(i + 1).padStart(2, '0')}</span>
+            <span class="font-display text-3xl text-steel-100">{item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-12 translate-y-6 opacity-0 transition-all duration-500 ease-[var(--ease-out-expo)]" data-menu-item style="transition-delay:420ms">
+    <a href={site.phoneHref} class="block font-mono text-2xl text-gold-400 nums">{site.phone}</a>
+    <a href={`mailto:${site.email}`} class="mt-2 block font-mono text-sm text-steel-400">{site.email}</a>
+  </div>
+</div>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const headerBg = document.querySelector<HTMLElement>('[data-header-bg]');
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const items = document.querySelectorAll<HTMLElement>('[data-menu-item]');
+  const [bar1, bar2, bar3] = ['1', '2', '3'].map((n) =>
+    document.querySelector<HTMLElement>(`[data-bar-${n}]`)
+  );
+
+  /* Header gains a surface once it leaves the hero */
+  const onScroll = () => {
+    const past = window.scrollY > 24;
+    headerBg?.classList.toggle('bg-ink-950/85', past);
+    headerBg?.classList.toggle('backdrop-blur-xl', past);
+    headerBg?.classList.toggle('border-ink-800', past);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* Mobile menu */
+  let open = false;
+  const setMenu = (next: boolean) => {
+    open = next;
+    burger?.setAttribute('aria-expanded', String(open));
+    menu?.classList.toggle('invisible', !open);
+    menu?.classList.toggle('opacity-0', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+
+    items.forEach((el) => {
+      el.classList.toggle('opacity-0', !open);
+      el.classList.toggle('translate-y-6', !open);
+    });
+
+    bar1?.classList.toggle('translate-y-[6px]', open);
+    bar1?.classList.toggle('rotate-45', open);
+    bar2?.classList.toggle('opacity-0', open);
+    bar3?.classList.toggle('-translate-y-[6px]', open);
+    bar3?.classList.toggle('-rotate-45', open);
+  };
+
+  burger?.addEventListener('click', () => setMenu(!open));
+  menu?.querySelectorAll('[data-menu-link]').forEach((a) =>
+    a.addEventListener('click', () => setMenu(false))
+  );
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && open) setMenu(false);
+  });
+</script>

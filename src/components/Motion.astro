@@ -1,0 +1,85 @@
+---
+/** Scroll + entrance choreography. One place so timings stay consistent. */
+---
+
+<script>
+  import Lenis from 'lenis';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync */
+  if (!reduced) {
+    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target as HTMLElement, { offset: -80 });
+      });
+    });
+  }
+
+  /* ---- Hero entrance. Offset before the timeline builds, so the first
+     tick never paints the un-offset state. */
+  gsap.set('[data-reveal]', { y: 26 });
+
+  const hero = gsap.timeline({ defaults: { ease: 'expo.out' } });
+
+  hero.fromTo(
+    '[data-hero-clip]',
+    { clipPath: 'inset(0% 0% 100% 0%)' },
+    { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5 }
+  )
+    .fromTo(
+      '[data-hero-img]',
+      { scale: 1.18 },
+      { scale: 1, duration: 2.2, ease: 'power2.out' },
+      '<'
+    )
+    .to(
+      '[data-reveal]',
+      { opacity: 1, y: 0, duration: 1.1, stagger: 0.09 },
+      '-=1.15'
+    );
+
+
+  /* ---- Counters. Large figures count faster so they finish together. */
+  document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
+    const target = Number(el.dataset.count ?? 0);
+    const obj = { n: 0 };
+    gsap.to(obj, {
+      n: target,
+      duration: 2,
+      ease: 'power2.out',
+      delay: 0.9,
+      onUpdate: () => {
+        el.textContent = Math.round(obj.n).toLocaleString('en-US');
+      },
+    });
+  });
+
+  /* ---- Hero parallax: the tower drifts slower than the page */
+  if (!reduced) {
+    gsap.to('[data-hero-media]', {
+      yPercent: 12,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#top',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
+</script>
