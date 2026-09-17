@@ -93,9 +93,9 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
       <div class="mt-11 flex flex-wrap items-center gap-4" data-reveal>
         <a
           href={href('/projects')}
-          class="group relative overflow-hidden border border-gold-600 bg-gold-600 px-9 py-4.5 font-sans text-base font-medium text-ink-950 transition-colors duration-400"
+          class="group relative min-w-[14rem] overflow-hidden border border-gold-600 bg-gold-600 px-9 py-4.5 text-center font-sans text-base font-medium text-ink-950 transition-colors duration-400"
         >
-          <span class="relative z-10 flex items-center gap-3">
+          <span class="relative z-10 flex items-center justify-center gap-3">
             <svg
               class="size-4"
               viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
 
         <a
           href="#contact"
-          class="border border-ink-700 px-9 py-4.5 font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
+          class="inline-flex min-w-[14rem] items-center justify-center border border-ink-700 px-9 py-4.5 text-center font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
         >
           יצירת קשר
         </a>
