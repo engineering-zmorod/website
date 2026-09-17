@@ -29,7 +29,7 @@ export const nav = [
 /** Headline figures. The old site had these three counters stuck at 0. */
 export const stats = [
   { value: 400, suffix: '+', unit: '', label: 'פרויקטים' },
-  { value: 100, suffix: '+', unit: '', label: 'לקוחות' },
+  { value: 200, suffix: '+', unit: '', label: 'לקוחות' },
   { value: 17, suffix: '', unit: 'שנים', label: 'ניסיון' },
 ] as const;
 
