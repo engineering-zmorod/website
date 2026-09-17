@@ -67,33 +67,34 @@ export const about = {
 } as const;
 
 /** Featured work. `image` stays null until real photography arrives. */
+/** Featured work — placeholder copy until the client picks the four. */
 export const projects = [
   {
-    name: 'מגדלי גלי ים',
-    place: 'קרית ים · מגרש 102 ו‑104',
-    body: 'תכנון שלושה מגדלי מגורים — שניים בני 30 קומות ואחד בן 10 — מעל קומת חנייה תת־קרקעית משותפת.',
-    facts: ['40,965 מ"ר', '3 מגדלים', '30 קומות'],
+    name: 'פרויקט 1',
+    place: 'כותרת משנה 1',
+    body: 'תיאור קצר של הפרויקט הראשון.',
+    facts: ['נתון 1', 'נתון 2', 'נתון 3'],
     image: null,
   },
   {
-    name: 'בית חולים סעודי',
-    place: 'קרית מוצקין · רחוב שניאורסון',
-    body: 'בית אבות בן 5 קומות, עם 5 קומות עתידיות, מעל שני מפלסי חנייה תת־קרקעיים.',
-    facts: ['10,000 מ"ר', '5+5 קומות', '2 מפלסי חנייה'],
+    name: 'פרויקט 2',
+    place: 'כותרת משנה 2',
+    body: 'תיאור קצר של הפרויקט השני.',
+    facts: ['נתון 1', 'נתון 2', 'נתון 3'],
     image: null,
   },
   {
-    name: 'ווטסון 11',
-    place: 'חיפה',
-    body: 'שני מבני מגורים מעל שתי קומות חנייה תת־קרקעיות.',
-    facts: ['8,250 מ"ר', '2 מבנים'],
+    name: 'פרויקט 3',
+    place: 'כותרת משנה 3',
+    body: 'תיאור קצר של הפרויקט השלישי.',
+    facts: ['נתון 1', 'נתון 2'],
     image: null,
   },
   {
-    name: 'שכונת האירוסים',
-    place: 'מעלות',
-    body: 'תכנון שכונת מגורים שלמה — 24 מבנים ובהם 79 יחידות דיור.',
-    facts: ['79 יח"ד', '24 מבנים'],
+    name: 'פרויקט 4',
+    place: 'כותרת משנה 4',
+    body: 'תיאור קצר של הפרויקט הרביעי.',
+    facts: ['נתון 1', 'נתון 2'],
     image: null,
   },
 ] as const;
@@ -143,15 +144,26 @@ export const services = [
 
 /** The remaining work, shown as a carousel under the featured projects. */
 export const moreProjects = [
-  { name: 'בייליס 4', place: 'חיפה', fact: '5,730 מ"ר', image: 'baylis.png' },
-  { name: 'סימולנסקין 6', place: 'חיפה', fact: '3,731 מ"ר', image: 'smolenskin.png' },
-  { name: 'העלייה 36‑38', place: 'נהריה', fact: '30 יח"ד', image: 'haaliya.png' },
-  { name: 'ויתקין 16', place: 'חיפה', fact: 'מבנה בוטיק', image: 'vitkin.png' },
-  { name: 'מגרשים 7 ו‑8', place: 'נהריה', fact: '4 מבני מגורים', image: 'nahariya-7-8.jpg' },
-  { name: 'שמעייה 1‑3', place: 'הרצליה', fact: 'מבני מגורים', image: 'shimaya.png' },
-  { name: 'משה רינת, מגרש 208', place: 'חולון', fact: 'מבני מגורים', image: 'holon.png' },
-  { name: '6 גני ילדים', place: 'נהריה', fact: 'מבני ציבור', image: 'kindergartens.png' },
-  { name: 'בית חולים סעודי', place: 'הוד השרון', fact: 'מבנה ציבור', image: 'hod-hasharon.png' },
+  { name: 'בייליס 4', place: 'חיפה', fact: '5,730 מ"ר', images: ['baylis.png'] },
+  { name: 'סימולנסקין 6', place: 'חיפה', fact: '3,731 מ"ר', images: ['smolenskin.png'] },
+  { name: 'העלייה 36‑38', place: 'נהריה', fact: '30 יח"ד', images: ['haaliya.png'] },
+  { name: 'ויתקין 16', place: 'חיפה', fact: 'מבנה בוטיק', images: ['vitkin.png'] },
+  {
+    name: 'מגרשים 7 ו‑8',
+    place: 'נהריה',
+    fact: '4 מבני מגורים',
+    images: [
+      'nahariya-7-8.jpg',
+      'nahariya-7-8-2.jpg',
+      'nahariya-7-8-3.jpg',
+      'nahariya-7-8-4.jpg',
+      'nahariya-7-8-5.png',
+    ],
+  },
+  { name: 'שמעייה 1‑3', place: 'הרצליה', fact: 'מבני מגורים', images: ['shimaya.png'] },
+  { name: 'משה רינת, מגרש 208', place: 'חולון', fact: 'מבני מגורים', images: ['holon.png'] },
+  { name: '6 גני ילדים', place: 'נהריה', fact: 'מבני ציבור', images: ['kindergartens.png'] },
+  { name: 'בית חולים סעודי', place: 'הוד השרון', fact: 'מבנה ציבור', images: ['hod-hasharon.png'] },
 ] as const;
 
 /** Everything the old אודות page carried beyond the homepage summary. */

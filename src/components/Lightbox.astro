@@ -19,6 +19,38 @@
     >
     </div>
 
+    <!-- Paging, only shown when a card carries more than one frame -->
+    <div class="hidden" data-lb-nav>
+      <button
+        type="button"
+        class="absolute top-1/2 start-4 grid size-11 -translate-y-1/2 place-items-center border border-steel-100/25 bg-ink-950/55 text-steel-200 backdrop-blur-sm transition-colors duration-300 hover:border-gold-600 hover:text-gold-300"
+        aria-label="הקודם"
+        data-lb-prev
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="absolute top-1/2 end-4 grid size-11 -translate-y-1/2 place-items-center border border-steel-100/25 bg-ink-950/55 text-steel-200 backdrop-blur-sm transition-colors duration-300 hover:border-gold-600 hover:text-gold-300"
+        aria-label="הבא"
+        data-lb-next
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <span
+        {/* Physical `right`: .nums forces direction:ltr on this element, which
+            would otherwise flip a logical `start` onto the close button. */}
+        class="annot nums absolute top-5 right-5 border border-steel-100/20 bg-ink-950/55 px-3 py-1.5 text-steel-200 backdrop-blur-sm"
+        data-lb-count
+      ></span>
+    </div>
+
     <button
       type="button"
       class="absolute top-4 end-4 grid size-10 place-items-center border border-steel-100/25 bg-ink-950/50 text-steel-200 backdrop-blur-sm transition-colors duration-300 hover:border-gold-600 hover:text-gold-300"
@@ -38,17 +70,40 @@
   const body = document.querySelector<HTMLElement>('[data-lb-body]');
 
   if (dialog && media && body) {
+    const nav = document.querySelector<HTMLElement>('[data-lb-nav]');
+    const count = document.querySelector<HTMLElement>('[data-lb-count]');
+
+    let frames: HTMLImageElement[] = [];
+    let index = 0;
+
+    const show = (i: number) => {
+      if (!frames.length) return;
+      index = (i + frames.length) % frames.length;
+      media.replaceChildren(frames[index]);
+      if (count) count.textContent = `${index + 1} / ${frames.length}`;
+    };
+
     const open = (card: HTMLElement) => {
-      const img = card.querySelector('img');
+      const set = card.querySelector<HTMLTemplateElement>('[data-lb-images]');
+      const single = card.querySelector('img');
       const tpl = card.querySelector<HTMLTemplateElement>('[data-lb-content]');
 
-      media.replaceChildren();
-      if (img) {
-        const clone = img.cloneNode(true) as HTMLImageElement;
+      const sources = set
+        ? Array.from(set.content.querySelectorAll('img'))
+        : single
+          ? [single]
+          : [];
+
+      frames = sources.map((node) => {
+        const clone = node.cloneNode(true) as HTMLImageElement;
         clone.className = 'block max-h-[68vh] w-full object-cover';
         clone.removeAttribute('data-hero-img');
-        media.appendChild(clone);
-      }
+        clone.removeAttribute('loading');
+        return clone;
+      });
+
+      nav?.classList.toggle('hidden', frames.length < 2);
+      show(0);
 
       body.replaceChildren();
       if (tpl) body.appendChild(tpl.content.cloneNode(true));
@@ -78,6 +133,15 @@
     });
 
     document.querySelector('[data-lb-close]')?.addEventListener('click', close);
+    document.querySelector('[data-lb-prev]')?.addEventListener('click', () => show(index - 1));
+    document.querySelector('[data-lb-next]')?.addEventListener('click', () => show(index + 1));
+
+    dialog.addEventListener('keydown', (e) => {
+      if (frames.length < 2) return;
+      // Arrows are reversed for RTL: "left" advances.
+      if (e.key === 'ArrowLeft') show(index + 1);
+      if (e.key === 'ArrowRight') show(index - 1);
+    });
 
     // Clicking the backdrop lands on the dialog element itself
     dialog.addEventListener('click', (e) => {
