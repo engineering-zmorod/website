@@ -7,7 +7,7 @@ export const href = (path: string) =>
 export const site = {
   name: 'זמורוד חסן',
   legal: 'זמורוד חסן — הנדסת מבנים בע"מ',
-  tagline: 'תכנון קונסטרוקציה, בקרת תכן מבנים וייעוץ הנדסי',
+  tagline: 'תכנון קונסטרוקציה למגדלי מגורים, בקרת תכן מבנים וייעוץ הנדסי',
   phone: '04-6116777',
   phoneHref: 'tel:+97246116777',
   email: 'eng.zmorod@gmail.com',
