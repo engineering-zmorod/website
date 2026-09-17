@@ -62,7 +62,7 @@ export const credentials = [
 export const about = {
   kicker: 'מי אנחנו',
   headingTop: 'אישה אחת,',
-  headingBottom: 'רזומה ארוך.',
+  headingBottom: 'רזומה עשיר.',
   lead: 'בעלת המניות הבלעדית בחברה הינה מהנדסת זמורוד חסן. כל פרויקט עובר תחת ידיה — מהתכנון הראשוני ועד הפיקוח באתר.',
 } as const;
 
