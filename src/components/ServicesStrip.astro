@@ -1,14 +1,13 @@
 ---
-// UNUSED — kept for reference. Hover-to-expand panel strip version of the
-// services section. Swap it in for Services.astro to use it.
 import { Image } from 'astro:assets';
+import towers from '../../assets/hero-tower.avif';
 import design from '../../assets/service-design.avif';
 import review from '../../assets/service-review.avif';
 import supervision from '../../assets/service-supervision.avif';
-import towers from '../../assets/hero-tower.avif';
 import { services } from '../lib/site';
 
-const media = [design, review, supervision, towers];
+// Order matches `services` — towers first.
+const media = [towers, design, review, supervision];
 ---
 
 <section id="services" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
@@ -35,9 +34,27 @@ const media = [design, review, supervision, towers];
       {
         services.map((s, i) => (
           <article
-            class="group relative overflow-hidden border border-ink-800 lg:basis-0 lg:grow lg:transition-[flex-grow] lg:duration-[800ms] lg:ease-[var(--ease-out-expo)] lg:hover:grow-[3.2]"
+            class="group relative cursor-pointer overflow-hidden border border-ink-800 transition-colors duration-500 hover:border-gold-600 lg:basis-0 lg:grow lg:transition-[flex-grow] lg:duration-[800ms] lg:ease-[var(--ease-out-expo)] lg:hover:grow-[3.2]"
             data-srv-card
+            data-lightbox
+            role="button"
+            tabindex="0"
+            aria-label={s.name}
           >
+            <template data-lb-content>
+              <span class="annot nums text-gold-500">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 font-display text-2xl text-steel-100 lg:text-3xl">{s.name}</h3>
+              <p class="mt-2.5 font-sans text-base leading-relaxed text-steel-200">{s.lead}</p>
+              <ul class="mt-5 space-y-2 border-t border-steel-100/15 pt-5">
+                {s.items.map((it) => (
+                  <li class="flex gap-3 font-sans text-[0.95rem] leading-relaxed text-steel-300">
+                    <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </template>
+
             {/* Media */}
             <div class="relative aspect-[4/3] lg:absolute lg:inset-0 lg:aspect-auto">
               <Image
@@ -74,7 +91,7 @@ const media = [design, review, supervision, towers];
 
               <ul class="mt-5 space-y-2.5 border-t border-ink-700 pt-5">
                 {s.items.map((it) => (
-                  <li class="flex gap-3 font-sans text-base leading-relaxed text-steel-400">
+                  <li class="flex gap-3 font-sans text-[0.95rem] leading-relaxed text-steel-300">
                     <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
                     {it}
                   </li>

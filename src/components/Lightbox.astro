@@ -1,0 +1,87 @@
+---
+/** One dialog per page. Any element marked `data-lightbox` opens it, using the
+    card's own <img> and the markup in its <template data-lb-content>. */
+---
+
+<dialog
+  class="m-auto w-[min(46rem,92vw)] overflow-hidden border border-ink-700 bg-ink-950 p-0 backdrop:bg-ink-950/90 backdrop:backdrop-blur-sm"
+  data-lb
+>
+  <div class="relative">
+    <div class="bg-black" data-lb-media></div>
+
+    <!-- Copy sits on the image, as on the cards -->
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/70 via-45% to-transparent"></div>
+
+    <div
+      class="absolute inset-x-0 bottom-0 p-7 [text-shadow:0_2px_12px_rgb(0_0_0_/_0.9)] lg:p-9"
+      data-lb-body
+    >
+    </div>
+
+    <button
+      type="button"
+      class="absolute top-4 end-4 grid size-10 place-items-center border border-steel-100/25 bg-ink-950/50 text-steel-200 backdrop-blur-sm transition-colors duration-300 hover:border-gold-600 hover:text-gold-300"
+      aria-label="סגירה"
+      data-lb-close
+    >
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lb]');
+  const media = document.querySelector<HTMLElement>('[data-lb-media]');
+  const body = document.querySelector<HTMLElement>('[data-lb-body]');
+
+  if (dialog && media && body) {
+    const open = (card: HTMLElement) => {
+      const img = card.querySelector('img');
+      const tpl = card.querySelector<HTMLTemplateElement>('[data-lb-content]');
+
+      media.replaceChildren();
+      if (img) {
+        const clone = img.cloneNode(true) as HTMLImageElement;
+        clone.className = 'block max-h-[68vh] w-full object-cover';
+        clone.removeAttribute('data-hero-img');
+        media.appendChild(clone);
+      }
+
+      body.replaceChildren();
+      if (tpl) body.appendChild(tpl.content.cloneNode(true));
+
+      // Freeze the page behind the overlay. Lenis owns scrolling, so setting
+      // overflow alone is not enough.
+      window.__lenis?.stop();
+      document.body.style.overflow = 'hidden';
+      dialog.showModal();
+    };
+
+    const close = () => dialog.close();
+
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = '';
+      window.__lenis?.start();
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((card) => {
+      card.addEventListener('click', () => open(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(card);
+        }
+      });
+    });
+
+    document.querySelector('[data-lb-close]')?.addEventListener('click', close);
+
+    // Clicking the backdrop lands on the dialog element itself
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close();
+    });
+  }
+</script>

@@ -23,8 +23,8 @@ const images = Object.fromEntries(
         גלריית <span class="text-gold-gradient">פרויקטים</span>
       </h2>
 
-      <!-- Arrows. Flipped for RTL: "prev" moves towards the start edge. -->
-      <div class="flex items-center gap-3" data-more-in>
+      <!-- Arrows are the affordance for the mobile rail only -->
+      <div class="flex items-center gap-3 lg:hidden" data-more-in>
         <button
           type="button"
           class="grid size-12 place-items-center border border-ink-700 text-steel-300 transition-colors duration-300 hover:border-gold-700 hover:text-gold-300 disabled:opacity-30"
@@ -46,38 +46,60 @@ const images = Object.fromEntries(
           </svg>
         </button>
       </div>
+
+      <p class="annot-he hidden text-steel-500 lg:block" data-more-in>העבירו את העכבר לפרטים</p>
     </div>
 
-    <!-- Rail. Bleeds off the end edge so it reads as continuing. -->
+    {/* Scroll rail on small screens; one hover-expand row from lg up. */}
     <div
-      class="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 ps-6 pe-6 lg:ps-[clamp(4.5rem,6vw,9rem)] no-scrollbar"
+      class="no-scrollbar mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-4 lg:mx-auto lg:h-[34rem] lg:max-w-[100rem] lg:snap-none lg:gap-2 lg:overflow-visible lg:pb-0 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
       data-rail
     >
       {
         moreProjects.map((p, i) => (
           <article
-            class="group relative aspect-[4/5] w-[78vw] shrink-0 snap-start overflow-hidden border border-ink-800 transition-colors duration-500 hover:border-gold-600 sm:w-[46vw] lg:w-[24rem]"
+            class="group relative aspect-[4/5] w-[78vw] shrink-0 cursor-pointer snap-start overflow-hidden border border-ink-800 transition-colors duration-500 hover:border-gold-600 sm:w-[46vw] lg:aspect-auto lg:h-full lg:w-auto lg:shrink lg:basis-0 lg:grow lg:transition-[flex-grow,border-color] lg:duration-[800ms] lg:ease-[var(--ease-out-expo)] lg:hover:grow-[4.5]"
             data-rail-item
+            data-lightbox
+            role="button"
+            tabindex="0"
+            aria-label={p.name}
           >
+            <template data-lb-content>
+              <span class="annot nums text-gold-500">{String(i + 1).padStart(2, '0')}</span>
+              <p class="annot-he mt-3 text-gold-500">{p.place}</p>
+              <h3 class="mt-2 font-display text-2xl text-steel-100 lg:text-3xl">{p.name}</h3>
+              <p class="mt-4 border-t border-steel-100/15 pt-4 font-mono text-base text-steel-300">{p.fact}</p>
+            </template>
+
             <Image
               src={images[p.image]}
               alt={`${p.name}, ${p.place}`}
-              widths={[420, 780]}
-              sizes="(max-width: 640px) 78vw, (max-width: 1024px) 46vw, 24rem"
-              class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+              widths={[420, 780, 1100]}
+              sizes="(max-width: 640px) 78vw, (max-width: 1024px) 46vw, 34rem"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] lg:scale-110 lg:group-hover:scale-100"
             />
 
-            {/* Wash plus a heavy foot, so the caption always has something under it */}
-            <div class="pointer-events-none absolute inset-0 bg-ink-950/35" />
+            <div class="pointer-events-none absolute inset-0 bg-ink-950/40 transition-colors duration-700 lg:bg-ink-950/70 lg:group-hover:bg-ink-950/35" />
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/70 via-45% to-transparent" />
 
-            <span class="annot nums absolute top-4 end-5 text-gold-400 drop-shadow-[0_2px_8px_rgb(0_0_0_/_0.9)]">
+            {/* Collapsed: just the index — nine panels are too narrow for a name */}
+            <span
+              class="annot nums absolute inset-x-0 bottom-8 hidden text-center text-lg text-gold-400 transition-opacity duration-300 group-hover:opacity-0 lg:block"
+            >
               {String(i + 1).padStart(2, '0')}
             </span>
 
-            <div class="absolute inset-x-0 bottom-0 p-6 [text-shadow:0_2px_12px_rgb(0_0_0_/_0.85)]">
+            <span class="annot nums absolute top-4 end-5 text-gold-400 drop-shadow-[0_2px_8px_rgb(0_0_0_/_0.9)] lg:hidden">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            {/* Expanded */}
+            <div class="absolute inset-x-0 bottom-0 p-6 opacity-0 transition-opacity delay-100 duration-500 [text-shadow:0_2px_12px_rgb(0_0_0_/_0.85)] group-hover:opacity-100 max-lg:opacity-100 lg:p-8">
               <p class="annot-he text-gold-500">{p.place}</p>
-              <h3 class="mt-2 font-display text-2xl text-steel-100">{p.name}</h3>
+              <h3 class="mt-2 font-display text-2xl whitespace-nowrap text-steel-100 lg:text-3xl">
+                {p.name}
+              </h3>
               <p class="mt-2 font-mono text-sm text-steel-300">{p.fact}</p>
             </div>
           </article>
@@ -85,7 +107,7 @@ const images = Object.fromEntries(
       }
 
       <!-- Trailing spacer so the last card can reach the start edge -->
-      <span class="w-2 shrink-0" aria-hidden="true"></span>
+      <span class="w-2 shrink-0 lg:hidden" aria-hidden="true"></span>
     </div>
   </div>
 </section>
