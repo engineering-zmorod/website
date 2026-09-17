@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import mark from '../../assets/logo-mark.png';
 import { href, nav, site } from '../lib/site';
 
 const year = new Date().getFullYear();
@@ -11,18 +9,11 @@ const year = new Date().getFullYear();
     class="mx-auto flex max-w-[100rem] flex-col gap-10 px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
   >
     <!-- Identity -->
-    <a href={href('/#top')} class="group flex items-center gap-3.5" aria-label={site.legal}>
-      <Image
-        src={mark}
-        alt=""
-        widths={[80, 160]}
-        sizes="40px"
-        class="h-9 w-auto opacity-80 transition-opacity duration-400 group-hover:opacity-100"
-      />
-      <span class="leading-none">
-        <span class="block font-display text-base text-steel-200">{site.legal}</span>
-        <span class="mt-1.5 block font-sans text-xs text-steel-500">{site.tagline}</span>
+    <a href={href('/#top')} class="group leading-none" aria-label={site.legal}>
+      <span class="block font-display text-base text-steel-200 transition-colors duration-400 group-hover:text-gold-200">
+        {site.legal}
       </span>
+      <span class="mt-1.5 block font-sans text-xs text-steel-500">{site.tagline}</span>
     </a>
 
     <!-- Nav -->

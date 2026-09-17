@@ -1,5 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import { moreProjects } from '../lib/site';
+
+// Glob so adding a render is just dropping a file in and naming it in site.ts
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/projects/*.{png,jpg,jpeg,avif}',
+  { eager: true }
+);
+const images = Object.fromEntries(
+  Object.entries(files).map(([path, mod]) => [path.split('/').pop()!, mod.default])
+);
 ---
 
 <section id="more-projects" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
@@ -10,7 +20,7 @@ import { moreProjects } from '../lib/site';
       class="mx-auto flex max-w-[100rem] flex-wrap items-end justify-between gap-6 px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
     >
       <h2 class="font-display text-[clamp(2rem,3.6vw,3.2rem)] font-light text-steel-100" data-more-in>
-        שאר <span class="text-gold-gradient">הפרויקטים</span>
+        גלריית <span class="text-gold-gradient">פרויקטים</span>
       </h2>
 
       <!-- Arrows. Flipped for RTL: "prev" moves towards the start edge. -->
@@ -46,24 +56,30 @@ import { moreProjects } from '../lib/site';
       {
         moreProjects.map((p, i) => (
           <article
-            class="group w-[78vw] shrink-0 snap-start sm:w-[46vw] lg:w-[24rem]"
+            class="group relative aspect-[4/5] w-[78vw] shrink-0 snap-start overflow-hidden border border-ink-800 transition-colors duration-500 hover:border-gold-600 sm:w-[46vw] lg:w-[24rem]"
             data-rail-item
           >
-            <div class="relative aspect-[4/3] overflow-hidden bg-ink-850">
-              <div class="absolute inset-0 bg-blueprint opacity-70" />
-              <div class="absolute inset-0 grid place-items-center">
-                <span class="annot-he text-ink-600">תמונה בקרוב</span>
-              </div>
-              <span class="absolute top-4 start-4 size-6 border-s border-t border-gold-800/60" />
-              <span class="absolute bottom-4 end-4 size-6 border-e border-b border-gold-800/60" />
-              <span class="annot nums absolute top-4 end-5 text-ink-600">
-                {String(i + 5).padStart(2, '0')}
-              </span>
-            </div>
+            <Image
+              src={images[p.image]}
+              alt={`${p.name}, ${p.place}`}
+              widths={[420, 780]}
+              sizes="(max-width: 640px) 78vw, (max-width: 1024px) 46vw, 24rem"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+            />
 
-            <p class="annot-he mt-5 text-gold-600">{p.place}</p>
-            <h3 class="mt-2 font-display text-xl text-steel-100 lg:text-2xl">{p.name}</h3>
-            <p class="mt-2 font-mono text-sm text-steel-400">{p.fact}</p>
+            {/* Wash plus a heavy foot, so the caption always has something under it */}
+            <div class="pointer-events-none absolute inset-0 bg-ink-950/35" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/70 via-45% to-transparent" />
+
+            <span class="annot nums absolute top-4 end-5 text-gold-400 drop-shadow-[0_2px_8px_rgb(0_0_0_/_0.9)]">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <div class="absolute inset-x-0 bottom-0 p-6 [text-shadow:0_2px_12px_rgb(0_0_0_/_0.85)]">
+              <p class="annot-he text-gold-500">{p.place}</p>
+              <h3 class="mt-2 font-display text-2xl text-steel-100">{p.name}</h3>
+              <p class="mt-2 font-mono text-sm text-steel-300">{p.fact}</p>
+            </div>
           </article>
         ))
       }

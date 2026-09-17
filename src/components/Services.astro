@@ -1,15 +1,18 @@
 ---
 import { Image } from 'astro:assets';
+import towers from '../../assets/hero-tower.avif';
 import design from '../../assets/service-design.avif';
 import review from '../../assets/service-review.avif';
 import supervision from '../../assets/service-supervision.avif';
 import { services } from '../lib/site';
 
-const media = [design, review, supervision];
+// Order matches `services` — towers first.
+const media = [towers, design, review, supervision];
 ---
 
 <section id="services" class="relative overflow-hidden bg-ink-950 py-24 lg:py-32">
   <div class="absolute inset-0 bg-blueprint opacity-30"></div>
+
   <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay"></div>
 
   <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
@@ -20,37 +23,40 @@ const media = [design, review, supervision];
       שירותי <span class="text-gold-gradient">החברה</span>
     </h2>
 
-    <div class="mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-16 grid gap-x-10 gap-y-14 md:grid-cols-2">
       {
         services.map((s, i) => (
-          <article class="group flex flex-col" data-srv-card>
-            <div class="relative aspect-[4/3] overflow-hidden bg-ink-850">
-              <Image
-                src={media[i]}
-                alt=""
-                widths={[480, 800]}
-                sizes="(max-width: 768px) 92vw, (max-width: 1024px) 46vw, 30vw"
-                class="h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
-              />
-              <div class="pointer-events-none absolute inset-0 bg-ink-950/45 transition-colors duration-500 group-hover:bg-ink-950/25" />
-              <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-950 to-transparent" />
+          <article class="group relative min-h-[32rem] overflow-hidden border border-ink-800 transition-colors duration-500 hover:border-gold-600 lg:min-h-[36rem]" data-srv-card>
+            <Image
+              src={media[i]}
+              alt=""
+              widths={[480, 900, 1400]}
+              sizes="(max-width: 768px) 92vw, 46vw"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+            />
 
-              <span class="annot nums absolute top-4 end-5 text-gold-400">
-                {String(i + 1).padStart(2, '0')}
-              </span>
+            {/* Legibility: flat wash for the whole frame, then a heavy foot so
+                the copy always has something solid under it. */}
+            <div class="pointer-events-none absolute inset-0 bg-ink-950/45" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/80 via-45% to-transparent" />
+
+            <span class="annot nums absolute top-5 end-6 text-gold-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <div class="absolute inset-x-0 bottom-0 p-7 lg:p-9 [text-shadow:0_2px_12px_rgb(0_0_0_/_0.85)]">
+              <h3 class="font-display text-2xl text-steel-100 lg:text-3xl">{s.name}</h3>
+              <p class="mt-3 font-sans text-base leading-relaxed text-steel-200">{s.lead}</p>
+
+              <ul class="mt-5 space-y-2.5 border-t border-steel-100/15 pt-5">
+                {s.items.map((it) => (
+                  <li class="flex gap-3 font-sans text-base leading-relaxed text-steel-300">
+                    <span class="mt-2.5 block size-1 shrink-0 bg-gold-500" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            <h3 class="mt-6 font-display text-2xl text-steel-100 lg:text-3xl">{s.name}</h3>
-            <p class="mt-3 font-sans text-base leading-relaxed text-steel-300">{s.lead}</p>
-
-            <ul class="mt-5 space-y-2.5 border-t border-ink-700 pt-5">
-              {s.items.map((it) => (
-                <li class="flex gap-3 font-sans text-base leading-relaxed text-steel-400">
-                  <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
-                  {it}
-                </li>
-              ))}
-            </ul>
           </article>
         ))
       }

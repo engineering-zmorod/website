@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.png';
 import { href, nav, site } from '../lib/site';
 ---
 
@@ -15,14 +17,16 @@ import { href, nav, site } from '../lib/site';
 
   <!-- Gutter must match Hero's so the wordmark lines up with the headline -->
   <nav class="flex h-20 items-center justify-between px-6 lg:h-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
-    <!-- Wordmark -->
-    <a href={href('/#top')} class="group leading-none" aria-label={site.legal}>
-      <span class="block font-display text-xl font-medium tracking-tight text-steel-100 transition-colors duration-400 group-hover:text-gold-200 lg:text-2xl">
-        {site.name}
-      </span>
-      <span class="mt-1.5 block font-sans text-xs tracking-[0.06em] text-steel-400">
-        הנדסת מבנים
-      </span>
+    <!-- Logo -->
+    <a href={href('/#top')} class="group block" aria-label={site.legal}>
+      <Image
+        src={logo}
+        alt={site.legal}
+        widths={[120, 240]}
+        sizes="80px"
+        class="h-12 w-auto transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 lg:h-16"
+        loading="eager"
+      />
     </a>
 
     <!-- Desktop nav -->
