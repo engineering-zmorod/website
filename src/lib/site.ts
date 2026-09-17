@@ -9,6 +9,7 @@ export const site = {
   legal: 'זמורוד חסן — הנדסת מבנים בע"מ',
   tagline: 'תכנון קונסטרוקציה למגדלי מגורים, בקרת תכן מבנים וייעוץ הנדסי',
   phone: '04-6116777',
+  // E.164 so it dials from abroad too; domestic handsets resolve it to 046116777.
   phoneHref: 'tel:+97246116777',
   email: 'eng.zmorod@gmail.com',
   address: 'גוליס, ת.ד 1183, מיקוד 24980',
