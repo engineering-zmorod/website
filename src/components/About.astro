@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import portrait from '../../assets/founder-cutout.png';
-import { about, credentials, href } from '../lib/site';
+import { about, aboutExtra, credentials, href } from '../lib/site';
 
 interface Props {
   /** On the About page itself, suppress the CTA that points back to it
@@ -11,73 +11,67 @@ interface Props {
 const { headless = false } = Astro.props;
 ---
 
-<section
-  id="about"
-  class:list={[
-    'relative overflow-hidden bg-ink-950 pb-24 lg:pb-32',
-    headless ? 'pt-36 lg:pt-52' : 'pt-24 lg:pt-32',
-  ]}
->
-  <div class="absolute inset-0 bg-blueprint opacity-40"></div>
-  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.14] mix-blend-overlay"></div>
+{/* Paper panel, sliced diagonally into the dark section above. The gold
+    layer sits a couple of pixels higher so its edge reads as a hairline. */}
+<section id="about" class="relative bg-ink-950 [--slant:4.5vw]">
+  <div
+    class="pointer-events-none absolute inset-0 bg-gold-600"
+    style="clip-path: polygon(0 calc(var(--slant) - 2px), 100% -2px, 100% calc(100% + 2px), 0 calc(100% + 2px))"
+  >
+  </div>
+
+  <div
+    class:list={[
+      'relative overflow-hidden bg-paper pb-24 lg:pb-32',
+      headless ? 'pt-36 lg:pt-52' : 'pt-[calc(var(--slant)+6rem)] lg:pt-[calc(var(--slant)+8rem)]',
+    ]}
+    style="clip-path: polygon(0 var(--slant), 100% 0, 100% calc(100% + 2px), 0 calc(100% + 2px))"
+  >
+    <div class="absolute inset-0 bg-blueprint-ink opacity-40"></div>
+
+  <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+    <p class="annot-he flex items-center gap-3 text-gold-700" data-about-in>
+      <span class="inline-block h-px w-8 bg-gold-700"></span>
+      {about.kicker}
+    </p>
+
+    <p class="mt-7 max-w-[72rem] font-sans text-base leading-[1.9] text-slate lg:text-lg" data-about-in>
+      {about.body}
+    </p>
+  </div>
+
+  <div class="h-16 lg:h-28" aria-hidden="true"></div>
 
   <div
     class="relative mx-auto grid max-w-[100rem] items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
   >
     <!-- Copy -->
     <div class="order-2 lg:order-1">
-      <p class="annot-he flex items-center gap-3" data-about-in>
-        <span class="inline-block h-px w-8 bg-gold-600"></span>
-        {about.kicker}
-      </p>
-
-      <h2 class:list={['mt-6', 'font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-steel-100']}>
+      <h2 class:list={['font-display text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light text-ink-900']}>
         <span class="block" data-about-in>{about.headingTop}</span>
-        <span class="block text-gold-gradient" data-about-in>{about.headingBottom}</span>
+        <span class="block text-gold-gradient-ink" data-about-in>{about.headingBottom}</span>
       </h2>
 
-      <p class="mt-8 max-w-xl font-sans text-lg leading-relaxed text-steel-300 lg:text-xl" data-about-in>
-        {about.lead}
-      </p>
-
       <!-- Credentials — all visible, no scrolling needed -->
-      <ul class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      <ul class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
         {
           credentials.map((c) => (
-            <li class="border-s-2 border-gold-700 ps-5" data-about-in>
-              <span class="annot nums block text-gold-500">{c.year}</span>
-              <h3 class="mt-2.5 font-display text-2xl leading-snug text-steel-100">{c.title}</h3>
-              <p class="mt-2 font-sans text-base leading-relaxed text-steel-400">{c.body}</p>
+            <li class="border-s-2 border-gold-600 ps-5" data-about-in>
+              <span class="annot nums block text-gold-700">{c.year}</span>
+              <h3 class="mt-2.5 font-display text-2xl leading-snug text-ink-900">{c.title}</h3>
+              <p class="mt-2 font-sans text-base leading-relaxed text-slate">{c.body}</p>
             </li>
           ))
         }
       </ul>
 
-      <div class="mt-12" data-about-in hidden={headless}>
-        <a
-          href={href('/about')}
-          class="group inline-flex items-center gap-4 border border-ink-700 px-9 py-4.5 font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
-        >
-          קראו עוד עלינו
-          <svg
-            class="size-4 -scale-x-100 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1.5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
-      </div>
     </div>
 
     <!-- Portrait -->
     <div class="order-1 lg:order-2" data-about-media>
       <div class="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md">
         <!-- Depth behind a cut-out figure, so she isn't floating on the grid -->
-        <div class="pointer-events-none absolute -inset-x-[22%] -top-[6%] bottom-[2%] -z-10 portrait-glow blur-2xl"></div>
+        <div class="pointer-events-none absolute -inset-x-[26%] -top-[10%] bottom-[0%] -z-10 portrait-glow-ink blur-3xl"></div>
 
         <div data-about-clip>
           <Image
@@ -93,13 +87,48 @@ const { headless = false } = Astro.props;
         <!-- Baseline the figure is cut off against -->
         <span class="absolute inset-x-[-12%] bottom-0 h-px bg-gradient-to-l from-transparent via-gold-600 to-transparent"></span>
 
-        <p class="mt-6 font-sans text-sm text-steel-400" data-about-in>
-          <span class="block font-display text-xl text-steel-100">זמורוד חסן</span>
-          <span class="mt-1 block font-sans text-sm tracking-[0.04em] text-gold-600">
-            מהנדסת אזרחית · בעלת החברה
-          </span>
-        </p>
+      </div>
       </div>
     </div>
+
+    {
+      !headless && (
+        <div class="relative mx-auto mt-24 max-w-[100rem] px-6 lg:mt-32 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+          <div class="border-t border-paper-3 pt-14 text-center">
+            <p class="annot-he flex items-center justify-center gap-3 text-gold-700" data-about-in>
+              <span class="inline-block h-px w-8 bg-gold-700" />
+              החזון שלנו
+              <span class="inline-block h-px w-8 bg-gold-700" />
+            </p>
+
+            <blockquote
+              class="mx-auto mt-7 max-w-4xl font-display text-[clamp(1.5rem,2.8vw,2.4rem)] leading-snug font-light text-balance text-ink-900"
+              data-about-in
+            >
+              “{aboutExtra.vision}”
+            </blockquote>
+
+            <div class="mt-11" data-about-in>
+              <a
+                href={href('/about')}
+                class="group inline-flex items-center gap-4 border border-paper-3 px-9 py-4.5 font-sans text-base text-ink-900 transition-colors duration-400 hover:border-gold-600 hover:text-gold-700"
+              >
+                קראו עוד עלינו
+                <svg
+                  class="size-4 -scale-x-100 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      )
+    }
   </div>
 </section>

@@ -83,7 +83,9 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
         class="mt-8 max-w-xl font-sans text-xl leading-relaxed text-steel-300 lg:text-2xl"
         data-reveal
       >
-        {site.tagline}
+        {site.heroLead.map((line) => (
+          <span class="block">{line}</span>
+        ))}
       </p>
 
       <p class="mt-5 max-w-lg font-sans text-base leading-relaxed text-steel-400 lg:text-lg" data-reveal>

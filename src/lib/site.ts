@@ -8,6 +8,12 @@ export const site = {
   name: 'זמורוד חסן',
   legal: 'זמורוד חסן — הנדסת מבנים בע"מ',
   tagline: 'תכנון קונסטרוקציה למגדלי מגורים, בקרת תכן מבנים וייעוץ הנדסי',
+  /** Hero paragraph, set as two deliberate lines. `tagline` stays short
+      because the footer sets it under the company name. */
+  heroLead: [
+    'תכנון קונסטרוקציה, בקרת תכן ופיקוח צמוד —',
+    'ממגדלי מגורים בני 30 קומות ועד חיזוק מבנים קיימים.',
+  ],
   phone: '04-6116777',
   // E.164 so it dials from abroad too; domestic handsets resolve it to 046116777.
   phoneHref: 'tel:+97246116777',

@@ -1,0 +1,105 @@
+---
+// UNUSED — kept for reference. Icon-based 2x2 card grid version of the
+// services section. ServicesStrip.astro is the one in use.
+import { services } from '../lib/site';
+
+/** Thin line marks, one per service — drawn to match the drafting language
+    rather than pulled from a generic icon set. Order matches `services`. */
+const icons = [
+  // towers
+  `<path d="M3 21h18"/><path d="M5 21V9l4-3v15"/><path d="M14 21V3l5 3.5V21"/>
+   <path d="M7 12h0M7 15h0M7 18h0M16.5 9h0M16.5 12h0M16.5 15h0M16.5 18h0"/>`,
+  // structural design sheet
+  `<path d="M4 4h16v16H4z"/><path d="M4 8h16M8 8v12"/><path d="M11 11l6 6M17 11l-6 6"/>`,
+  // design review
+  `<path d="M6 3h9l4 4v9"/><path d="M15 3v4h4"/><path d="M6 3v14"/>
+   <circle cx="14" cy="16" r="4"/><path d="M17 19l3 3"/>`,
+  // site supervision — crane
+  `<path d="M3 21h18"/><path d="M8 21V4"/><path d="M8 4h11l-2 3H8"/>
+   <path d="M8 4 3.5 9"/><path d="M14 7v4"/><path d="M12.5 11h3l-1.5 2.5z"/>`,
+];
+---
+
+{/* Hands back from the paper above to the dark half of the page — the same
+    diagonal the hero uses, mirrored. */}
+<section id="services" class="relative bg-paper [--slant:4.5vw]">
+  <div
+    class="pointer-events-none absolute inset-0 bg-gold-600"
+    style="clip-path: polygon(0 -2px, 100% calc(var(--slant) - 2px), 100% calc(100% + 2px), 0 calc(100% + 2px))"
+  >
+  </div>
+
+  <div
+    class="relative overflow-hidden bg-ink-950 pb-24 pt-[calc(var(--slant)+5rem)] lg:pb-32 lg:pt-[calc(var(--slant)+7rem)]"
+    style="clip-path: polygon(0 0, 100% var(--slant), 100% calc(100% + 2px), 0 calc(100% + 2px))"
+  >
+    <div class="absolute inset-0 bg-blueprint opacity-30"></div>
+    <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay"></div>
+
+    <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+      <h2
+        class="text-center font-display text-[clamp(2.2rem,4.2vw,3.6rem)] leading-[1.08] font-light text-steel-100"
+        data-srv-in
+      >
+        שירותי <span class="text-gold-gradient">החברה</span>
+      </h2>
+
+      <p
+        class="mx-auto mt-5 max-w-2xl text-center font-sans text-base leading-relaxed text-balance text-steel-400 lg:text-lg"
+        data-srv-in
+      >
+        החברה מתמחה בעיקר במתן השירותים ההנדסיים הבאים:
+      </p>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:gap-8">
+        {
+          services.map((s, i) => (
+            <article
+              class="group flex flex-col border border-ink-800 bg-ink-900/60 p-8 transition-colors duration-400 hover:border-gold-600 lg:p-10"
+              data-srv-card
+            >
+              <div class="flex items-start justify-between gap-4">
+                <svg
+                  class="size-11 shrink-0 text-gold-500 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={icons[i]}
+                />
+                <span class="annot nums pt-1 text-gold-600">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+
+              <h3 class="mt-6 font-display text-2xl leading-snug text-steel-100 lg:text-[1.75rem]">
+                {s.name}
+              </h3>
+
+              <p class="mt-3 font-sans text-base leading-relaxed text-steel-300">{s.lead}</p>
+
+              <ul class="mt-6 space-y-2.5 border-t border-ink-800 pt-6">
+                {s.items.map((it) => (
+                  <li class="flex gap-3 font-sans text-[0.95rem] leading-relaxed text-steel-400">
+                    <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 text-center" data-srv-in>
+        <a
+          href="#contact"
+          class="inline-block border-b border-gold-600 pb-2 font-sans text-base text-steel-200 transition-colors duration-400 hover:text-gold-300"
+        >
+          לפרטים נוספים
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
