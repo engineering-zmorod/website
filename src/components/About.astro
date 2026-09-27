@@ -11,21 +11,13 @@ interface Props {
 const { headless = false } = Astro.props;
 ---
 
-{/* Paper panel, sliced diagonally into the dark section above. The gold
-    layer sits a couple of pixels higher so its edge reads as a hairline. */}
-<section id="about" class="relative bg-ink-950 [--slant:4.5vw]">
-  <div
-    class="pointer-events-none absolute inset-0 bg-gold-600"
-    style="clip-path: polygon(0 calc(var(--slant) - 2px), 100% -2px, 100% calc(100% + 2px), 0 calc(100% + 2px))"
-  >
-  </div>
-
+{/* Paper panel — flat edges; the sections above and below meet it square. */}
+<section id="about" class="relative bg-paper">
   <div
     class:list={[
-      'relative overflow-hidden bg-paper pb-24 lg:pb-32',
-      headless ? 'pt-36 lg:pt-52' : 'pt-[calc(var(--slant)+6rem)] lg:pt-[calc(var(--slant)+8rem)]',
+      'relative overflow-hidden pb-24 lg:pb-32',
+      headless ? 'pt-36 lg:pt-52' : 'pt-24 lg:pt-32',
     ]}
-    style="clip-path: polygon(0 var(--slant), 100% 0, 100% calc(100% + 2px), 0 calc(100% + 2px))"
   >
     <div class="absolute inset-0 bg-blueprint-ink opacity-40"></div>
 
