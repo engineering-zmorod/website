@@ -1,7 +1,8 @@
 ---
 import { getImage } from 'astro:assets';
 import posterSrc from '../../assets/hero-poster.jpg';
-import { href, site, stats } from '../lib/site';
+import ScrollCue from './ScrollCue.astro';
+import { site, stats } from '../lib/site';
 
 // Video lives in public/ — Astro's asset pipeline only processes images.
 const videoSrc = `${import.meta.env.BASE_URL}/hero.mp4`.replace(/\/+/g, '/');
@@ -57,7 +58,12 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
 
   <!-- Content -->
   <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-16 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
-    <div class="max-w-2xl">
+    <div class="relative max-w-2xl">
+      {/* Small screens: sits at the far edge, top-aligned with the eyebrow */}
+      <div class="absolute end-0 top-0 lg:hidden" data-reveal>
+        <ScrollCue />
+      </div>
+
       <p class="annot-he flex items-center gap-3" data-reveal>
         <span class="inline-block h-px w-8 bg-gold-600"></span>
         <span class="nums font-mono tracking-[0.2em]">SINCE {site.since}</span>
@@ -88,44 +94,7 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
         ))}
       </p>
 
-      <p class="mt-5 max-w-lg font-sans text-base leading-relaxed text-steel-400 lg:text-lg" data-reveal>
-        מגדלים עד 30 קומות מעל חניונים תת־קרקעיים, בנייה רוויה ומבני בוטיק — לצד מבני ציבור, תעשייה ומסחר. בהתמחות תכנון לרעידות אדמה וחיזוק מבנים קיימים.
-      </p>
 
-      <div class="mt-11 flex flex-wrap items-center gap-4" data-reveal>
-        <a
-          href={href('/projects')}
-          class="group relative min-w-[14rem] overflow-hidden border border-gold-600 bg-gold-600 px-9 py-4.5 text-center font-sans text-base font-medium text-ink-950 transition-colors duration-400"
-        >
-          <span class="relative z-10 flex items-center justify-center gap-3">
-            <svg
-              class="size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 21h18" stroke-linecap="round" />
-              <path d="M5 21V9.5l5-3.5v15" />
-              <path d="M14 21V3l5 3.5V21" />
-              <path d="M7.4 11.5v1.2M7.4 15v1.2M16.3 8.8V10M16.3 12.4v1.2M16.3 16v1.2" stroke-linecap="round" />
-            </svg>
-            צפו בפרויקטים
-          </span>
-          <span
-            class="absolute inset-0 origin-right scale-x-0 bg-gold-300 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-x-100"
-          ></span>
-        </a>
-
-        <a
-          href="#contact"
-          class="inline-flex min-w-[14rem] items-center justify-center border border-ink-700 px-9 py-4.5 text-center font-sans text-base text-steel-200 transition-colors duration-400 hover:border-gold-700 hover:text-gold-300"
-        >
-          יצירת קשר
-        </a>
-      </div>
     </div>
 
     <!-- Figures, set like a drawing schedule -->
@@ -148,36 +117,21 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
         ))
       }
     </dl>
+
+      <!-- Scroll cue — under the figures; hugs the end edge on small screens -->
+      {/* Mirrors the figures grid so the cue lands in the middle column,
+          directly under the second counter. */}
+      <div class="mt-20 hidden max-w-2xl grid-cols-3 lg:grid" data-reveal>
+        <span></span>
+
+        <div class="flex justify-start px-4">
+          <ScrollCue />
+        </div>
+
+        <span></span>
+      </div>
   </div>
 
-  <!-- Scroll cue -->
-  <a
-    href="#about"
-    class="group absolute bottom-9 start-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 lg:flex"
-    aria-label="גלול למטה"
-    data-reveal
-  >
-    <span
-      class="annot-he text-gold-500 transition-colors duration-300 group-hover:text-gold-300"
-    >
-      גלול
-    </span>
-
-    <span class="relative block h-16 w-px overflow-hidden bg-ink-600">
-      <span class="absolute inset-x-0 top-0 h-5 animate-[cue_2.2s_ease-in-out_infinite] bg-gold-400"></span>
-    </span>
-
-    <svg
-      class="size-4 animate-[nudge_2.2s_ease-in-out_infinite] text-gold-500 transition-colors duration-300 group-hover:text-gold-300"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.7"
-      aria-hidden="true"
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  </a>
 </section>
 
 <style>

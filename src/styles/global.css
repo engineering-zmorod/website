@@ -16,6 +16,12 @@
   --color-ink-700: #1c2f45;
   --color-ink-600: #2a4562;
 
+  /* Paper — light sections, warm so it doesn't glare against the ink */
+  --color-paper: #f6f4ef;
+  --color-paper-2: #ece8df;
+  --color-paper-3: #ddd7ca;
+  --color-slate: #5b6670;
+
   /* Steel — secondary text and rules */
   --color-steel-500: #5d7490;
   --color-steel-400: #7b91a8;
@@ -49,6 +55,14 @@
     linear-gradient(to left, color-mix(in oklab, var(--color-ink-600) 12%, transparent) 1px, transparent 1px),
     linear-gradient(to bottom, color-mix(in oklab, var(--color-ink-600) 12%, transparent) 1px, transparent 1px);
   background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+}
+
+/* Drafting grid for light sections — same rhythm, ink lines instead of steel */
+@utility bg-blueprint-ink {
+  background-image:
+    linear-gradient(to left, color-mix(in oklab, var(--color-ink-900) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-ink-900) 5%, transparent) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px;
 }
 
 /* Film grain, so large dark areas never look like flat fill */
@@ -94,6 +108,32 @@
     ellipse at center,
     color-mix(in srgb, var(--color-ink-600) 60%, transparent) 0%,
     transparent 68%
+  );
+}
+
+/* Gold gradient for light backgrounds — the pale stops of the dark version
+   disappear on paper, so this one stays in the deeper half of the ramp. */
+@utility text-gold-gradient-ink {
+  background-image: linear-gradient(
+    155deg,
+    var(--color-gold-800) 0%,
+    var(--color-gold-500) 45%,
+    var(--color-gold-700) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft pool behind the cut-out portrait, light-section variant */
+@utility portrait-glow-ink {
+  /* A pale pool would vanish on paper — this one is a warm gold halo instead,
+     so the figure still sits in light rather than on a flat ground. */
+  background-image: radial-gradient(
+    ellipse at 50% 44%,
+    color-mix(in srgb, var(--color-gold-400) 62%, transparent) 0%,
+    color-mix(in srgb, var(--color-gold-300) 38%, transparent) 38%,
+    color-mix(in srgb, var(--color-paper-3) 30%, transparent) 60%,
+    transparent 74%
   );
 }
 
