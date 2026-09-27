@@ -30,7 +30,7 @@ export const nav = [
   { label: 'אודות', href: href('/about') },
   { label: 'שירותים', href: href('/#services') },
   { label: 'פרויקטים', href: href('/projects') },
-  { label: 'כדאי לשמוע', href: href('/press') },
+  { label: 'מן העיתונות', href: href('/press') },
   { label: 'יצירת קשר', href: href('/#contact') },
 ] as const;
 

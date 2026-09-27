@@ -44,44 +44,54 @@ const awardImages: Record<string, ImageMetadata> = {
         הצטייניות
       </h2>
 
-      <div class="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="mt-10 grid gap-16 lg:gap-24">
         {
           aboutExtra.awards.map((a) => (
-            <figure class="flex flex-col" data-rec-in>
-              <span class="annot nums text-gold-700">{a.year}</span>
-              <h3 class="mt-2.5 font-display text-2xl leading-snug text-ink-900 lg:text-3xl">
-                {a.title}
-              </h3>
-              <p class="mt-2 font-sans text-base leading-relaxed text-slate">{a.body}</p>
+            <figure
+              class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-14"
+              data-rec-in
+            >
+              {/* The stacked rows leave the outer column empty — the year fills
+                  it, set like the drawing-schedule figures used elsewhere. */}
+              <span class="order-1 font-mono text-5xl leading-none font-light text-gold-600 lg:order-2 lg:w-40 lg:shrink-0 lg:text-end lg:text-7xl">
+                {a.year}
+              </span>
 
-              <div class="mt-6 overflow-hidden border border-paper-3 bg-paper-2">
-                <Image
-                  src={awardImages[a.image]}
-                  alt={a.title}
-                  widths={[600, 1000]}
-                  sizes="(max-width: 1024px) 92vw, 46vw"
-                  class="w-full object-contain"
-                />
+              <div class="order-2 lg:order-1 lg:max-w-3xl">
+                <h3 class="font-display text-2xl leading-snug text-ink-900 lg:text-3xl">
+                  {a.title}
+                </h3>
+                <p class="mt-2 font-sans text-base leading-relaxed text-slate">{a.body}</p>
+
+                <div class="mt-6 overflow-hidden border border-paper-3 bg-paper-2">
+                  <Image
+                    src={awardImages[a.image]}
+                    alt={a.title}
+                    widths={[600, 1000]}
+                    sizes="(max-width: 1024px) 92vw, 46vw"
+                    class="w-full object-contain"
+                  />
+                </div>
+
+                {
+                  'video' in a && a.video && (
+                    <a
+                      href={href('/press')}
+                      class="group mt-6 flex w-full flex-1 flex-col items-center justify-center gap-4 border border-paper-3 bg-paper-2/60 p-8 text-center transition-colors duration-400 hover:border-gold-600"
+                    >
+                      <span class="grid size-14 place-items-center rounded-full border border-gold-600 text-gold-700 transition-colors duration-400 group-hover:bg-gold-600 group-hover:text-ink-950">
+                        <svg class="size-5 -scale-x-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M8 5.2v13.6L19 12z" />
+                        </svg>
+                      </span>
+                      <span>
+                        <span class="block font-display text-xl text-ink-900">צפו בכתבה המלאה</span>
+                        <span class="annot-he mt-1.5 block text-slate">מן העיתונות</span>
+                      </span>
+                    </a>
+                  )
+                }
               </div>
-
-              {
-                'video' in a && a.video && (
-                  <a
-                    href={href('/press')}
-                    class="group mt-6 flex w-full flex-1 flex-col items-center justify-center gap-4 border border-paper-3 bg-paper-2/60 p-8 text-center transition-colors duration-400 hover:border-gold-600"
-                  >
-                    <span class="grid size-14 place-items-center rounded-full border border-gold-600 text-gold-700 transition-colors duration-400 group-hover:bg-gold-600 group-hover:text-ink-950">
-                      <svg class="size-5 -scale-x-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M8 5.2v13.6L19 12z" />
-                      </svg>
-                    </span>
-                    <span>
-                      <span class="block font-display text-xl text-ink-900">צפו בכתבה המלאה</span>
-                      <span class="annot-he mt-1.5 block text-slate">כדאי לשמוע</span>
-                    </span>
-                  </a>
-                )
-              }
             </figure>
           ))
         }
