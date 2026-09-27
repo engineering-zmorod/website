@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
 import Press from '../components/Press.astro';
+import Stats from '../components/Stats.astro';
 import Contact from '../components/Contact.astro';
 import { site } from '../lib/site';
 ---
@@ -9,6 +11,14 @@ import { site } from '../lib/site';
   title={`מן העיתונות | ${site.legal}`}
   description="כתבות, פרסים וראיונות על זמורוד חסן — הנדסת מבנים."
 >
+  <PageHead
+    kicker="וידאו ופודקאסט"
+    title="מן"
+    accent="העיתונות"
+    lead="תכירו אותנו יותר — הכתבות, הראיונות והפודקאסטים שבהם השתתפנו."
+  />
+
   <Press />
+  <Stats />
   <Contact />
 </Layout>

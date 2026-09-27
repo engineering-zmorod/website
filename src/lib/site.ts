@@ -104,6 +104,34 @@ export const projects = [
     facts: ['נתון 1', 'נתון 2'],
     image: null,
   },
+  {
+    name: 'פרויקט 5',
+    place: 'כותרת משנה 5',
+    body: 'תיאור קצר של הפרויקט.',
+    facts: ['נתון 1', 'נתון 2'],
+    image: null,
+  },
+  {
+    name: 'פרויקט 6',
+    place: 'כותרת משנה 6',
+    body: 'תיאור קצר של הפרויקט.',
+    facts: ['נתון 1', 'נתון 2'],
+    image: null,
+  },
+  {
+    name: 'פרויקט 7',
+    place: 'כותרת משנה 7',
+    body: 'תיאור קצר של הפרויקט.',
+    facts: ['נתון 1', 'נתון 2'],
+    image: null,
+  },
+  {
+    name: 'פרויקט 8',
+    place: 'כותרת משנה 8',
+    body: 'תיאור קצר של הפרויקט.',
+    facts: ['נתון 1', 'נתון 2'],
+    image: null,
+  },
 ] as const;
 
 /** The three pillars, with the sub-items the old services page listed. */

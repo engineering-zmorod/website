@@ -7,6 +7,9 @@ interface Props {
 }
 const { headless = false } = Astro.props;
 
+// The projects page lists everything; the homepage shows a selection.
+const shown = headless ? projects : projects.slice(0, 4);
+
 // Same framed button as the vision CTA in About. Rendered twice: in the
 // heading row from `md` up, and under the grid on mobile where a control
 // above the fold is easy to miss.
@@ -42,7 +45,7 @@ const cta =
       <!-- Grid — the name is the only copy on the card -->
       <div class:list={['grid gap-6 md:grid-cols-2 lg:gap-8', headless ? 'mt-0' : 'mt-16']}>
         {
-          projects.map((p, i) => (
+          shown.map((p, i) => (
             <article
               class="group relative aspect-[4/3] overflow-hidden border border-paper-3 bg-paper-2 transition-colors duration-500 hover:border-gold-600"
               data-proj-card

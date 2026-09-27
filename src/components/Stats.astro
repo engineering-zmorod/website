@@ -1,0 +1,30 @@
+---
+import { stats } from '../lib/site';
+---
+
+{/* The hero carries these on the homepage; inner pages get them as a band
+    above the contact call to action. */}
+<section id="figures" class="relative overflow-hidden border-t border-ink-800 bg-ink-950 py-16 lg:py-20">
+  <div class="absolute inset-0 bg-blueprint opacity-30"></div>
+  <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.12] mix-blend-overlay"></div>
+
+  <dl
+    class="relative mx-auto grid max-w-[100rem] grid-cols-3 px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]"
+    data-fig-in
+  >
+    {
+      stats.map((s) => (
+        <div class="border-s border-ink-800 px-4 first:border-s-0 first:ps-0">
+          <dd class="font-mono text-3xl text-gold-400 lg:text-5xl">
+            <span class="nums" data-count={s.value}>0</span>
+            <span class="text-gold-700">{s.suffix}</span>
+            {s.unit && <span class="ms-1.5 font-sans text-sm text-steel-500">{s.unit}</span>}
+          </dd>
+          <dt class="mt-2.5 font-sans text-sm tracking-wide text-steel-400 lg:text-base">
+            {s.label}
+          </dt>
+        </div>
+      ))
+    }
+  </dl>
+</section>

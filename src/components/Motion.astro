@@ -79,11 +79,15 @@
   document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
     const target = Number(el.dataset.count ?? 0);
     const obj = { n: 0 };
+    // In the hero they run with the intro; anywhere else they are below the
+    // fold, so they wait until scrolled to rather than finishing unseen.
+    const inHero = !!el.closest('#top');
     gsap.to(obj, {
       n: target,
       duration: 2,
       ease: 'power2.out',
-      delay: 0.9,
+      delay: inHero ? 0.9 : 0,
+      ...(inHero ? {} : { scrollTrigger: { trigger: el, start: 'top 88%' } }),
       onUpdate: () => {
         el.textContent = Math.round(obj.n).toLocaleString('en-US');
       },
@@ -155,6 +159,7 @@
 
   reveal('#projects', '[data-proj-in]', '[data-proj-card]');
   reveal('#services', '[data-srv-in]', '[data-srv-card]');
+  reveal('#figures', '[data-fig-in]');
   reveal('#contact', '[data-ct-in]');
   reveal('#page-head', '[data-head-in]');
   reveal('#more-projects', '[data-more-in]');
