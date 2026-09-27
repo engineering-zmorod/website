@@ -106,9 +106,13 @@ import { href, nav, site } from '../lib/site';
     document.querySelector<HTMLElement>(`[data-bar-${n}]`)
   );
 
-  /* Header gains a surface once it leaves the hero */
+  /* Header gains a surface once it leaves the hero. Pages without a hero
+     (about, projects, press) start with it already on — there is no dark
+     full-bleed media up there for transparent chrome to sit against. */
+  const hasHero = !!document.querySelector('#top');
+
   const onScroll = () => {
-    const past = window.scrollY > 24;
+    const past = !hasHero || window.scrollY > 24;
     headerBg?.classList.toggle('bg-ink-950/85', past);
     headerBg?.classList.toggle('backdrop-blur-xl', past);
     headerBg?.classList.toggle('border-ink-800', past);

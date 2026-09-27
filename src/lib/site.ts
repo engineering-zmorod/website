@@ -187,12 +187,6 @@ export const aboutExtra = {
 
   awards: [
     {
-      year: '2019',
-      title: 'פרס מהנדס צעיר מצטיין',
-      body: 'בתחום התכנון, מטעם איגוד המהנדסים והתשתיות בישראל.',
-      image: 'award-2019.jpg',
-    },
-    {
       year: '2020',
       title: '40 הצעירים המבטיחים',
       body: 'בנדל"ן ובהתחדשות עירונית.',
@@ -200,6 +194,12 @@ export const aboutExtra = {
       // Square clipping, so this column runs short next to the portrait one —
       // the video fills it rather than leaving dead space.
       video: true,
+    },
+    {
+      year: '2019',
+      title: 'פרס מהנדס צעיר מצטיין',
+      body: 'בתחום התכנון, מטעם איגוד המהנדסים והתשתיות בישראל.',
+      image: 'award-2019.jpg',
     },
   ],
 

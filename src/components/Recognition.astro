@@ -10,71 +10,35 @@ const awardImages: Record<string, ImageMetadata> = {
 };
 ---
 
-<section id="recognition" class="relative overflow-hidden bg-ink-950 pb-24 lg:pb-32">
-  <div class="absolute inset-0 bg-blueprint opacity-30"></div>
+<section id="recognition" class="relative overflow-hidden bg-paper pb-24 lg:pb-32">
+  <div class="absolute inset-0 bg-blueprint-ink opacity-40"></div>
 
   <div class="relative mx-auto max-w-[100rem] px-6 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <!-- Vision -->
-    <figure class="border-t border-ink-800 pt-16 text-center" data-rec-in>
-      <p class="annot-he flex items-center justify-center gap-3 text-gold-600">
+    <figure class="border-t border-paper-3 pt-16 text-center" data-rec-in>
+      <p class="annot-he flex items-center justify-center gap-3 text-gold-700">
         <span class="inline-block h-px w-8 bg-gold-700"></span>
         החזון שלנו
         <span class="inline-block h-px w-8 bg-gold-700"></span>
       </p>
 
       <blockquote
-        class="mx-auto mt-8 max-w-4xl font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-snug font-light text-balance text-steel-100"
+        class="mx-auto mt-8 max-w-4xl font-display text-[clamp(1.6rem,3vw,2.6rem)] leading-snug font-light text-balance text-ink-900"
       >
         “{aboutExtra.vision}”
       </blockquote>
     </figure>
 
-    <!-- Courses -->
-    <div class="mt-20">
-      <div
-        class="relative mx-auto max-w-3xl border border-ink-800 bg-ink-900/50 p-8 lg:p-11"
-        data-rec-in
-      >
-        <!-- Verified badge, top-left of the card -->
-        <span class="absolute top-6 end-6 text-gold-600 lg:top-8 lg:end-8">
-          <svg
-            class="size-8"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.4"
-            aria-hidden="true"
-          >
-            <path
-              d="M12 2.6l2.3 1.7 2.8-.2.9 2.7 2.3 1.6-1 2.7 1 2.7-2.3 1.6-.9 2.7-2.8-.2L12 21.4l-2.3-1.7-2.8.2-.9-2.7-2.3-1.6 1-2.7-1-2.7 2.3-1.6.9-2.7 2.8.2z"
-              opacity="0.4"
-            />
-            <path d="m8.6 12.2 2.4 2.4 4.4-4.9" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
-
-        <h2 class="font-display text-2xl font-light text-steel-100 lg:text-3xl">
-          קורסים והכשרות
-        </h2>
-
-        <ul
-          class="mt-7 list-disc space-y-3 pe-1 ps-5 font-sans text-base leading-relaxed text-steel-300 marker:text-gold-600 lg:text-lg"
-        >
-          {aboutExtra.training.map((t) => <li>{t}</li>)}
-        </ul>
-      </div>
-    </div>
-
 
     <!-- Prizes -->
     <div class="mt-24">
       <p class="annot-he flex items-center gap-3" data-rec-in>
-        <span class="inline-block h-px w-8 bg-gold-600"></span>
+        <span class="inline-block h-px w-8 bg-gold-700"></span>
         הכרה מקצועית
       </p>
 
       <h2
-        class="mt-5 font-display text-gold-gradient text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light"
+        class="mt-5 font-display text-gold-gradient-ink text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light"
         data-rec-in
       >
         הצטייניות
@@ -84,13 +48,13 @@ const awardImages: Record<string, ImageMetadata> = {
         {
           aboutExtra.awards.map((a) => (
             <figure class="flex flex-col" data-rec-in>
-              <span class="annot nums text-gold-500">{a.year}</span>
-              <h3 class="mt-2.5 font-display text-2xl leading-snug text-steel-100 lg:text-3xl">
+              <span class="annot nums text-gold-700">{a.year}</span>
+              <h3 class="mt-2.5 font-display text-2xl leading-snug text-ink-900 lg:text-3xl">
                 {a.title}
               </h3>
-              <p class="mt-2 font-sans text-base leading-relaxed text-steel-400">{a.body}</p>
+              <p class="mt-2 font-sans text-base leading-relaxed text-slate">{a.body}</p>
 
-              <div class="mt-6 overflow-hidden border border-ink-800 bg-ink-900">
+              <div class="mt-6 overflow-hidden border border-paper-3 bg-paper-2">
                 <Image
                   src={awardImages[a.image]}
                   alt={a.title}
@@ -104,16 +68,16 @@ const awardImages: Record<string, ImageMetadata> = {
                 'video' in a && a.video && (
                   <a
                     href={href('/press')}
-                    class="group mt-6 flex w-full flex-1 flex-col items-center justify-center gap-4 border border-ink-800 bg-ink-900/60 p-8 text-center transition-colors duration-400 hover:border-gold-700"
+                    class="group mt-6 flex w-full flex-1 flex-col items-center justify-center gap-4 border border-paper-3 bg-paper-2/60 p-8 text-center transition-colors duration-400 hover:border-gold-600"
                   >
-                    <span class="grid size-14 place-items-center rounded-full border border-gold-700 text-gold-500 transition-colors duration-400 group-hover:bg-gold-600 group-hover:text-ink-950">
+                    <span class="grid size-14 place-items-center rounded-full border border-gold-600 text-gold-700 transition-colors duration-400 group-hover:bg-gold-600 group-hover:text-ink-950">
                       <svg class="size-5 -scale-x-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M8 5.2v13.6L19 12z" />
                       </svg>
                     </span>
                     <span>
-                      <span class="block font-display text-xl text-steel-100">צפו בכתבה המלאה</span>
-                      <span class="annot-he mt-1.5 block text-steel-500">כדאי לשמוע</span>
+                      <span class="block font-display text-xl text-ink-900">צפו בכתבה המלאה</span>
+                      <span class="annot-he mt-1.5 block text-slate">כדאי לשמוע</span>
                     </span>
                   </a>
                 )

@@ -16,7 +16,8 @@ const { headless = false } = Astro.props;
   <div
     class:list={[
       'relative overflow-hidden pb-24 lg:pb-32',
-      headless ? 'pt-36 lg:pt-52' : 'pt-24 lg:pt-32',
+      // PageHead sits above on the about page, so no header clearance needed.
+      'pt-24 lg:pt-32',
     ]}
   >
     <div class="absolute inset-0 bg-blueprint-ink opacity-40"></div>
@@ -55,6 +56,21 @@ const { headless = false } = Astro.props;
             </li>
           ))
         }
+
+        {/* Training reads as one more entry on the CV, not a separate card.
+            It spans both columns because it carries a list rather than a line. */}
+        <li class="border-s-2 border-gold-600 ps-5 sm:col-span-2" data-about-in>
+          <span class="annot nums block text-gold-700">הכשרה</span>
+          <h3 class="mt-2.5 font-display text-2xl leading-snug text-ink-900">קורסים והכשרות</h3>
+          <ul class="mt-3 grid gap-x-10 gap-y-2 sm:grid-cols-2">
+            {aboutExtra.training.map((t) => (
+              <li class="flex gap-3 font-sans text-base leading-relaxed text-slate">
+                <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </li>
       </ul>
 
     </div>

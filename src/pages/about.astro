@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHead from '../components/PageHead.astro';
 import About from '../components/About.astro';
 import Recognition from '../components/Recognition.astro';
 import Contact from '../components/Contact.astro';
@@ -10,6 +11,12 @@ import { site } from '../lib/site';
   title={`אודות | ${site.legal}`}
   description="זמורוד חסן — בוגרת הטכניון בהצטיינות, מבקרת תכן מוסמכת RICS, וזוכת פרסי הנדסה ונדל״ן."
 >
+  <PageHead
+    kicker="הכירו את המשרד"
+    title="אודות"
+    lead="חברה לתכנון קונסטרוקציה וייעוץ הנדסי, הפועלת מזה 17 שנה ממשרדיה בגוליס."
+  />
+
   <About headless />
   <Recognition />
   <Contact />
