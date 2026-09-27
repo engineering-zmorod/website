@@ -91,9 +91,9 @@
   });
 
   /* ---- About -------------------------------------------------------------
-     Hidden up front so it can never animate alongside the hero intro, then
-     wired to scroll once that intro has finished. A visitor who lands mid-page
-     (refresh, deep link) gets it wired immediately instead. */
+     The hero is 80svh, so About is already on screen at load. It is wired
+     straight away and triggers as soon as its top clears the viewport, which
+     means it comes in alongside the hero intro rather than after it. */
   if (has('#about')) {
     gsap.set('[data-about-in]', { opacity: 0, y: 28 });
     gsap.set('[data-about-clip]', { clipPath: 'inset(0% 0% 100% 0%)' });
@@ -105,14 +105,14 @@
         duration: 1,
         stagger: 0.07,
         ease: 'expo.out',
-        scrollTrigger: { trigger: '#about', start: 'top 68%' },
+        scrollTrigger: { trigger: '#about', start: 'top bottom' },
       });
 
       gsap.to('[data-about-clip]', {
         clipPath: 'inset(0% 0% 0% 0%)',
         duration: 1.3,
         ease: 'expo.out',
-        scrollTrigger: { trigger: '#about', start: 'top 68%' },
+        scrollTrigger: { trigger: '#about', start: 'top bottom' },
       });
 
       if (!reduced) {
@@ -124,8 +124,7 @@
       }
     };
 
-    if (has('#top') && window.scrollY <= 120) hero.eventCallback('onComplete', initAbout);
-    else initAbout();
+    initAbout();
   }
 
   /* ---- Generic section reveals ------------------------------------------ */

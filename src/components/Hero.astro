@@ -1,7 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
 import posterSrc from '../../assets/hero-poster.jpg';
-import ScrollCue from './ScrollCue.astro';
 import { site, stats } from '../lib/site';
 
 // Video lives in public/ — Astro's asset pipeline only processes images.
@@ -11,7 +10,7 @@ const videoSrc = `${import.meta.env.BASE_URL}/hero.mp4`.replace(/\/+/g, '/');
 const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', quality: 55 });
 ---
 
-<section id="top" class="relative min-h-svh overflow-hidden bg-ink-950">
+<section id="top" class="relative min-h-[80svh] overflow-hidden bg-ink-950">
   <!-- Drafting surface -->
   <div class="absolute inset-0 bg-blueprint opacity-[0.55]"></div>
   <div class="pointer-events-none absolute inset-0 bg-grain opacity-[0.16] mix-blend-overlay"></div>
@@ -57,13 +56,8 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
   </div>
 
   <!-- Content -->
-  <div class="relative flex min-h-svh flex-col justify-center px-6 pt-28 pb-16 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
+  <div class="relative flex min-h-[80svh] flex-col justify-center px-6 pt-28 pb-16 lg:pb-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
     <div class="relative max-w-2xl">
-      {/* Small screens: sits at the far edge, top-aligned with the eyebrow */}
-      <div class="absolute end-0 top-0 lg:hidden" data-reveal>
-        <ScrollCue />
-      </div>
-
       <p class="annot-he flex items-center gap-3" data-reveal>
         <span class="inline-block h-px w-8 bg-gold-600"></span>
         <span class="nums font-mono tracking-[0.2em]">SINCE {site.since}</span>
@@ -121,15 +115,6 @@ const poster = await getImage({ src: posterSrc, width: 1400, format: 'webp', qua
       <!-- Scroll cue — under the figures; hugs the end edge on small screens -->
       {/* Mirrors the figures grid so the cue lands in the middle column,
           directly under the second counter. */}
-      <div class="mt-20 hidden max-w-2xl grid-cols-3 lg:grid" data-reveal>
-        <span></span>
-
-        <div class="flex justify-start px-4">
-          <ScrollCue />
-        </div>
-
-        <span></span>
-      </div>
   </div>
 
 </section>
