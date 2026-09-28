@@ -27,8 +27,9 @@ const { kicker, title, accent, lead } = Astro.props;
       class="mt-6 font-display text-[clamp(2.8rem,6vw,5.5rem)] leading-[1.02] font-light text-steel-100"
       data-head-in
     >
-      {title}
-      {accent && <span class="text-gold-gradient">{accent}</span>}
+      {/* Space must sit inside the line — a newline between the two
+          expressions is not rendered as whitespace. */}
+      {title}{accent && <span class="text-gold-gradient"> {accent}</span>}
     </h1>
 
     {

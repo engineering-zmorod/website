@@ -9,11 +9,7 @@ import { href, nav, site } from '../lib/site';
   class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500"
   data-header
 >
-  <div
-    class="pointer-events-none absolute inset-0 -z-10 border-b border-transparent bg-ink-950/0 backdrop-blur-0 transition-all duration-500"
-    data-header-bg
-  >
-  </div>
+  <div class="pointer-events-none absolute inset-0 -z-10 border-b border-ink-800 bg-ink-950"></div>
 
   <!-- Gutter must match Hero's so the wordmark lines up with the headline -->
   <nav class="flex h-20 items-center justify-between px-6 lg:h-24 lg:pe-12 lg:ps-[clamp(4.5rem,6vw,9rem)]">
@@ -98,27 +94,12 @@ import { href, nav, site } from '../lib/site';
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
-  const headerBg = document.querySelector<HTMLElement>('[data-header-bg]');
   const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
   const menu = document.querySelector<HTMLElement>('[data-menu]');
   const items = document.querySelectorAll<HTMLElement>('[data-menu-item]');
   const [bar1, bar2, bar3] = ['1', '2', '3'].map((n) =>
     document.querySelector<HTMLElement>(`[data-bar-${n}]`)
   );
-
-  /* Header gains a surface once it leaves the hero. Pages without a hero
-     (about, projects, press) start with it already on — there is no dark
-     full-bleed media up there for transparent chrome to sit against. */
-  const hasHero = !!document.querySelector('#top');
-
-  const onScroll = () => {
-    const past = !hasHero || window.scrollY > 24;
-    headerBg?.classList.toggle('bg-ink-950/85', past);
-    headerBg?.classList.toggle('backdrop-blur-xl', past);
-    headerBg?.classList.toggle('border-ink-800', past);
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
 
   /* Mobile menu */
   let open = false;
