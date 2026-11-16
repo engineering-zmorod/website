@@ -98,5 +98,31 @@ const awardImages: Record<string, ImageMetadata> = {
       </div>
     </div>
 
+    <!-- Training -->
+    <div class="mt-24">
+      <p class="annot-he flex items-center gap-3" data-rec-in>
+        <span class="inline-block h-px w-8 bg-gold-700"></span>
+        הכשרה
+      </p>
+
+      <h2
+        class="mt-5 font-display text-gold-gradient-ink text-[clamp(2.6rem,5vw,4.5rem)] leading-[1.02] font-light"
+        data-rec-in
+      >
+        קורסים והכשרות
+      </h2>
+
+      <ul class="mt-10 grid max-w-4xl gap-x-10 gap-y-3 sm:grid-cols-2" data-rec-in>
+        {
+          aboutExtra.training.map((t) => (
+            <li class="flex gap-3 font-sans text-base leading-relaxed text-slate lg:text-lg">
+              <span class="mt-2.5 block size-1 shrink-0 bg-gold-600" />
+              {t}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
   </div>
 </section>
