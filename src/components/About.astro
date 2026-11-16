@@ -28,9 +28,38 @@ const { headless = false } = Astro.props;
       {about.kicker}
     </p>
 
-    <p class="mt-7 max-w-[72rem] font-sans text-base leading-[1.9] text-slate lg:text-lg" data-about-in>
-      {about.body}
+    {
+      about.body.map((p, i) => (
+        <p
+          class:list={[
+            i === 0 ? 'mt-7' : 'mt-3',
+            'max-w-[72rem] font-sans text-base leading-[1.9] text-slate lg:text-lg',
+          ]}
+          data-about-in
+        >
+          {p}
+        </p>
+      ))
+    }
+
+    <h3 class="mt-12 font-display text-2xl leading-snug text-ink-900" data-about-in>
+      {about.bodyServicesTitle}
+    </h3>
+    <p class="mt-4 max-w-[72rem] font-sans text-base leading-[1.9] text-slate lg:text-lg" data-about-in>
+      {about.bodyServicesLead}
     </p>
+    <ul class="mt-4 max-w-[72rem] grid gap-x-10 gap-y-3 lg:grid-cols-2" data-about-in>
+      {
+        about.bodyServices.map((s) => (
+          <li class="flex gap-3 font-sans text-base leading-relaxed text-slate lg:text-lg">
+            <span class="mt-2.5 block size-1 shrink-0 bg-gold-600"></span>
+            <span>
+              <strong class="font-medium text-ink-900">{s.title}</strong> — {s.body}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 
   <div class="h-16 lg:h-28" aria-hidden="true"></div>
