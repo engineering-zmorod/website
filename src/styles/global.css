@@ -25,6 +25,7 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--paper);
   color: var(--ink);
@@ -91,5 +92,6 @@ h1, h2 { text-wrap: balance; }
 .placeholder span { padding: 4px 10px; background: var(--surface); font-size: 13px; color: var(--muted); }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

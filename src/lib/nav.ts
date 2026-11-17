@@ -1,11 +1,13 @@
 // Site navigation, shared by the header and footer.
+// About, Services and Contact are sections of the homepage; Projects and Press are pages.
+// `desktop: false` hides an item in the desktop header (the header button covers it).
 export const navItems = [
   { label: 'דף הבית', href: '/' },
-  { label: 'אודות', href: '/about' },
-  { label: 'שירותים', href: '/services' },
+  { label: 'אודות', href: '/#about' },
+  { label: 'שירותים', href: '/#services' },
   { label: 'פרויקטים', href: '/projects' },
   { label: 'מן העיתונות', href: '/press' },
-  { label: 'יצירת קשר', href: '/contact' },
+  { label: 'יצירת קשר', href: '/#contact', desktop: false },
 ];
 
 export const contact = {
