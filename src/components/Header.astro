@@ -1,0 +1,45 @@
+---
+import { navItems } from '../lib/nav';
+import { url } from '../lib/url';
+
+const current = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+const isCurrent = (href: string) =>
+  href === '/' ? current === '/' : current.replace(/\/$/, '') === href;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href={url('/')}>
+      <span class="brand-mark" aria-hidden="true"><span></span></span>
+      <span class="brand-name">
+        <strong>זמורוד חסן</strong>
+        <small>הנדסת מבנים בע"מ</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="ניווט ראשי">
+      {navItems.map((item) => (
+        <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <a class="header-cta" href={url('/contact')}>קבלו הצעת מחיר</a>
+  </div>
+</header>
+
+<style>
+  .site-header { padding: 18px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+  .brand-mark { display: flex; justify-content: center; width: 32px; height: 32px; border: 2px solid var(--ink); }
+  .brand-mark span { width: 8px; height: 100%; background: var(--gold); }
+  .brand-name { display: flex; flex-direction: column; line-height: 1.2; }
+  .brand-name strong { font-size: 19px; font-weight: 700; }
+  .brand-name small { font-size: 13px; color: var(--muted); }
+  .nav { display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 16px; font-weight: 500; }
+  .nav a { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 2px solid transparent; }
+  .nav a[aria-current='page'] { border-bottom-color: var(--gold); }
+  .header-cta {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 0 24px;
+    background: var(--ink); color: #FFFFFF; font-size: 16px; font-weight: 600;
+  }
+</style>

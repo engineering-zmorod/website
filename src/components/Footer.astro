@@ -1,0 +1,43 @@
+---
+import { navItems, contact } from '../lib/nav';
+import { url } from '../lib/url';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="top">
+      <div class="brand">
+        <strong>זמורוד חסן</strong>
+        <small>הנדסת מבנים בע"מ</small>
+      </div>
+      <nav class="links" aria-label="ניווט תחתון">
+        {navItems.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>© {year} זמורוד חסן, הנדסת מבנים בע"מ. כל הזכויות שמורות.</span>
+      <span class="social">
+        <a href={contact.facebook}>Facebook</a>
+        <a href={contact.instagram}>Instagram</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { padding: 56px var(--gutter) 40px; background: var(--night); color: #FFFFFF; }
+  .inner { display: flex; flex-direction: column; gap: 40px; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; }
+  .brand { display: flex; flex-direction: column; line-height: 1.25; }
+  .brand strong { font-size: 22px; font-weight: 700; }
+  .brand small { font-size: 14px; color: var(--on-night-muted); }
+  .links, .social { display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 16px; }
+  .links a, .social a { display: inline-flex; align-items: center; min-height: 44px; }
+  .bottom {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 40px;
+    padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18);
+    font-size: 14px; color: var(--on-night-muted);
+  }
+</style>
