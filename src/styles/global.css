@@ -75,6 +75,7 @@ h1, h2 { text-wrap: balance; }
 .btn-dark:hover { background: var(--gold); color: var(--ink); opacity: 1; }
 .btn-gold:hover { background: #B8913A; opacity: 1; }
 .btn-outline { border: 2px solid var(--ink); }
+.btn-outline:hover { background: var(--ink); color: #FFFFFF; opacity: 1; }
 .text-link {
   display: inline-flex; align-items: center; align-self: flex-start;
   min-height: 48px; font-size: 17px; font-weight: 600;
