@@ -14,12 +14,6 @@ const stats = [
   { value: 30, prefix: 'עד ', suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
 ];
 
-// Shown under the service cards: the advisory work the four cards don't cover.
-const extras = [
-  { title: 'ליווי הנדסי וחוות דעת מקצועיות', text: 'ליווי פרויקטים ומתן חוות דעת מקצועיות לצורך בחינת פתרונות הנדסיים ושיפור תהליכי התכנון והביצוע.' },
-  { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
-];
-
 const activities = [
   { title: 'תכנון קונסטרוקטיבי', text: 'תכנון מגדלי מגורים ומשרדים, מבני ציבור, תעשייה ומסחר, מבני בוטיק ופרויקטים הנדסיים מורכבים.' },
   { title: 'בקרת תכן מבנים', text: 'בדיקה ובקרה של תכנונים קונסטרוקטיביים, בחינת חלופות תכנון ושיפור היעילות והכדאיות הכלכלית של הפרויקט.' },
@@ -240,38 +234,18 @@ const projects = Array.from({ length: 4 }, () => ({
       <div class="stack gap-16">
         <span class="eyebrow">שירותים</span>
         <h2 class="h2">מהתכנון ועד הבקרה</h2>
-        <p class="services-lead">
-          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
-        </p>
       </div>
-      <div class="services-panel">
-        <div class="services">
-          {services.map((s, i) => (
-            <article class="service">
-              <span class="mono service-num">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{s.title}</h3>
-              <p class="muted">{s.text}</p>
-              <ul>
-                {s.items.map((item) => <li>{item}</li>)}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div class="extra">
-          <div class="stack gap-16">
-            <h3 class="extra-title">ליווי לאורך כל הפרויקט</h3>
-            <p>
-              מעבר לתכנון ולבקרה, החברה מלווה יזמים ובעלי פרויקטים גם בשלבי ההחלטה והביצוע, כדי שכל פתרון יהיה נכון
-              הנדסית וכדאי כלכלית.
-            </p>
-          </div>
-          <ul class="extra-list">
-            {extras.map((a) => (
-              <li><strong>{a.title}</strong> — {a.text}</li>
-            ))}
-          </ul>
-        </div>
+      <div class="services">
+        {services.map((s, i) => (
+          <article class="service">
+            <span class="mono num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.text}</p>
+            <ul>
+              {s.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -284,7 +258,7 @@ const projects = Array.from({ length: 4 }, () => ({
           <span class="eyebrow">פרויקטים</span>
           <h2 class="h2">פרויקטים נבחרים</h2>
         </div>
-        <a class="btn btn-dark btn-sm" href={url('/projects')}>לכל הפרויקטים</a>
+        <a class="text-link" href={url('/projects')}>לכל הפרויקטים ←</a>
       </div>
       <div class="project-grid">
         {projects.map((p) => (
@@ -392,48 +366,15 @@ const projects = Array.from({ length: 4 }, () => ({
     .section-head { flex-direction: column; align-items: flex-start; gap: 24px; }
   }
 
-  /* Services: one two-tone block, light services on top, dark advisory band below */
-  .services-panel { border: 1px solid var(--line); }
-  .services {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0; padding: 0; background: var(--panel);
-  }
-  .service {
-    display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
-    transition: background-color .25s, color .25s;
-  }
-  .service-num { font-size: 15px; font-weight: 500; color: var(--bronze); transition: color .25s; }
-  .service:hover .service-num { color: var(--gold); }
-  .service:hover { background: var(--night); color: #FFFFFF; }
-  .service:hover p, .service:hover ul { color: var(--on-night-muted); }
-  .service p, .service ul { transition: color .25s; }
-  .service h3 { font-size: 22px; font-weight: 600; line-height: 1.3; }
-  .service p { font-size: 16px; line-height: 1.65; }
-  .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: var(--muted); }
-  .service li { position: relative; padding-inline-start: 16px; }
-  .service li::before { content: ''; position: absolute; inset-inline-start: 0; top: 9px; width: 5px; height: 5px; background: var(--gold); }
-  .services-lead { max-width: 760px; font-size: 18px; line-height: 1.7; color: var(--muted); }
-  .extra {
-    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 24px 64px; align-items: center;
-    padding: 44px 48px; background: var(--night); color: #FFFFFF;
-  }
-  .extra-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
-  .extra p { font-size: 17px; line-height: 1.7; color: var(--on-night-muted); }
-  .extra-list {
-    margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px;
-    font-size: 17px; line-height: 1.75; color: var(--on-night-muted);
-  }
-  .extra-list li { position: relative; padding-inline-start: 18px; }
-  .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
-  .extra-list strong { font-weight: 600; color: #FFFFFF; }
-  @media (max-width: 640px) {
-    .services { grid-template-columns: 1fr; }
-    .service { padding: 36px 24px; }
-  }
-  @media (max-width: 900px) {
-    .extra { grid-template-columns: 1fr; padding: 32px 24px; }
-  }
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 24px; }
+  .service { display: flex; flex-direction: column; gap: 14px; padding: 32px; background: var(--surface); border: 1px solid var(--line); }
+  .num { font-size: 15px; font-weight: 500; color: var(--bronze); }
+  .service h3 { font-size: 24px; font-weight: 600; line-height: 1.25; }
+  .service p { font-size: 16px; }
+  .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; font-size: 16px; }
+  .service li { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); line-height: 1.5; }
+  .service li::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: 9px; background: var(--gold); }
 
   /* Projects */
   .projects { background: var(--band); }
