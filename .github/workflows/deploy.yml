@@ -1,10 +1,8 @@
 name: Deploy to GitHub Pages
 
-# Deploys when main is pushed, and can also be run by hand from the Actions tab.
-# Other branches (v1, v2, …) never deploy.
+# Manual only — pushing to main does not deploy.
+# Run from the Actions tab: "Deploy to GitHub Pages" -> "Run workflow".
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
