@@ -171,6 +171,16 @@ const projects = Array.from({ length: 4 }, () => ({
         </div>
       </div>
 
+      <div class="milestones">
+        {milestones.map((m) => (
+          <div class="milestone">
+            <span class="mono year">{m.year}</span>
+            <span class="m-title">{m.title}</span>
+            <span class="muted m-text">{m.text}</span>
+          </div>
+        ))}
+      </div>
+
       <div class="stack gap-24">
         <h3 class="h3">תחומי הפעילות והשירותים</h3>
         <p class="muted body">
@@ -186,15 +196,6 @@ const projects = Array.from({ length: 4 }, () => ({
         </div>
       </div>
 
-      <div class="milestones">
-        {milestones.map((m) => (
-          <div class="milestone">
-            <span class="mono year">{m.year}</span>
-            <span class="m-title">{m.title}</span>
-            <span class="muted m-text">{m.text}</span>
-          </div>
-        ))}
-      </div>
     </div>
   </section>
 
