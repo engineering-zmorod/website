@@ -72,7 +72,7 @@ h1, h2 { text-wrap: balance; }
 .btn-dark { background: var(--ink); color: #FFFFFF; }
 .btn-sm { align-self: flex-start; min-height: 52px; padding: 0 28px; font-size: 17px; }
 .btn { transition: background-color .2s, color .2s; }
-.btn-dark:hover { background: var(--gold); color: var(--ink); opacity: 1; }
+.btn-dark:hover { background: #2A3B4C; opacity: 1; }
 .btn-gold:hover { background: #B8913A; opacity: 1; }
 .btn-outline { border: 2px solid var(--ink); }
 .btn-outline:hover { background: var(--ink); color: #FFFFFF; opacity: 1; }
