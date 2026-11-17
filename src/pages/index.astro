@@ -14,18 +14,20 @@ const stats = [
   { value: 30, prefix: 'עד ', suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
 ];
 
-// Shown under the service cards: the advisory work the four cards don't cover.
-const extras = [
+const activities = [
+  { title: 'תכנון קונסטרוקטיבי', text: 'תכנון מגדלי מגורים ומשרדים, מבני ציבור, תעשייה ומסחר, מבני בוטיק ופרויקטים הנדסיים מורכבים.' },
+  { title: 'בקרת תכן מבנים', text: 'בדיקה ובקרה של תכנונים קונסטרוקטיביים, בחינת חלופות תכנון ושיפור היעילות והכדאיות הכלכלית של הפרויקט.' },
+  { title: 'בקרת יציבות ומיגון', text: 'בקרת יציבות מבנים והתאמתם לדרישות התקינה והמיגון, לרבות במסגרת הליכי רישוי ובקרת תוכניות ביצוע.' },
   { title: 'ליווי הנדסי וחוות דעת מקצועיות', text: 'ליווי פרויקטים ומתן חוות דעת מקצועיות לצורך בחינת פתרונות הנדסיים ושיפור תהליכי התכנון והביצוע.' },
   { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
 ];
 
-const credentials = [
-  { year: '2008', title: 'הטכניון, בהצטיינות', text: 'בוגרת הפקולטה להנדסה אזרחית וסביבתית, בהתמחות תכנון מבנים לרעידות אדמה.' },
-  { year: '2018', title: 'RICS לונדון', text: 'בקרית תכן מבנים מורשית, בוגרת הארגון הבריטי RICS.' },
-  { year: '2019', title: 'מהנדס צעיר מצטיין בתחום התכנון', text: 'פרס מטעם איגוד המהנדסים והתשתיות בישראל.' },
-  { year: '2020', title: '40 הצעירים המבטיחים', text: 'בנדל"ן ובהתחדשות עירונית.' },
-  { year: '2022', title: 'בקרית מיגון מורשית', text: 'הסמכה מטעם פיקוד העורף.' },
+const milestones = [
+  { year: '2008', title: 'הטכניון', text: 'הפקולטה להנדסה אזרחית וסביבתית. סיום בהצטיינות, התמחות בתכנון מבנים עמידים ברעידות אדמה.' },
+  { year: '2018', title: 'RICS London', text: 'בקרית תכן מבנים מורשית, בוגרת RICS.' },
+  { year: '2019', title: 'מהנדסת צעירה מצטיינת בתכנון', text: 'מטעם איגוד המהנדסים והתשתיות בישראל.' },
+  { year: '2020', title: '40 הצעירים המבטיחים', text: 'נבחרה לרשימה בתחום הנדל"ן וההתחדשות העירונית.' },
+  { year: '2022', title: 'בקרית מיגון מורשית', text: 'בהסמכת פיקוד העורף.' },
 ];
 
 const services = [
@@ -135,51 +137,64 @@ const projects = Array.from({ length: 4 }, () => ({
     }
   </script>
 
-  <!-- About: the company -->
-  <section class="section company" id="about">
-    <div class="container stack company-inner">
-      <div class="company-head">
-        <div class="stack gap-16">
-          <span class="eyebrow">מי אנחנו</span>
-          <h2 class="h2">17 שנים של מבנים שעומדים איתן</h2>
-        </div>
-        <p class="company-text">
-          זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
-          תכן, בדיקות יציבות ומיגון. החברה עוסקת בתכנון קונסטרוקטיבי של מגוון רחב של מבנים מורכבים, בהם מגדלי מגורים
-          ומשרדים בגובה של עד 30 קומות, מבנים מעל חניונים תת־קרקעיים, פרויקטים של בנייה רוויה, מבני בוטיק, מבני
-          ציבור, מבני תעשייה ומסחר. בנוסף, החברה מספקת שירותי ייעוץ וליווי הנדסי, חוות דעת מקצועיות וגיבוש פתרונות
-          הנדסיים לשיפור תהליכי התכנון ולהתייעלות כלכלית.
-        </p>
-      </div>
-
-      <div class="founder-grid">
-        <div class="stack founder-copy">
-          <span class="eyebrow">המייסדת</span>
-          <h2 class="founder-title">אישה אחת,<br /><span>רזומה עשיר.</span></h2>
-          <ol class="credentials">
-            {credentials.map((c) => (
-              <li>
-                <span class="mono year">{c.year}</span>
-                <div class="stack">
-                  <h4>{c.title}</h4>
-                  <p class="muted">{c.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
+  <!-- About -->
+  <section class="section about" id="about">
+    <div class="container stack about-inner">
+      <div class="two-col">
         <figure class="portrait">
-          <span class="glow" aria-hidden="true"></span>
           <Image
             src={portrait}
             alt="זמורוד חסן, מהנדסת ובעלת החברה"
             widths={[440, 720, 932]}
-            sizes="(max-width: 900px) 80vw, 480px"
+            sizes="(max-width: 900px) 90vw, 440px"
           />
-          <span class="baseline" aria-hidden="true"></span>
         </figure>
+        <div class="stack gap-24">
+          <span class="eyebrow">מי אנחנו</span>
+          <h2 class="h2">אישה אחת, רזומה עשיר</h2>
+          <p class="muted body">
+            זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
+            תכן, בדיקות יציבות ומיגון. החברה עוסקת בתכנון קונסטרוקטיבי של מגוון רחב של מבנים מורכבים, בהם מגדלי מגורים
+            ומשרדים בגובה של עד 30 קומות, מבנים מעל חניונים תת־קרקעיים, פרויקטים של בנייה רוויה, מבני בוטיק, מבני
+            ציבור, מבני תעשייה ומסחר.
+          </p>
+          <p class="muted body">
+            בנוסף, החברה מספקת שירותי ייעוץ וליווי הנדסי, חוות דעת מקצועיות וגיבוש פתרונות הנדסיים לשיפור תהליכי התכנון
+            ולהתייעלות כלכלית.
+          </p>
+        </div>
       </div>
+
+      <div class="milestones">
+        {milestones.map((m) => (
+          <div class="milestone">
+            <span class="mono year">{m.year}</span>
+            <span class="m-title">{m.title}</span>
+            <span class="muted m-text">{m.text}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="stack gap-40">
+        <div class="stack gap-16">
+          <h3 class="h3">תחומי הפעילות והשירותים</h3>
+          <p class="muted domains-lead">
+            החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+          </p>
+        </div>
+        <ul class="domain-grid">
+          {activities.map((a) => (
+            <li>
+              <h4>{a.title}</h4>
+              <p class="muted">{a.text}</p>
+            </li>
+          ))}
+          <li class="domain-more">
+            <a href={url('/#services')}>לפירוט השירותים ←</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
@@ -216,41 +231,27 @@ const projects = Array.from({ length: 4 }, () => ({
   <!-- Services -->
   <section class="section" id="services">
     <div class="container stack gap-56">
-      <div class="stack gap-16">
-        <span class="eyebrow">שירותים</span>
-        <h2 class="h2">מהתכנון ועד הבקרה</h2>
-        <p class="services-lead">
-          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+      <div class="services-head">
+        <div class="stack gap-16">
+          <span class="eyebrow">שירותים</span>
+          <h2 class="h2">מהתכנון ועד הבקרה</h2>
+        </div>
+        <p class="years">
+          <span class="years-num mono">17</span>
+          <span class="years-text">שנים של מבנים<br />שעומדים איתן</span>
         </p>
       </div>
-      <div class="services-panel">
-        <div class="services">
-          {services.map((s, i) => (
-            <article class="service">
-              <span class="mono service-num">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{s.title}</h3>
-              <p class="muted">{s.text}</p>
-              <ul>
-                {s.items.map((item) => <li>{item}</li>)}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div class="extra">
-          <div class="stack gap-16">
-            <h3 class="extra-title">ליווי לאורך כל הפרויקט</h3>
-            <p>
-              מעבר לתכנון ולבקרה, החברה מלווה יזמים ובעלי פרויקטים גם בשלבי ההחלטה והביצוע, כדי שכל פתרון יהיה נכון
-              הנדסית וכדאי כלכלית.
-            </p>
-          </div>
-          <ul class="extra-list">
-            {extras.map((a) => (
-              <li><strong>{a.title}</strong> — {a.text}</li>
-            ))}
-          </ul>
-        </div>
+      <div class="services">
+        {services.map((s, i) => (
+          <article class="service">
+            <span class="mono num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.text}</p>
+            <ul>
+              {s.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -263,7 +264,7 @@ const projects = Array.from({ length: 4 }, () => ({
           <span class="eyebrow">פרויקטים</span>
           <h2 class="h2">פרויקטים נבחרים</h2>
         </div>
-        <a class="btn btn-dark btn-sm" href={url('/projects')}>לכל הפרויקטים</a>
+        <a class="text-link" href={url('/projects')}>לכל הפרויקטים ←</a>
       </div>
       <div class="project-grid">
         {projects.map((p) => (
@@ -332,50 +333,33 @@ const projects = Array.from({ length: 4 }, () => ({
     .stat-suffix { font-size: 24px; }
   }
 
-  /* About: the company */
-  .company { background: var(--surface); border-top: 1px solid var(--line); overflow: hidden; }
-  .company-inner { gap: 88px; }
-  .company-head {
-    display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 32px 80px; align-items: start;
+  /* About */
+  .about { background: var(--surface); border-top: 1px solid var(--line); }
+  .about-inner { gap: 80px; }
+  .portrait { margin: 0; width: 100%; max-width: 440px; }
+  .portrait img { display: block; width: 100%; height: auto; }
+  .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
+  .gap-40 { gap: 40px; }
+  .domains-lead { max-width: 760px; font-size: 18px; line-height: 1.75; }
+  .domain-more a { display: inline-flex; align-items: center; min-height: 44px; margin-top: -10px; font-size: 19px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .domain-grid {
+    margin: 0; padding: 40px 0 0; list-style: none; border-top: 2px solid var(--ink);
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px;
   }
-  .company-text { font-size: 19px; line-height: 1.85; color: var(--muted); }
-  /* About: the founder */
-  .founder-grid {
-    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 56px 96px; align-items: center;
-  }
-  .founder-copy { gap: 28px; }
-  .founder-title { font-size: clamp(40px, 5vw, 72px); font-weight: 600; line-height: 1.05; }
-  .founder-title span { color: var(--bronze); }
-  .credentials { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
-  .credentials li {
-    display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 24px;
-    padding: 18px 0; border-top: 1px solid var(--line);
-  }
-  .credentials li:first-child { border-top: 2px solid var(--ink); }
-  .credentials .year { font-size: 16px; font-weight: 500; line-height: 1.9; color: var(--bronze); }
-  .credentials h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.4; }
-  .credentials p { font-size: 16px; line-height: 1.6; }
-
-  .portrait { position: relative; margin: 0; justify-self: center; width: 100%; max-width: 480px; }
-  .portrait img { position: relative; display: block; width: 100%; height: auto; }
-  .glow {
-    position: absolute; inset: -6% -28% 0; z-index: 0;
-    background:
-      radial-gradient(closest-side at 50% 52%, rgba(200, 162, 74, .38), rgba(200, 162, 74, .14) 55%, transparent 100%),
-      radial-gradient(closest-side at 50% 60%, rgba(255, 255, 255, .9), transparent 80%);
-    filter: blur(24px);
-  }
-  .baseline {
-    position: absolute; inset-inline: -12%; bottom: 0; height: 1px;
-    background: linear-gradient(to left, transparent, var(--gold), transparent);
-  }
-
+  .domain-grid li { display: flex; flex-direction: column; gap: 8px; }
+  .domain-grid h4 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.35; }
+  .domain-grid p { font-size: 16px; line-height: 1.6; }
   @media (max-width: 900px) {
-    .company-head, .founder-grid { grid-template-columns: 1fr; }
-    .portrait { order: -1; max-width: 340px; }
+    .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
+  @media (max-width: 560px) {
+    .domain-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+  .milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 32px 24px; }
+  .milestone { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .year { font-size: 15px; font-weight: 500; color: var(--bronze); }
+  .m-title { font-size: 19px; font-weight: 600; line-height: 1.3; }
+  .m-text { font-size: 16px; line-height: 1.55; }
 
   /* Vision */
   .vision { background: var(--night); color: #FFFFFF; }
@@ -389,48 +373,29 @@ const projects = Array.from({ length: 4 }, () => ({
     .section-head { flex-direction: column; align-items: flex-start; gap: 24px; }
   }
 
-  /* Services: one two-tone block, light services on top, dark advisory band below */
-  .services-panel { border: 1px solid var(--line); }
-  .services {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0; padding: 0; background: var(--panel);
-  }
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 24px; }
+  .services-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; }
+  .years { display: flex; align-items: center; gap: 20px; margin: 0; }
+  .years-num { font-size: clamp(72px, 8vw, 120px); font-weight: 500; line-height: .9; color: var(--gold); }
+  .years-text { padding-inline-start: 20px; border-inline-start: 2px solid var(--ink); font-size: clamp(20px, 1.8vw, 26px); font-weight: 600; line-height: 1.3; }
   .service {
-    display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
-    transition: background-color .25s, color .25s;
+    position: relative; display: flex; flex-direction: column; gap: 14px; padding: 32px;
+    background: var(--surface); border: 1px solid var(--line);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
   }
-  .service-num { font-size: 15px; font-weight: 500; color: var(--bronze); transition: color .25s; }
-  .service:hover .service-num { color: var(--gold); }
-  .service:hover { background: var(--night); color: #FFFFFF; }
-  .service:hover p, .service:hover ul { color: var(--on-night-muted); }
-  .service p, .service ul { transition: color .25s; }
-  .service h3 { font-size: 22px; font-weight: 600; line-height: 1.3; }
-  .service p { font-size: 16px; line-height: 1.65; }
-  .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: var(--muted); }
-  .service li { position: relative; padding-inline-start: 16px; }
-  .service li::before { content: ''; position: absolute; inset-inline-start: 0; top: 9px; width: 5px; height: 5px; background: var(--gold); }
-  .services-lead { max-width: 760px; font-size: 18px; line-height: 1.7; color: var(--muted); }
-  .extra {
-    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 24px 64px; align-items: center;
-    padding: 44px 48px; background: var(--night); color: #FFFFFF;
+  .service::before {
+    content: ''; position: absolute; inset-inline: -1px; top: -1px; height: 3px;
+    background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .3s;
   }
-  .extra-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
-  .extra p { font-size: 17px; line-height: 1.7; color: var(--on-night-muted); }
-  .extra-list {
-    margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px;
-    font-size: 17px; line-height: 1.75; color: var(--on-night-muted);
-  }
-  .extra-list li { position: relative; padding-inline-start: 18px; }
-  .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
-  .extra-list strong { font-weight: 600; color: #FFFFFF; }
-  @media (max-width: 640px) {
-    .services { grid-template-columns: 1fr; }
-    .service { padding: 36px 24px; }
-  }
-  @media (max-width: 900px) {
-    .extra { grid-template-columns: 1fr; padding: 32px 24px; }
-  }
+  .service:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: 0 16px 32px rgba(15, 27, 38, .08); }
+  .service:hover::before { transform: scaleX(1); }
+  .num { font-size: 15px; font-weight: 500; color: var(--bronze); }
+  .service h3 { font-size: 24px; font-weight: 600; line-height: 1.25; }
+  .service p { font-size: 16px; }
+  .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; font-size: 16px; }
+  .service li { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); line-height: 1.5; }
+  .service li::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: 9px; background: var(--gold); }
 
   /* Projects */
   .projects { background: var(--band); }
