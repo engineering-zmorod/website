@@ -13,10 +13,8 @@ const stats = [
   { value: 30, prefix: 'עד ', suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
 ];
 
-const activities = [
-  { title: 'תכנון קונסטרוקטיבי', text: 'תכנון מגדלי מגורים ומשרדים, מבני ציבור, תעשייה ומסחר, מבני בוטיק ופרויקטים הנדסיים מורכבים.' },
-  { title: 'בקרת תכן מבנים', text: 'בדיקה ובקרה של תכנונים קונסטרוקטיביים, בחינת חלופות תכנון ושיפור היעילות והכדאיות הכלכלית של הפרויקט.' },
-  { title: 'בקרת יציבות ומיגון', text: 'בקרת יציבות מבנים והתאמתם לדרישות התקינה והמיגון, לרבות במסגרת הליכי רישוי ובקרת תוכניות ביצוע.' },
+// Shown under the service cards: the advisory work the four cards don't cover.
+const extras = [
   { title: 'ליווי הנדסי וחוות דעת מקצועיות', text: 'ליווי פרויקטים ומתן חוות דעת מקצועיות לצורך בחינת פתרונות הנדסיים ושיפור תהליכי התכנון והביצוע.' },
   { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
 ];
@@ -168,7 +166,6 @@ const projects = Array.from({ length: 4 }, () => ({
               </li>
             ))}
           </ol>
-          <a class="btn btn-dark btn-sm" href={url('/about')}>קראו עוד עלינו</a>
         </div>
 
         <figure class="portrait">
@@ -193,18 +190,19 @@ const projects = Array.from({ length: 4 }, () => ({
         להעניק שירות הנדסי מקצועי ואיכותי, תוך הקפדה על רמת תכנון גבוהה, עמידה בלוחות זמנים וגיבוש פתרונות הנדסיים
         יעילים וכדאיים מבחינה כלכלית המעניקים ליזם ערך מוסף לאורך כל שלבי הפרויקט.
       </p>
+      <a class="btn btn-gold btn-sm vision-btn" href={url('/about')}>קראו עוד עלינו</a>
     </div>
   </section>
 
   <!-- Services -->
   <section class="section">
     <div class="container stack gap-56">
-      <div class="section-head">
-        <div class="stack gap-16">
-          <span class="eyebrow">שירותים</span>
-          <h2 class="h2">מהתכנון ועד הבקרה</h2>
-        </div>
-        <a class="btn btn-dark btn-sm" href={url('/services')}>לכל השירותים</a>
+      <div class="stack gap-16">
+        <span class="eyebrow">שירותים</span>
+        <h2 class="h2">מהתכנון ועד הבקרה</h2>
+        <p class="services-lead">
+          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+        </p>
       </div>
       <div class="services">
         {services.map((s, i) => (
@@ -217,6 +215,21 @@ const projects = Array.from({ length: 4 }, () => ({
             </ul>
           </article>
         ))}
+      </div>
+
+      <div class="extra">
+        <div class="stack gap-16">
+          <h3 class="extra-title">ליווי לאורך כל הפרויקט</h3>
+          <p class="muted">
+            מעבר לתכנון ולבקרה, החברה מלווה יזמים ובעלי פרויקטים גם בשלבי ההחלטה והביצוע, כדי שכל פתרון יהיה נכון
+            הנדסית וכדאי כלכלית.
+          </p>
+        </div>
+        <ul class="extra-list">
+          {extras.map((a) => (
+            <li><strong>{a.title}</strong> — {a.text}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -361,6 +374,25 @@ const projects = Array.from({ length: 4 }, () => ({
   .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; font-size: 16px; }
   .service li { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); line-height: 1.5; }
   .service li::before { content: ''; flex: none; width: 7px; height: 7px; margin-top: 9px; background: var(--gold); }
+  .services-lead { max-width: 760px; font-size: 18px; line-height: 1.7; color: var(--muted); }
+  .extra {
+    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 24px 64px; align-items: center;
+    padding: 36px 40px; background: var(--band); border: 1px solid var(--line);
+  }
+  .extra-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
+  .extra p { font-size: 17px; line-height: 1.7; }
+  .extra-list {
+    margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px;
+    font-size: 17px; line-height: 1.75; color: var(--muted);
+  }
+  .extra-list li { position: relative; padding-inline-start: 18px; }
+  .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
+  .extra-list strong { font-weight: 600; color: var(--ink); }
+  .vision-btn { margin-top: 12px; }
+  @media (max-width: 900px) {
+    .extra { grid-template-columns: 1fr; padding: 28px 24px; }
+  }
 
   /* Projects */
   .projects { background: var(--band); }
