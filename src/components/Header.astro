@@ -16,17 +16,49 @@ const isCurrent = (href: string) =>
         <small>הנדסת מבנים בע"מ</small>
       </span>
     </a>
+
     <nav class="nav" aria-label="ניווט ראשי">
       {navItems.map((item) => (
         <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
     <a class="header-cta" href={url('/contact')}>ליצירת קשר</a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="פתיחת תפריט">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
   </div>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="תפריט" hidden>
+    {navItems.map((item) => (
+      <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+    ))}
+  </nav>
 </header>
 
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'סגירת תפריט' : 'פתיחת תפריט');
+      menu.hidden = !open;
+    };
+    toggle.addEventListener('click', () => setOpen(menu.hidden));
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) { setOpen(false); toggle.focus(); }
+    });
+  }
+</script>
+
 <style>
-  .site-header { padding: 18px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
+  .site-header { position: relative; padding: 18px var(--gutter); border-bottom: 1px solid var(--line); background: var(--paper); }
   .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; }
   .brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
   .brand-mark { display: flex; justify-content: center; width: 32px; height: 32px; border: 2px solid var(--ink); }
@@ -41,5 +73,40 @@ const isCurrent = (href: string) =>
     display: inline-flex; align-items: center; justify-content: center;
     min-height: 48px; padding: 0 24px;
     background: var(--ink); color: #FFFFFF; font-size: 16px; font-weight: 600;
+  }
+
+  /* Hamburger: only on narrow screens */
+  .menu-toggle {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+    width: 48px; height: 48px; padding: 0;
+    border: 1.5px solid var(--ink); background: transparent; cursor: pointer;
+  }
+  .menu-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); transition: transform .2s, opacity .2s; }
+  .menu-toggle[aria-expanded='true'] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded='true'] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .mobile-menu {
+    position: absolute; inset-inline: 0; top: 100%; z-index: 20;
+    display: flex; flex-direction: column;
+    padding: 8px var(--gutter) 24px;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    box-shadow: 0 12px 24px rgba(15, 27, 38, .08);
+  }
+  .mobile-menu[hidden] { display: none; }
+  .mobile-menu a {
+    display: flex; align-items: center; min-height: 56px;
+    font-size: 19px; font-weight: 500; border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu a[aria-current='page'] { color: var(--bronze); font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .nav, .header-cta { display: none; }
+    .menu-toggle { display: flex; }
+    .bar { flex-wrap: nowrap; }
+  }
+  @media (min-width: 901px) {
+    .mobile-menu { display: none !important; }
   }
 </style>
