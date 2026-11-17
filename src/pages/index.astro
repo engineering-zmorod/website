@@ -372,15 +372,16 @@ const projects = Array.from({ length: 4 }, () => ({
   /* Services: one two-tone block, light services on top, dark advisory band below */
   .services-panel { border: 1px solid var(--line); }
   .services {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0; padding: 0; background: var(--panel);
   }
   .service {
-    display: flex; flex-direction: column; gap: 12px; padding: 56px 32px;
+    display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
     border-inline-start: 1px solid var(--line-strong);
     transition: background-color .25s, color .25s;
   }
-  .service:first-child { border-inline-start: 0; }
+  .service:nth-child(odd) { border-inline-start: 0; }
+  .service:nth-child(n + 3) { border-top: 1px solid var(--line-strong); }
   .service:hover { background: var(--night); color: #FFFFFF; }
   .service:hover p, .service:hover ul { color: var(--on-night-muted); }
   .service p, .service ul { transition: color .25s; }
@@ -405,9 +406,6 @@ const projects = Array.from({ length: 4 }, () => ({
   .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
   .extra-list strong { font-weight: 600; color: #FFFFFF; }
   .vision-btn { margin-top: 12px; }
-  @media (max-width: 1200px) {
-    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
   @media (max-width: 640px) {
     .services { grid-template-columns: 1fr; }
     .service { padding: 36px 24px; border-inline-start: 0; border-top: 1px solid var(--line-strong); }
