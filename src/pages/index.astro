@@ -5,6 +5,7 @@ import { url } from '../lib/url';
 import { contact } from '../lib/nav';
 import { Image } from 'astro:assets';
 import portrait from '../assets/founder-cutout.png';
+import { podcast } from '../lib/press';
 
 const stats = [
   { value: 400, prefix: '', suffix: '+', label: 'פרויקטים' },
@@ -260,6 +261,29 @@ const projects = Array.from({ length: 4 }, () => ({
     </div>
   </section>
 
+  <!-- Podcast teaser -->
+  <section class="section listen">
+    <div class="container listen-grid">
+      <div class="stack gap-24">
+        <span class="eyebrow listen-eyebrow">פודקאסט · {podcast.show}</span>
+        <h2 class="h2">הסיפור שמאחורי המבנים</h2>
+        <p class="listen-text">
+          על האומץ להקים חברה משלה, על דרכה בתחום גברי מאוד ועל הסטנדרטים שהיא לא מוכנה להתפשר עליהם. האזינו לשיחה
+          עם זמורוד חסן בפרק "{podcast.title}".
+        </p>
+        <a class="btn btn-gold btn-sm" href={url('/press')}>לכל הכתבות והראיונות</a>
+      </div>
+      <div class="listen-player">
+        <iframe
+          src={`${podcast.embed}?theme=0`}
+          title={`${podcast.title}, ${podcast.show}`}
+          loading="lazy"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section class="section contact" id="contact">
     <div class="container two-col">
@@ -420,6 +444,19 @@ const projects = Array.from({ length: 4 }, () => ({
   .project-photo { aspect-ratio: 3 / 4; background-color: #DFD9CC; border-color: #CBC4B4; }
   .p-name { font-size: 21px; font-weight: 600; line-height: 1.3; }
   .p-meta { font-size: 15px; }
+
+  /* Podcast teaser */
+  .listen { background: var(--night); color: #FFFFFF; }
+  .listen-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px 80px; align-items: center;
+  }
+  .listen-eyebrow { color: var(--gold); }
+  .listen-text { max-width: 560px; font-size: 18px; line-height: 1.8; color: var(--on-night-muted); }
+  .listen-player iframe { display: block; width: 100%; height: 232px; border: 0; }
+  @media (max-width: 900px) {
+    .listen-grid { grid-template-columns: 1fr; }
+  }
 
   /* Contact */
   .contact { padding-block: 104px; background: var(--gold); }
