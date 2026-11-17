@@ -80,13 +80,15 @@
 
 <style>
 .fig {
-  margin: 0; display: flex; justify-content: center; padding: 40px 0; overflow: hidden;
+  margin: 0; display: flex; justify-content: center; padding: 40px 72px; overflow: hidden;
+  width: fit-content; max-width: 100%; justify-self: center;
   border: 1px solid var(--line);
   background-color: var(--panel);
   background-image: linear-gradient(rgba(15,27,38,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.06) 1px, transparent 1px);
   background-size: 24px 24px;
 }
-.draw { position: relative; direction: ltr; flex: none; width: 340px; height: 584px; }
+.draw { position: relative; direction: ltr; flex: none; width: 340px; height: 584px; zoom: 1.2; }
+@media (max-width: 520px) { .fig { padding: 32px 16px; } .draw { zoom: 1; } }
 .draw div { position: absolute; }
 .group { left: 0; top: 0; width: 340px; height: 584px; }
 .k { background: var(--ink); }
