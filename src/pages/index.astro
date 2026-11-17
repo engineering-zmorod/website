@@ -377,11 +377,8 @@ const projects = Array.from({ length: 4 }, () => ({
   }
   .service {
     display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
-    border-inline-start: 1px solid var(--line-strong);
     transition: background-color .25s, color .25s;
   }
-  .service:nth-child(odd) { border-inline-start: 0; }
-  .service:nth-child(n + 3) { border-top: 1px solid var(--line-strong); }
   .service:hover { background: var(--night); color: #FFFFFF; }
   .service:hover p, .service:hover ul { color: var(--on-night-muted); }
   .service p, .service ul { transition: color .25s; }
@@ -408,8 +405,7 @@ const projects = Array.from({ length: 4 }, () => ({
   .vision-btn { margin-top: 12px; }
   @media (max-width: 640px) {
     .services { grid-template-columns: 1fr; }
-    .service { padding: 36px 24px; border-inline-start: 0; border-top: 1px solid var(--line-strong); }
-    .service:first-child { border-top: 0; }
+    .service { padding: 36px 24px; }
   }
   @media (max-width: 900px) {
     .extra { grid-template-columns: 1fr; padding: 32px 24px; }
