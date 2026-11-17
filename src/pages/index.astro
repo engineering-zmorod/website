@@ -365,17 +365,16 @@ const projects = Array.from({ length: 4 }, () => ({
     margin: 0; padding: 0; list-style: none;
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px;
   }
-  .domain-grid li { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .domain-grid li { display: flex; flex-direction: column; gap: 8px; }
   .domain-grid h4 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.35; }
   .domain-grid p { font-size: 16px; line-height: 1.6; }
-  .domain-grid .domain-cta { border-top: 0; justify-content: flex-end; align-items: flex-end; }
+  .domain-grid .domain-cta { justify-content: flex-end; }
   .domain-cta .btn { align-self: flex-end; }
   @media (max-width: 900px) {
     .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 560px) {
     .domain-grid { grid-template-columns: 1fr; gap: 28px; }
-    .domain-grid .domain-cta { padding-top: 0; }
     .domain-cta .btn { align-self: flex-start; }
   }
   .milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 32px 24px; }
