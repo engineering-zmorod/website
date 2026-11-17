@@ -206,8 +206,9 @@ const projects = Array.from({ length: 4 }, () => ({
       </div>
       <div class="services-panel">
         <div class="services">
-          {services.map((s) => (
+          {services.map((s, i) => (
             <article class="service">
+              <span class="mono service-num">{String(i + 1).padStart(2, '0')}</span>
               <h3>{s.title}</h3>
               <p class="muted">{s.text}</p>
               <ul>
@@ -379,6 +380,8 @@ const projects = Array.from({ length: 4 }, () => ({
     display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
     transition: background-color .25s, color .25s;
   }
+  .service-num { font-size: 15px; font-weight: 500; color: var(--bronze); transition: color .25s; }
+  .service:hover .service-num { color: var(--gold); }
   .service:hover { background: var(--night); color: #FFFFFF; }
   .service:hover p, .service:hover ul { color: var(--on-night-muted); }
   .service p, .service ul { transition: color .25s; }
