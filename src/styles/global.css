@@ -19,8 +19,8 @@
   --font-body: 'IBM Plex Sans Hebrew', 'Heebo', 'Arial Hebrew', Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 
-  --gutter: clamp(20px, 5vw, 80px);
-  --max: 1280px;
+  --gutter: clamp(20px, 3vw, 56px);
+  --max: 1536px;
 }
 
 * { box-sizing: border-box; }
