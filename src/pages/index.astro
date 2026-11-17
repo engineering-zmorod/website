@@ -183,7 +183,7 @@ const projects = Array.from({ length: 4 }, () => ({
               החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
             </p>
           </div>
-          <a class="text-link" href={url('/#services')}>לשירותים שלנו ←</a>
+          <a class="text-link no-line" href={url('/#services')}>לשירותים שלנו ←</a>
         </div>
         <ul class="domain-grid">
           {activities.map((a) => (
@@ -335,8 +335,9 @@ const projects = Array.from({ length: 4 }, () => ({
   .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
   .gap-40 { gap: 40px; }
   .domains-lead { max-width: 760px; font-size: 18px; line-height: 1.75; }
+  .no-line { border-bottom: 0; }
   .domain-grid {
-    margin: 0; padding: 0; list-style: none;
+    margin: 0; padding: 40px 0 0; list-style: none; border-top: 2px solid var(--ink);
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px;
   }
   .domain-grid li { display: flex; flex-direction: column; gap: 8px; }
