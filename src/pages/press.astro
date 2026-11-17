@@ -81,15 +81,17 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
 
   .page-head {
     padding: 80px var(--gutter) 72px;
-    border-bottom: 1px solid var(--line);
-    background-color: var(--paper);
+    background-color: var(--night);
+    color: #FFFFFF;
+    border-top: 1px solid rgba(255, 255, 255, .08);
     background-image:
-      linear-gradient(rgba(15, 27, 38, .045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 27, 38, .045) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
   .page-head h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
-  .page-head .lead { max-width: 760px; }
+  .page-head .eyebrow-mono { color: var(--gold); }
+  .page-head .lead { max-width: 760px; color: var(--on-night-muted); }
 
   .podcast { background: var(--surface); }
   .podcast-inner { gap: 32px; }
