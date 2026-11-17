@@ -142,7 +142,7 @@ const projects = Array.from({ length: 4 }, () => ({
       <div class="company-head">
         <div class="stack gap-16">
           <span class="eyebrow">מי אנחנו</span>
-          <h2 class="h2">תכנון קונסטרוקציה וייעוץ הנדסי למבנים מורכבים</h2>
+          <h2 class="h2">17 שנים של מבנים שעומדים איתן</h2>
         </div>
         <p class="company-text">
           זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
@@ -328,10 +328,10 @@ const projects = Array.from({ length: 4 }, () => ({
   .activities-head p { max-width: 760px; font-size: 18px; line-height: 1.7; }
   .activities {
     margin: 4px 0 0; padding: 0; list-style: none;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 56px;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 56px; align-items: start;
     font-size: 17px; line-height: 1.75; color: var(--muted);
   }
-  .activities li { position: relative; padding-inline-start: 18px; }
+  .activities li { position: relative; padding-inline-start: 18px; text-align: justify; text-justify: inter-word; }
   .activities li::before {
     content: ''; position: absolute; inset-inline-start: 0; top: 12px;
     width: 5px; height: 5px; background: var(--gold);
