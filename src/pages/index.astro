@@ -162,10 +162,7 @@ const projects = Array.from({ length: 4 }, () => ({
         </div>
         <ul class="activities">
           {activities.map((a) => (
-            <li>
-              <h4>{a.title}</h4>
-              <p class="muted">{a.text}</p>
-            </li>
+            <li><strong>{a.title}</strong> — {a.text}</li>
           ))}
         </ul>
       </div>
@@ -330,16 +327,16 @@ const projects = Array.from({ length: 4 }, () => ({
   .activities-head { display: flex; flex-direction: column; gap: 10px; }
   .activities-head p { max-width: 760px; font-size: 18px; line-height: 1.7; }
   .activities {
-    margin: 8px 0 0; padding: 0; list-style: none;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 64px;
+    margin: 4px 0 0; padding: 0; list-style: none;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 56px;
+    font-size: 17px; line-height: 1.75; color: var(--muted);
   }
-  .activities li { position: relative; padding-inline-start: 22px; }
+  .activities li { position: relative; padding-inline-start: 18px; }
   .activities li::before {
-    content: ''; position: absolute; inset-inline-start: 0; top: 11px;
-    width: 8px; height: 8px; background: var(--gold);
+    content: ''; position: absolute; inset-inline-start: 0; top: 12px;
+    width: 5px; height: 5px; background: var(--gold);
   }
-  .activities h4 { margin: 0 0 4px; font-size: 20px; font-weight: 600; line-height: 1.4; }
-  .activities p { font-size: 17px; line-height: 1.7; }
+  .activities strong { font-weight: 600; color: var(--ink); }
 
   /* About: the founder */
   .founder { background: var(--paper); overflow: hidden; }
@@ -377,7 +374,7 @@ const projects = Array.from({ length: 4 }, () => ({
   @media (max-width: 900px) {
     .company-head, .founder-grid { grid-template-columns: 1fr; }
     .portrait { order: -1; max-width: 340px; }
-    .activities { grid-template-columns: 1fr; gap: 24px; }
+    .activities { grid-template-columns: 1fr; gap: 12px; }
   }
 
   /* Vision */
