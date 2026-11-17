@@ -7,10 +7,10 @@ import { Image } from 'astro:assets';
 import portrait from '../assets/founder-cutout.png';
 
 const stats = [
-  { value: 400, suffix: '+', label: 'פרויקטים' },
-  { value: 300, suffix: '+', label: 'לקוחות' },
-  { value: 17, suffix: ' שנים', label: 'ניסיון' },
-  { value: 30, suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
+  { value: 400, prefix: '', suffix: '+', label: 'פרויקטים' },
+  { value: 300, prefix: '', suffix: '+', label: 'לקוחות' },
+  { value: 17, prefix: '', suffix: ' שנים', label: 'ניסיון' },
+  { value: 30, prefix: 'עד ', suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
 ];
 
 const activities = [
@@ -102,7 +102,7 @@ const projects = Array.from({ length: 4 }, () => ({
       {stats.map((s) => (
         <div class="stat">
           <span class="stat-value" dir={s.suffix === '+' ? 'ltr' : undefined}>
-            <span data-count={s.value}>{s.value}</span><span class="stat-suffix">{s.suffix}</span>
+            {s.prefix && <span class="stat-suffix">{s.prefix}</span>}<span data-count={s.value}>{s.value}</span><span class="stat-suffix">{s.suffix}</span>
           </span>
           <span class="muted stat-label">{s.label}</span>
         </div>
@@ -168,7 +168,7 @@ const projects = Array.from({ length: 4 }, () => ({
               </li>
             ))}
           </ol>
-          <a class="text-link" href={url('/about')}>קראו עוד עלינו ←</a>
+          <a class="btn btn-dark btn-sm" href={url('/about')}>קראו עוד עלינו</a>
         </div>
 
         <figure class="portrait">
@@ -204,7 +204,7 @@ const projects = Array.from({ length: 4 }, () => ({
           <span class="eyebrow">שירותים</span>
           <h2 class="h2">מהתכנון ועד הבקרה</h2>
         </div>
-        <a class="text-link" href={url('/services')}>לכל השירותים ←</a>
+        <a class="btn btn-dark btn-sm" href={url('/services')}>לכל השירותים</a>
       </div>
       <div class="services">
         {services.map((s, i) => (
@@ -229,7 +229,7 @@ const projects = Array.from({ length: 4 }, () => ({
           <span class="eyebrow">פרויקטים</span>
           <h2 class="h2">פרויקטים נבחרים</h2>
         </div>
-        <a class="text-link" href={url('/projects')}>לכל הפרויקטים ←</a>
+        <a class="btn btn-dark btn-sm" href={url('/projects')}>לכל הפרויקטים</a>
       </div>
       <div class="project-grid">
         {projects.map((p) => (

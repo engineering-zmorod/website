@@ -70,6 +70,10 @@ h1, h2 { text-wrap: balance; }
 }
 .btn-gold { background: var(--gold); color: var(--ink); }
 .btn-dark { background: var(--ink); color: #FFFFFF; }
+.btn-sm { align-self: flex-start; min-height: 52px; padding: 0 28px; font-size: 17px; }
+.btn { transition: background-color .2s, color .2s; }
+.btn-dark:hover { background: var(--gold); color: var(--ink); opacity: 1; }
+.btn-gold:hover { background: #B8913A; opacity: 1; }
 .btn-outline { border: 2px solid var(--ink); }
 .text-link {
   display: inline-flex; align-items: center; align-self: flex-start;
