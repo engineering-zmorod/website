@@ -176,14 +176,11 @@ const projects = Array.from({ length: 4 }, () => ({
       </div>
 
       <div class="stack gap-40">
-        <div class="section-head">
-          <div class="stack gap-16">
-            <h3 class="h3">תחומי הפעילות והשירותים</h3>
-            <p class="muted domains-lead">
-              החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
-            </p>
-          </div>
-          <a class="text-link no-line" href={url('/#services')}>לשירותים שלנו ←</a>
+        <div class="stack gap-16">
+          <h3 class="h3">תחומי הפעילות והשירותים</h3>
+          <p class="muted domains-lead">
+            החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+          </p>
         </div>
         <ul class="domain-grid">
           {activities.map((a) => (
@@ -192,6 +189,9 @@ const projects = Array.from({ length: 4 }, () => ({
               <p class="muted">{a.text}</p>
             </li>
           ))}
+          <li class="domain-more">
+            <a href={url('/#services')}>לפירוט השירותים ←</a>
+          </li>
         </ul>
       </div>
 
@@ -341,7 +341,8 @@ const projects = Array.from({ length: 4 }, () => ({
   .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
   .gap-40 { gap: 40px; }
   .domains-lead { max-width: 760px; font-size: 18px; line-height: 1.75; }
-  .no-line { border-bottom: 0; }
+  .domain-more a { display: inline-flex; align-items: center; min-height: 44px; margin-top: -10px; font-size: 19px; font-weight: 600; line-height: 1.35; color: var(--bronze); }
+  .domain-more a:hover { color: var(--ink); opacity: 1; }
   .domain-grid {
     margin: 0; padding: 40px 0 0; list-style: none; border-top: 2px solid var(--ink);
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px;
