@@ -218,26 +218,12 @@ const projects = Array.from({ length: 4 }, () => ({
       </div>
 
       <div class="extra">
-        <div class="extra-intro">
-          <svg class="extra-icon" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke-linecap="square">
-            <!-- building -->
-            <rect x="10" y="14" width="30" height="48" stroke="#0F1B26" stroke-width="2" fill="#FAF8F3" />
-            <path d="M10 22h30M10 30h30M10 38h30M10 46h30M10 54h30" stroke="#0F1B26" stroke-width="1" opacity=".45" />
-            <rect x="21" y="14" width="8" height="48" fill="#C8A24A" fill-opacity=".45" stroke="#C8A24A" stroke-width="1.5" />
-            <path d="M4 62h40" stroke="#0F1B26" stroke-width="2" />
-            <!-- lens -->
-            <circle cx="44" cy="36" r="14" fill="#FAF8F3" stroke="#0F1B26" stroke-width="3" />
-            <circle cx="44" cy="36" r="11" stroke="#C8A24A" stroke-width="1.5" />
-            <path d="M54 46l10 10" stroke="#0F1B26" stroke-width="5" />
-            <path d="M38 36l4 4 7-8" stroke="#0F1B26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <div class="stack gap-16">
+        <div class="stack gap-16">
           <h3 class="extra-title">ליווי לאורך כל הפרויקט</h3>
           <p class="muted">
             מעבר לתכנון ולבקרה, החברה מלווה יזמים ובעלי פרויקטים גם בשלבי ההחלטה והביצוע, כדי שכל פתרון יהיה נכון
             הנדסית וכדאי כלכלית.
           </p>
-          </div>
         </div>
         <ul class="extra-list">
           {extras.map((a) => (
@@ -394,8 +380,6 @@ const projects = Array.from({ length: 4 }, () => ({
     gap: 24px 64px; align-items: center;
     padding: 36px 40px; background: var(--band); border: 1px solid var(--line);
   }
-  .extra-intro { display: flex; align-items: flex-start; gap: 24px; }
-  .extra-icon { flex: none; width: 72px; height: 72px; }
   .extra-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
   .extra p { font-size: 17px; line-height: 1.7; }
   .extra-list {
@@ -408,8 +392,6 @@ const projects = Array.from({ length: 4 }, () => ({
   .vision-btn { margin-top: 12px; }
   @media (max-width: 900px) {
     .extra { grid-template-columns: 1fr; padding: 28px 24px; }
-    .extra-intro { flex-direction: column; gap: 16px; }
-    .extra-icon { width: 56px; height: 56px; }
   }
 
   /* Projects */
