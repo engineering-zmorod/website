@@ -8,6 +8,7 @@ const stats = [
   { value: 400, suffix: '+', label: 'פרויקטים' },
   { value: 300, suffix: '+', label: 'לקוחות' },
   { value: 17, suffix: ' שנים', label: 'ניסיון' },
+  { value: 30, suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
 ];
 
 const activities = [
@@ -284,11 +285,16 @@ const projects = Array.from({ length: 4 }, () => ({
 
   /* Stats */
   .stats-wrap { padding: 0 var(--gutter) 96px; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 32px; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
   .stat { display: flex; flex-direction: column; gap: 6px; padding-top: 20px; border-top: 2px solid var(--ink); }
   .stat-value { font-family: var(--font-mono); font-size: 44px; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; align-self: flex-start; }
   .stat-suffix { font-family: var(--font-body); font-size: 30px; font-weight: 600; }
   .stat-label { font-size: 16px; }
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+    .stat-value { font-size: 36px; }
+    .stat-suffix { font-size: 24px; }
+  }
 
   /* About */
   .about { background: var(--surface); border-top: 1px solid var(--line); }
