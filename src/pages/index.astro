@@ -182,11 +182,14 @@ const projects = Array.from({ length: 4 }, () => ({
       </div>
 
       <div class="stack gap-40">
-        <div class="stack gap-16">
-          <h3 class="h3">תחומי הפעילות והשירותים</h3>
-          <p class="muted domains-lead">
-            החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
-          </p>
+        <div class="section-head">
+          <div class="stack gap-16">
+            <h3 class="h3">תחומי הפעילות והשירותים</h3>
+            <p class="muted domains-lead">
+              החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+            </p>
+          </div>
+          <a class="btn btn-outline btn-sm" href={url('/#services')}>לשירותים שלנו</a>
         </div>
         <ul class="domain-grid">
           {activities.map((a) => (
@@ -195,9 +198,6 @@ const projects = Array.from({ length: 4 }, () => ({
               <p class="muted">{a.text}</p>
             </li>
           ))}
-          <li class="domain-cta">
-            <a class="btn btn-dark btn-sm" href={url('/#services')}>לשירותים שלנו</a>
-          </li>
         </ul>
       </div>
 
@@ -368,14 +368,11 @@ const projects = Array.from({ length: 4 }, () => ({
   .domain-grid li { display: flex; flex-direction: column; gap: 8px; }
   .domain-grid h4 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.35; }
   .domain-grid p { font-size: 16px; line-height: 1.6; }
-  .domain-grid .domain-cta { justify-content: flex-end; }
-  .domain-cta .btn { align-self: flex-end; }
   @media (max-width: 900px) {
     .domain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 560px) {
     .domain-grid { grid-template-columns: 1fr; gap: 28px; }
-    .domain-cta .btn { align-self: flex-start; }
   }
   .milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 32px 24px; }
   .milestone { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink); }
