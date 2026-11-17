@@ -20,12 +20,20 @@ const extras = [
   { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
 ];
 
-const credentials = [
-  { year: '2008', title: 'הטכניון, בהצטיינות', text: 'בוגרת הפקולטה להנדסה אזרחית וסביבתית, בהתמחות תכנון מבנים לרעידות אדמה.' },
-  { year: '2018', title: 'RICS לונדון', text: 'בקרית תכן מבנים מורשית, בוגרת הארגון הבריטי RICS.' },
-  { year: '2019', title: 'מהנדס צעיר מצטיין בתחום התכנון', text: 'פרס מטעם איגוד המהנדסים והתשתיות בישראל.' },
-  { year: '2020', title: '40 הצעירים המבטיחים', text: 'בנדל"ן ובהתחדשות עירונית.' },
-  { year: '2022', title: 'בקרית מיגון מורשית', text: 'הסמכה מטעם פיקוד העורף.' },
+const activities = [
+  { title: 'תכנון קונסטרוקטיבי', text: 'תכנון מגדלי מגורים ומשרדים, מבני ציבור, תעשייה ומסחר, מבני בוטיק ופרויקטים הנדסיים מורכבים.' },
+  { title: 'בקרת תכן מבנים', text: 'בדיקה ובקרה של תכנונים קונסטרוקטיביים, בחינת חלופות תכנון ושיפור היעילות והכדאיות הכלכלית של הפרויקט.' },
+  { title: 'בקרת יציבות ומיגון', text: 'בקרת יציבות מבנים והתאמתם לדרישות התקינה והמיגון, לרבות במסגרת הליכי רישוי ובקרת תוכניות ביצוע.' },
+  { title: 'ליווי הנדסי וחוות דעת מקצועיות', text: 'ליווי פרויקטים ומתן חוות דעת מקצועיות לצורך בחינת פתרונות הנדסיים ושיפור תהליכי התכנון והביצוע.' },
+  { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
+];
+
+const milestones = [
+  { year: '2008', title: 'הטכניון', text: 'הפקולטה להנדסה אזרחית וסביבתית. סיום בהצטיינות, התמחות בתכנון מבנים עמידים ברעידות אדמה.' },
+  { year: '2018', title: 'RICS London', text: 'בקרית תכן מבנים מורשית, בוגרת RICS.' },
+  { year: '2019', title: 'מהנדסת צעירה מצטיינת בתכנון', text: 'מטעם איגוד המהנדסים והתשתיות בישראל.' },
+  { year: '2020', title: '40 הצעירים המבטיחים', text: 'נבחרה לרשימה בתחום הנדל"ן וההתחדשות העירונית.' },
+  { year: '2022', title: 'בקרית מיגון מורשית', text: 'בהסמכת פיקוד העורף.' },
 ];
 
 const services = [
@@ -135,50 +143,57 @@ const projects = Array.from({ length: 4 }, () => ({
     }
   </script>
 
-  <!-- About: the company -->
-  <section class="section company" id="about">
-    <div class="container stack company-inner">
-      <div class="company-head">
-        <div class="stack gap-16">
-          <span class="eyebrow">מי אנחנו</span>
-          <h2 class="h2">17 שנים של מבנים שעומדים איתן</h2>
-        </div>
-        <p class="company-text">
-          זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
-          תכן, בדיקות יציבות ומיגון. החברה עוסקת בתכנון קונסטרוקטיבי של מגוון רחב של מבנים מורכבים, בהם מגדלי מגורים
-          ומשרדים בגובה של עד 30 קומות, מבנים מעל חניונים תת־קרקעיים, פרויקטים של בנייה רוויה, מבני בוטיק, מבני
-          ציבור, מבני תעשייה ומסחר. בנוסף, החברה מספקת שירותי ייעוץ וליווי הנדסי, חוות דעת מקצועיות וגיבוש פתרונות
-          הנדסיים לשיפור תהליכי התכנון ולהתייעלות כלכלית.
-        </p>
-      </div>
-
-      <div class="founder-grid">
-        <div class="stack founder-copy">
-          <span class="eyebrow">המייסדת</span>
-          <h2 class="founder-title">אישה אחת,<br /><span>רזומה עשיר.</span></h2>
-          <ol class="credentials">
-            {credentials.map((c) => (
-              <li>
-                <span class="mono year">{c.year}</span>
-                <div class="stack">
-                  <h4>{c.title}</h4>
-                  <p class="muted">{c.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
+  <!-- About -->
+  <section class="section about" id="about">
+    <div class="container stack about-inner">
+      <div class="two-col">
         <figure class="portrait">
-          <span class="glow" aria-hidden="true"></span>
           <Image
             src={portrait}
             alt="זמורוד חסן, מהנדסת ובעלת החברה"
             widths={[440, 720, 932]}
-            sizes="(max-width: 900px) 80vw, 480px"
+            sizes="(max-width: 900px) 90vw, 440px"
           />
-          <span class="baseline" aria-hidden="true"></span>
         </figure>
+        <div class="stack gap-24">
+          <span class="eyebrow">מי אנחנו</span>
+          <h2 class="h2">אישה אחת, רזומה עשיר</h2>
+          <p class="muted body">
+            זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
+            תכן, בדיקות יציבות ומיגון. החברה עוסקת בתכנון קונסטרוקטיבי של מגוון רחב של מבנים מורכבים, בהם מגדלי מגורים
+            ומשרדים בגובה של עד 30 קומות, מבנים מעל חניונים תת־קרקעיים, פרויקטים של בנייה רוויה, מבני בוטיק, מבני
+            ציבור, מבני תעשייה ומסחר.
+          </p>
+          <p class="muted body">
+            בנוסף, החברה מספקת שירותי ייעוץ וליווי הנדסי, חוות דעת מקצועיות וגיבוש פתרונות הנדסיים לשיפור תהליכי התכנון
+            ולהתייעלות כלכלית.
+          </p>
+        </div>
+      </div>
+
+      <div class="stack gap-24">
+        <h3 class="h3">תחומי הפעילות והשירותים</h3>
+        <p class="muted body">
+          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית:
+        </p>
+        <div class="rows">
+          {activities.map((a) => (
+            <div class="row">
+              <h4>{a.title}</h4>
+              <p class="muted">{a.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="milestones">
+        {milestones.map((m) => (
+          <div class="milestone">
+            <span class="mono year">{m.year}</span>
+            <span class="m-title">{m.title}</span>
+            <span class="muted m-text">{m.text}</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -332,50 +347,29 @@ const projects = Array.from({ length: 4 }, () => ({
     .stat-suffix { font-size: 24px; }
   }
 
-  /* About: the company */
-  .company { background: var(--surface); border-top: 1px solid var(--line); overflow: hidden; }
-  .company-inner { gap: 88px; }
-  .company-head {
-    display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 32px 80px; align-items: start;
+  /* About */
+  .about { background: var(--surface); border-top: 1px solid var(--line); }
+  .about-inner { gap: 80px; }
+  .portrait { margin: 0; width: 100%; max-width: 440px; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line-strong); background: var(--panel); }
+  .portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
+  .rows { display: flex; flex-direction: column; }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 6px 64px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
   }
-  .company-text { font-size: 19px; line-height: 1.85; color: var(--muted); }
-  /* About: the founder */
-  .founder-grid {
-    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 56px 96px; align-items: center;
-  }
-  .founder-copy { gap: 28px; }
-  .founder-title { font-size: clamp(40px, 5vw, 72px); font-weight: 600; line-height: 1.05; }
-  .founder-title span { color: var(--bronze); }
-  .credentials { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
-  .credentials li {
-    display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 24px;
-    padding: 18px 0; border-top: 1px solid var(--line);
-  }
-  .credentials li:first-child { border-top: 2px solid var(--ink); }
-  .credentials .year { font-size: 16px; font-weight: 500; line-height: 1.9; color: var(--bronze); }
-  .credentials h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.4; }
-  .credentials p { font-size: 16px; line-height: 1.6; }
-
-  .portrait { position: relative; margin: 0; justify-self: center; width: 100%; max-width: 480px; }
-  .portrait img { position: relative; display: block; width: 100%; height: auto; }
-  .glow {
-    position: absolute; inset: -6% -28% 0; z-index: 0;
-    background:
-      radial-gradient(closest-side at 50% 52%, rgba(200, 162, 74, .38), rgba(200, 162, 74, .14) 55%, transparent 100%),
-      radial-gradient(closest-side at 50% 60%, rgba(255, 255, 255, .9), transparent 80%);
-    filter: blur(24px);
-  }
-  .baseline {
-    position: absolute; inset-inline: -12%; bottom: 0; height: 1px;
-    background: linear-gradient(to left, transparent, var(--gold), transparent);
-  }
-
-  @media (max-width: 900px) {
-    .company-head, .founder-grid { grid-template-columns: 1fr; }
-    .portrait { order: -1; max-width: 340px; }
-  }
+  .row:first-child { border-top: 2px solid var(--ink); }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  .row h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.35; }
+  .row p { font-size: 17px; }
+  .milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 32px 24px; }
+  .milestone { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .year { font-size: 15px; font-weight: 500; color: var(--bronze); }
+  .m-title { font-size: 19px; font-weight: 600; line-height: 1.3; }
+  .m-text { font-size: 16px; line-height: 1.55; }
 
   /* Vision */
   .vision { background: var(--night); color: #FFFFFF; }
