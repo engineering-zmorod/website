@@ -188,10 +188,9 @@ const projects = Array.from({ length: 4 }, () => ({
     <div class="container stack gap-24">
       <span class="vision-label"><span aria-hidden="true"></span>החזון שלנו</span>
       <p class="vision-text">
-        להעניק שירות הנדסי מקצועי ואיכותי, תוך הקפדה על רמת תכנון גבוהה, עמידה בלוחות זמנים וגיבוש פתרונות הנדסיים
-        יעילים וכדאיים מבחינה כלכלית המעניקים ליזם ערך מוסף לאורך כל שלבי הפרויקט.
+        "להעניק שירות הנדסי מקצועי ואיכותי, תוך הקפדה על רמת תכנון גבוהה, עמידה בלוחות זמנים וגיבוש פתרונות הנדסיים
+        יעילים וכדאיים מבחינה כלכלית המעניקים ליזם ערך מוסף לאורך כל שלבי הפרויקט."
       </p>
-      <a class="btn btn-gold btn-sm vision-btn" href={url('/about')}>קראו עוד עלינו</a>
 
       <div class="listen">
         <div class="stack gap-16">
@@ -382,7 +381,7 @@ const projects = Array.from({ length: 4 }, () => ({
   .vision { background: var(--night); color: #FFFFFF; }
   .vision-label { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--gold); }
   .vision-label span { width: 28px; height: 3px; background: var(--gold); }
-  .vision-text { max-width: 1040px; font-size: clamp(26px, 3.1vw, 42px); font-weight: 500; line-height: 1.4; text-wrap: balance; }
+  .vision-text { font-size: clamp(24px, 2.5vw, 36px); font-weight: 500; line-height: 1.5; text-wrap: pretty; }
 
   /* Section heads */
   .section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; }
@@ -425,7 +424,6 @@ const projects = Array.from({ length: 4 }, () => ({
   .extra-list li { position: relative; padding-inline-start: 18px; }
   .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
   .extra-list strong { font-weight: 600; color: #FFFFFF; }
-  .vision-btn { margin-top: 12px; }
   @media (max-width: 640px) {
     .services { grid-template-columns: 1fr; }
     .service { padding: 36px 24px; }
