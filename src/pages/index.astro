@@ -160,15 +160,14 @@ const projects = Array.from({ length: 4 }, () => ({
             החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
           </p>
         </div>
-        <ol class="activities">
-          {activities.map((a, i) => (
+        <ul class="activities">
+          {activities.map((a) => (
             <li>
-              <span class="mono num">{String(i + 1).padStart(2, '0')}</span>
               <h4>{a.title}</h4>
               <p class="muted">{a.text}</p>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </div>
   </section>
@@ -328,17 +327,18 @@ const projects = Array.from({ length: 4 }, () => ({
   }
   .company-text { font-size: 19px; line-height: 1.85; color: var(--muted); }
   .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
-  .activities-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 48px; }
-  .activities-head p { max-width: 620px; font-size: 17px; }
-  .activities { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
-  .activities li {
-    display: grid; grid-template-columns: 56px minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 8px 32px; align-items: baseline;
-    padding: 24px 0; border-top: 1px solid var(--line);
+  .activities-head { display: flex; flex-direction: column; gap: 10px; }
+  .activities-head p { max-width: 760px; font-size: 18px; line-height: 1.7; }
+  .activities {
+    margin: 8px 0 0; padding: 0; list-style: none;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 64px;
   }
-  .activities li:first-child { border-top: 2px solid var(--ink); }
-  .activities .num { font-size: 15px; font-weight: 500; color: var(--bronze); }
-  .activities h4 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.35; }
+  .activities li { position: relative; padding-inline-start: 22px; }
+  .activities li::before {
+    content: ''; position: absolute; inset-inline-start: 0; top: 11px;
+    width: 8px; height: 8px; background: var(--gold);
+  }
+  .activities h4 { margin: 0 0 4px; font-size: 20px; font-weight: 600; line-height: 1.4; }
   .activities p { font-size: 17px; line-height: 1.7; }
 
   /* About: the founder */
@@ -377,8 +377,7 @@ const projects = Array.from({ length: 4 }, () => ({
   @media (max-width: 900px) {
     .company-head, .founder-grid { grid-template-columns: 1fr; }
     .portrait { order: -1; max-width: 340px; }
-    .activities li { grid-template-columns: 44px minmax(0, 1fr); }
-    .activities li p { grid-column: 2; }
+    .activities { grid-template-columns: 1fr; gap: 24px; }
   }
 
   /* Vision */
