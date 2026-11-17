@@ -181,19 +181,22 @@ const projects = Array.from({ length: 4 }, () => ({
         ))}
       </div>
 
-      <div class="stack gap-24">
-        <h3 class="h3">תחומי הפעילות והשירותים</h3>
-        <p class="muted body">
-          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית:
-        </p>
-        <div class="rows">
+      <div class="domains">
+        <div class="stack gap-24 domains-intro">
+          <h3 class="h3">תחומי הפעילות והשירותים</h3>
+          <p class="muted">
+            החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+          </p>
+          <a class="btn btn-dark btn-sm" href={url('/#services')}>לשירותים שלנו</a>
+        </div>
+        <ul class="domain-list">
           {activities.map((a) => (
-            <div class="row">
+            <li>
               <h4>{a.title}</h4>
               <p class="muted">{a.text}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
     </div>
@@ -354,18 +357,27 @@ const projects = Array.from({ length: 4 }, () => ({
   .portrait { margin: 0; width: 100%; max-width: 440px; }
   .portrait img { display: block; width: 100%; height: auto; }
   .h3 { font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; line-height: 1.2; }
-  .rows { display: flex; flex-direction: column; }
-  .row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
-    gap: 6px 64px;
-    padding: 20px 0;
-    border-top: 1px solid var(--line);
+  .domains {
+    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 48px 96px; align-items: start;
   }
-  .row:first-child { border-top: 2px solid var(--ink); }
-  .row:last-child { border-bottom: 1px solid var(--line); }
-  .row h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.35; }
-  .row p { font-size: 17px; }
+  .domains-intro p { font-size: 18px; line-height: 1.8; }
+  .domain-list {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px;
+  }
+  .domain-list li { display: flex; flex-direction: column; gap: 8px; }
+  .domain-list h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.35; }
+  .domain-list h4::before {
+    content: ''; display: block; width: 28px; height: 3px; margin-bottom: 14px; background: var(--gold);
+  }
+  .domain-list p { font-size: 16px; line-height: 1.7; }
+  @media (max-width: 900px) {
+    .domains { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .domain-list { grid-template-columns: 1fr; gap: 32px; }
+  }
   .milestones { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 32px 24px; }
   .milestone { display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink); }
   .year { font-size: 15px; font-weight: 500; color: var(--bronze); }
