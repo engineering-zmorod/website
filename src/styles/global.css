@@ -75,6 +75,8 @@ h1, h2 { text-wrap: balance; }
 .btn { transition: background-color .2s, color .2s; }
 .btn-dark:hover { background: #2A3B4C; opacity: 1; }
 .btn-gold:hover { background: #B8913A; opacity: 1; }
+.btn-light { border: 2px solid rgba(255, 255, 255, .7); color: #FFFFFF; }
+.btn-light:hover { background: #FFFFFF; color: var(--ink); opacity: 1; }
 .btn-outline { border: 2px solid var(--ink); }
 .btn-outline:hover { background: var(--ink); color: #FFFFFF; opacity: 1; }
 .text-link {
