@@ -1,16 +1,467 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Projects from '../components/Projects.astro';
-import Services from '../components/ServicesStrip.astro';
-import Contact from '../components/Contact.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CraneHero from '../components/CraneHero.astro';
+import { url } from '../lib/url';
+import { contact } from '../lib/nav';
+import { Image } from 'astro:assets';
+import portrait from '../assets/founder-cutout.png';
+import { podcast } from '../lib/press';
+
+const stats = [
+  { value: 400, prefix: '', suffix: '+', label: 'פרויקטים' },
+  { value: 300, prefix: '', suffix: '+', label: 'לקוחות' },
+  { value: 17, prefix: '', suffix: ' שנים', label: 'ניסיון' },
+  { value: 30, prefix: 'עד ', suffix: '', label: 'קומות, גובה המגדלים שאנחנו מתכננים' },
+];
+
+// Shown under the service cards: the advisory work the four cards don't cover.
+const extras = [
+  { title: 'ליווי הנדסי וחוות דעת מקצועיות', text: 'ליווי פרויקטים ומתן חוות דעת מקצועיות לצורך בחינת פתרונות הנדסיים ושיפור תהליכי התכנון והביצוע.' },
+  { title: 'ייעוץ הנדסי והתייעלות כלכלית', text: 'גיבוש פתרונות הנדסיים יעילים ואופטימליים, תוך בחינת היבטים הנדסיים וכלכליים.' },
+];
+
+const credentials = [
+  { year: '2008', title: 'הטכניון, בהצטיינות', text: 'בוגרת הפקולטה להנדסה אזרחית וסביבתית, בהתמחות תכנון מבנים לרעידות אדמה.' },
+  { year: '2018', title: 'RICS לונדון', text: 'בקרית תכן מבנים מורשית, בוגרת הארגון הבריטי RICS.' },
+  { year: '2019', title: 'מהנדס צעיר מצטיין בתחום התכנון', text: 'פרס מטעם איגוד המהנדסים והתשתיות בישראל.' },
+  { year: '2020', title: '40 הצעירים המבטיחים', text: 'בנדל"ן ובהתחדשות עירונית.' },
+  { year: '2022', title: 'בקרית מיגון מורשית', text: 'הסמכה מטעם פיקוד העורף.' },
+];
+
+const services = [
+  {
+    title: 'תכנון מגדלים',
+    text: 'תכנון קונסטרוקטיבי של מגדלי מגורים ומשרדים רבי־קומות, משלב היסודות ועד להשלמת המבנה.',
+    items: [
+      'תכנון מגדלי מגורים ומשרדים בגובה של עד 30 קומות',
+      'תכנון חניונים תת־קרקעיים משותפים למספר מגדלים',
+      'תכנון קירות דיפון וקירות תמך לחפירות עמוקות',
+      'תכנון סיסמי למבנים רבי־קומות',
+    ],
+  },
+  {
+    title: 'תכנון קונסטרוקציה',
+    text: 'תכנון קונסטרוקטיבי למגוון רחב של מבנים ופרויקטים הנדסיים מורכבים.',
+    items: [
+      'תכנון מבני מגורים, בנייה רוויה ומבנים תת־קרקעיים',
+      'תכנון מבני ציבור, משרדים, תעשייה ומסחר',
+      'שדרוג סיסמי וחיזוק מבנים קיימים, לרבות במסגרת תמ"א 38',
+      'תכנון קירות דיפון וקירות תמך',
+    ],
+  },
+  {
+    title: 'בקרת תכן מבנים',
+    text: 'בקרת תכן קונסטרוקטיבית למבנים מורכבים, תוך בחינת איכות התכנון, יעילותו והכדאיות הכלכלית של הפרויקט.',
+    items: [
+      'בקרת תכן קונסטרוקטיבית למבנים מורכבים',
+      'בחינת חלופות תכנון לשיפור היעילות ההנדסית',
+      'איתור הזדמנויות להפחתת עלויות הבנייה',
+      'שיפור הכדאיות הכלכלית של הפרויקט',
+      'מתן חוות דעת מקצועיות בתחום הקונסטרוקציה',
+    ],
+  },
+  {
+    title: 'בקרת יציבות ומיגון',
+    text: 'בקרת יציבות ומיגון למבנים במסגרת פעילות מכוני בקרה, בהתאם לדרישות התקינה והרגולציה.',
+    items: [
+      'בקרת יציבות מבנים לצורך מתן המלצה להיתר בנייה',
+      'בקרת תוכניות ביצוע לצורך אישור תחילת עבודות',
+      'בקרת תכן ויציבות במסגרת פעילות מכוני בקרה',
+      'בדיקת התאמת המבנים לדרישות יציבות ומיגון',
+    ],
+  },
+];
+
+const projects = Array.from({ length: 4 }, () => ({
+  name: '[שם הפרויקט]',
+  meta: '[עיר] · [מס׳ קומות] קומות · [שנה]',
+}));
 ---
 
-<Layout>
-  <Hero />
-  <About />
-  <Services />
-  <Projects />
-  <Contact />
-</Layout>
+<BaseLayout title="זמורוד חסן | הנדסת מבנים">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="stack hero-copy">
+        <div class="eyebrow-mono">ZMOROD HASSAN · STRUCTURAL ENGINEERING · SINCE 2008</div>
+        <h1>הנדסת מבנים, מהיסודות ועד הקומה ה‑30</h1>
+        <p class="lead">
+          תכנון קונסטרוקטיבי, בקרת תכן, יציבות ומיגון למגוון מבנים מורכבים, ממבני בוטיק, ציבור, תעשייה ומסחר ועד
+          מגדלי מגורים ומשרדים המתנשאים לגובה של 30 קומות. בנוסף, החברה מספקת ליווי הנדסי, שיפור תהליכי תכנון
+          וגיבוש פתרונות הנדסיים יעילים ואופטימליים.
+        </p>
+      </div>
+      <CraneHero />
+    </div>
+  </section>
+
+  <!-- Key numbers -->
+  <section class="stats-wrap" aria-label="המשרד במספרים">
+    <div class="container stats">
+      {stats.map((s) => (
+        <div class="stat">
+          <span class="stat-value" dir={s.suffix === '+' ? 'ltr' : undefined}>
+            {s.prefix && <span class="stat-suffix">{s.prefix}</span>}<span data-count={s.value}>{s.value}</span><span class="stat-suffix">{s.suffix}</span>
+          </span>
+          <span class="muted stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    // Count each number up from 0 the first time the row scrolls into view.
+    const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const duration = 1600;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / duration, 1);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if (!reduce && 'IntersectionObserver' in window) {
+      counters.forEach((el) => (el.textContent = '0'));
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach((el) => io.observe(el));
+    }
+  </script>
+
+  <!-- About: the company -->
+  <section class="section company" id="about">
+    <div class="container stack company-inner">
+      <div class="company-head">
+        <div class="stack gap-16">
+          <span class="eyebrow">מי אנחנו</span>
+          <h2 class="h2">17 שנים של מבנים שעומדים איתן</h2>
+        </div>
+        <p class="company-text">
+          זמורוד חסן, הנדסת מבנים בע"מ, היא חברה בעלת ניסיון מקצועי של 17 שנים, המתמחה בתכנון קונסטרוקציה, בקרת
+          תכן, בדיקות יציבות ומיגון. החברה עוסקת בתכנון קונסטרוקטיבי של מגוון רחב של מבנים מורכבים, בהם מגדלי מגורים
+          ומשרדים בגובה של עד 30 קומות, מבנים מעל חניונים תת־קרקעיים, פרויקטים של בנייה רוויה, מבני בוטיק, מבני
+          ציבור, מבני תעשייה ומסחר. בנוסף, החברה מספקת שירותי ייעוץ וליווי הנדסי, חוות דעת מקצועיות וגיבוש פתרונות
+          הנדסיים לשיפור תהליכי התכנון ולהתייעלות כלכלית.
+        </p>
+      </div>
+
+      <div class="founder-grid">
+        <div class="stack founder-copy">
+          <span class="eyebrow">המייסדת</span>
+          <h2 class="founder-title">אישה אחת,<br /><span>רזומה עשיר.</span></h2>
+          <ol class="credentials">
+            {credentials.map((c) => (
+              <li>
+                <span class="mono year">{c.year}</span>
+                <div class="stack">
+                  <h4>{c.title}</h4>
+                  <p class="muted">{c.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <figure class="portrait">
+          <span class="glow" aria-hidden="true"></span>
+          <Image
+            src={portrait}
+            alt="זמורוד חסן, מהנדסת ובעלת החברה"
+            widths={[440, 720, 932]}
+            sizes="(max-width: 900px) 80vw, 480px"
+          />
+          <span class="baseline" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section vision">
+    <div class="container stack gap-24">
+      <span class="vision-label"><span aria-hidden="true"></span>החזון שלנו</span>
+      <p class="vision-text">
+        "להעניק שירות הנדסי מקצועי ואיכותי, תוך הקפדה על רמת תכנון גבוהה, עמידה בלוחות זמנים וגיבוש פתרונות הנדסיים
+        יעילים וכדאיים מבחינה כלכלית המעניקים ליזם ערך מוסף לאורך כל שלבי הפרויקט."
+      </p>
+
+      <div class="listen">
+        <div class="stack gap-16">
+          <span class="vision-label"><span aria-hidden="true"></span>פודקאסט · {podcast.show}</span>
+          <h3 class="listen-title">הסיפור שמאחורי המבנים</h3>
+          <p class="listen-text">
+            על האומץ להקים חברה משלה, על דרכה בתחום גברי מאוד ועל הסטנדרטים שהיא לא מוכנה להתפשר עליהם. האזינו לשיחה
+            עם זמורוד חסן בפרק "{podcast.title}".
+          </p>
+          <a class="btn btn-light btn-sm" href={url('/press')}>לכל הכתבות והראיונות</a>
+        </div>
+        <iframe
+          class="listen-player"
+          src={`${podcast.embed}?theme=0`}
+          title={`${podcast.title}, ${podcast.show}`}
+          loading="lazy"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="container stack gap-56">
+      <div class="stack gap-16">
+        <span class="eyebrow">שירותים</span>
+        <h2 class="h2">מהתכנון ועד הבקרה</h2>
+        <p class="services-lead">
+          החברה מספקת מגוון שירותים הנדסיים, תוך הקפדה על מקצועיות, איכות התכנון, יעילות הנדסית והתייעלות כלכלית.
+        </p>
+      </div>
+      <div class="services-panel">
+        <div class="services">
+          {services.map((s, i) => (
+            <article class="service">
+              <span class="mono service-num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{s.title}</h3>
+              <p class="muted">{s.text}</p>
+              <ul>
+                {s.items.map((item) => <li>{item}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="extra">
+          <div class="stack gap-16">
+            <h3 class="extra-title">ליווי לאורך כל הפרויקט</h3>
+            <p>
+              מעבר לתכנון ולבקרה, החברה מלווה יזמים ובעלי פרויקטים גם בשלבי ההחלטה והביצוע, כדי שכל פתרון יהיה נכון
+              הנדסית וכדאי כלכלית.
+            </p>
+          </div>
+          <ul class="extra-list">
+            {extras.map((a) => (
+              <li><strong>{a.title}</strong> — {a.text}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section projects">
+    <div class="container stack gap-56">
+      <div class="section-head">
+        <div class="stack gap-16">
+          <span class="eyebrow">פרויקטים</span>
+          <h2 class="h2">פרויקטים נבחרים</h2>
+        </div>
+        <a class="btn btn-dark btn-sm" href={url('/projects')}>לכל הפרויקטים</a>
+      </div>
+      <div class="project-grid">
+        {projects.map((p) => (
+          <article class="stack gap-16">
+            <div class="placeholder project-photo"><span>תמונת פרויקט</span></div>
+            <div class="stack">
+              <h3 class="p-name">{p.name}</h3>
+              <span class="muted p-meta">{p.meta}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="container two-col">
+      <div class="stack gap-28">
+        <h2 class="contact-title">נשמח לשמוע על הפרויקט שלכם</h2>
+        <p class="contact-lead">ספרו לנו על הפרויקט ונחזור אליכם בהקדם.</p>
+        <div class="actions">
+          <a class="btn btn-dark" href={contact.phoneHref}>התקשרו עכשיו</a>
+          <a class="btn btn-outline" href={`mailto:${contact.email}`}>שלחו מייל</a>
+        </div>
+      </div>
+      <dl class="contact-list">
+        <div><dt>טלפון</dt><dd><a class="mono" dir="ltr" href={contact.phoneHref}>{contact.phone}</a></dd></div>
+        <div><dt>דוא"ל</dt><dd><a class="mono" dir="ltr" href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
+        <div><dt>כתובת</dt><dd>{contact.address}</dd></div>
+      </dl>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .gap-16 { gap: 16px; }
+  .gap-24 { gap: 24px; }
+  .gap-28 { gap: 28px; }
+  .gap-56 { gap: 56px; }
+  .body { max-width: 600px; }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+
+  /* Hero */
+  .hero { padding: 72px var(--gutter) 64px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 56px 64px;
+    align-items: center;
+  }
+  .hero-copy { gap: 28px; }
+  .hero h1 { font-size: clamp(40px, 5.4vw, 78px); font-weight: 600; line-height: 1.08; }
+  .hero .lead { max-width: 680px; }
+
+  /* Stats */
+  .stats-wrap { padding: 0 var(--gutter) 96px; }
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .stat { display: flex; flex-direction: column; gap: 6px; padding-top: 20px; border-top: 2px solid var(--ink); }
+  .stat-value { font-family: var(--font-mono); font-size: 44px; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; align-self: flex-start; }
+  .stat-suffix { font-family: var(--font-body); font-size: 30px; font-weight: 600; }
+  .stat-label { font-size: 16px; }
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+    .stat-value { font-size: 36px; }
+    .stat-suffix { font-size: 24px; }
+  }
+
+  /* About: the company */
+  .company { background: var(--surface); border-top: 1px solid var(--line); overflow: hidden; }
+  .company-inner { gap: 88px; }
+  .company-head {
+    display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 32px 80px; align-items: start;
+  }
+  .company-text { font-size: 19px; line-height: 1.85; color: var(--muted); }
+  /* About: the founder */
+  .founder-grid {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 56px 96px; align-items: center;
+  }
+  .founder-copy { gap: 28px; }
+  .founder-title { font-size: clamp(40px, 5vw, 72px); font-weight: 600; line-height: 1.05; }
+  .founder-title span { color: var(--bronze); }
+  .credentials { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-bottom: 1px solid var(--line); }
+  .credentials li {
+    display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 24px;
+    padding: 18px 0; border-top: 1px solid var(--line);
+  }
+  .credentials li:first-child { border-top: 2px solid var(--ink); }
+  .credentials .year { font-size: 16px; font-weight: 500; line-height: 1.9; color: var(--bronze); }
+  .credentials h4 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.4; }
+  .credentials p { font-size: 16px; line-height: 1.6; }
+
+  .portrait { position: relative; margin: 0; justify-self: center; width: 100%; max-width: 480px; }
+  .portrait img { position: relative; display: block; width: 100%; height: auto; }
+  .glow {
+    position: absolute; inset: -6% -28% 0; z-index: 0;
+    background:
+      radial-gradient(closest-side at 50% 52%, rgba(200, 162, 74, .38), rgba(200, 162, 74, .14) 55%, transparent 100%),
+      radial-gradient(closest-side at 50% 60%, rgba(255, 255, 255, .9), transparent 80%);
+    filter: blur(24px);
+  }
+  .baseline {
+    position: absolute; inset-inline: -12%; bottom: 0; height: 1px;
+    background: linear-gradient(to left, transparent, var(--gold), transparent);
+  }
+
+  @media (max-width: 900px) {
+    .company-head, .founder-grid { grid-template-columns: 1fr; }
+    .portrait { order: -1; max-width: 340px; }
+  }
+
+  /* Vision */
+  .vision { background: var(--night); color: #FFFFFF; }
+  .vision-label { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--gold); }
+  .vision-label span { width: 28px; height: 3px; background: var(--gold); }
+  .vision-text { font-size: clamp(24px, 2.5vw, 36px); font-weight: 500; line-height: 1.5; text-wrap: pretty; }
+
+  /* Section heads */
+  .section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; }
+  @media (max-width: 760px) {
+    .section-head { flex-direction: column; align-items: flex-start; gap: 24px; }
+  }
+
+  /* Services: one two-tone block, light services on top, dark advisory band below */
+  .services-panel { border: 1px solid var(--line); }
+  .services {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0; padding: 0; background: var(--panel);
+  }
+  .service {
+    display: flex; flex-direction: column; gap: 12px; padding: 48px 48px;
+    transition: background-color .25s, color .25s;
+  }
+  .service-num { font-size: 15px; font-weight: 500; color: var(--bronze); transition: color .25s; }
+  .service:hover .service-num { color: var(--gold); }
+  .service:hover { background: var(--night); color: #FFFFFF; }
+  .service:hover p, .service:hover ul { color: var(--on-night-muted); }
+  .service p, .service ul { transition: color .25s; }
+  .service h3 { font-size: 22px; font-weight: 600; line-height: 1.3; }
+  .service p { font-size: 16px; line-height: 1.65; }
+  .service ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.55; color: var(--muted); }
+  .service li { position: relative; padding-inline-start: 16px; }
+  .service li::before { content: ''; position: absolute; inset-inline-start: 0; top: 9px; width: 5px; height: 5px; background: var(--gold); }
+  .services-lead { max-width: 760px; font-size: 18px; line-height: 1.7; color: var(--muted); }
+  .extra {
+    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 24px 64px; align-items: center;
+    padding: 44px 48px; background: var(--night); color: #FFFFFF;
+  }
+  .extra-title { font-size: 26px; font-weight: 600; line-height: 1.25; }
+  .extra p { font-size: 17px; line-height: 1.7; color: var(--on-night-muted); }
+  .extra-list {
+    margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px;
+    font-size: 17px; line-height: 1.75; color: var(--on-night-muted);
+  }
+  .extra-list li { position: relative; padding-inline-start: 18px; }
+  .extra-list li::before { content: ''; position: absolute; inset-inline-start: 0; top: 12px; width: 5px; height: 5px; background: var(--gold); }
+  .extra-list strong { font-weight: 600; color: #FFFFFF; }
+  @media (max-width: 640px) {
+    .services { grid-template-columns: 1fr; }
+    .service { padding: 36px 24px; }
+  }
+  @media (max-width: 900px) {
+    .extra { grid-template-columns: 1fr; padding: 32px 24px; }
+  }
+
+  /* Projects */
+  .projects { background: var(--band); }
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 40px 24px; }
+  .project-photo { aspect-ratio: 3 / 4; background-color: #DFD9CC; border-color: #CBC4B4; }
+  .p-name { font-size: 21px; font-weight: 600; line-height: 1.3; }
+  .p-meta { font-size: 15px; }
+
+  /* Podcast, inside the vision band */
+  .listen {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px 80px; align-items: center;
+    margin-top: 56px; padding-top: 56px; border-top: 1px solid rgba(255, 255, 255, .14);
+  }
+  .listen-title { font-size: clamp(26px, 2.6vw, 36px); font-weight: 600; line-height: 1.2; }
+  .listen-text { max-width: 560px; font-size: 18px; line-height: 1.8; color: var(--on-night-muted); }
+  .listen-player { display: block; width: 100%; height: 232px; border: 0; }
+  @media (max-width: 900px) {
+    .listen { grid-template-columns: 1fr; }
+  }
+
+  /* Contact */
+  .contact { padding-block: 104px; background: var(--gold); }
+  .contact-title { font-size: clamp(34px, 4.2vw, 60px); font-weight: 600; line-height: 1.1; }
+  .contact-lead { max-width: 520px; font-size: 20px; line-height: 1.6; }
+  .contact-list { margin: 0; display: flex; flex-direction: column; }
+  .contact-list div {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px;
+    padding: 20px 0; border-top: 1px solid rgba(15, 27, 38, .4);
+  }
+  .contact-list div:last-child { border-bottom: 1px solid rgba(15, 27, 38, .4); }
+  .contact-list dt { font-size: 16px; font-weight: 600; }
+  .contact-list dd { margin: 0; font-size: 18px; }
+</style>

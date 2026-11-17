@@ -1,82 +1,43 @@
-# Zmorod Hassan — Civil Engineering
+# Astro Starter Kit: Minimal
 
-Static site for Zmorod Hassan Civil Engineering. Hebrew, RTL.
-
-## URLs
-
-| Where | URL |
-|---|---|
-| Local dev | http://localhost:4321/website/ |
-| Live (GitHub Pages) | https://engineering-zmorod.github.io/website/ |
-
-> Note the `/website/` suffix — it comes from `base` in `astro.config.mjs`.
-> `localhost:4321/` on its own returns 404. Dev matches production on purpose.
-
-## Commands
-
-Run from the project root.
-
-```bash
-npm run dev            # start dev server (detaches, keeps running)
-npm run build          # build to dist/ — run before pushing
-npm run preview        # serve the built dist/ locally
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-Dev server control:
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-```bash
-npx astro dev stop && npx astro dev   # restart
-npx astro dev status                  # running? which PID?
-npx astro dev logs                    # tail output
-npx astro dev stop                    # stop
+## 🚀 Project Structure
+
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-Editing `.astro`, `.css` or content hot-reloads automatically.
-**Restart is only needed after changing `astro.config.mjs`** — it isn't watched.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-## Deploying
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-Push to `main`. That's the whole process.
+Any static assets, like images, can be placed in the `public/` directory.
 
-```bash
-npm run build                      # catch build errors first
-git add -A
-git commit -m "..."
-git push
-```
+## 🧞 Commands
 
-GitHub Actions builds and deploys to Pages in ~1 minute.
-Watch runs at [Actions](https://github.com/engineering-zmorod/website/actions).
+All commands are run from the root of the project, from a terminal:
 
-- Only `main` deploys — push any other branch to work without publishing.
-- If the build fails, nothing deploys and the previous version stays live.
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## Stack
+## 👀 Want to learn more?
 
-| | |
-|---|---|
-| [Astro](https://astro.build) 7 | static output, zero JS by default |
-| [Tailwind](https://tailwindcss.com) 4 | via `@tailwindcss/vite` |
-| [GSAP](https://gsap.com) + ScrollTrigger | scroll animation |
-| [Lenis](https://lenis.darkroom.engineering) | smooth scroll, synced to ScrollTrigger |
-| [Heebo](https://fonts.google.com/specimen/Heebo) | Hebrew + Latin type |
-
-Brand tokens (`navy-*`, `gold-*`) come from the client's logo and live in
-`src/styles/global.css`. Use them instead of hex codes.
-
-**RTL:** use Tailwind logical properties — `ms-*`/`me-*`, `ps-*`/`pe-*`,
-`start-*`/`end-*` — never `ml-*`/`pl-*`. Keeps layouts correct if an LTR
-language is added later.
-
-## Layout
-
-```
-src/
-  layouts/Layout.astro    <html lang="he" dir="rtl">, fonts, GSAP + Lenis init
-  pages/                  one file per route
-  styles/global.css       Tailwind import + brand tokens
-  components/             (empty for now)
-public/                   copied verbatim to dist/ — favicon, .nojekyll
-assets/                   source images (logos)
-.github/workflows/        Pages deploy
-```
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
