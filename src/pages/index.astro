@@ -399,7 +399,10 @@ const projects = Array.from({ length: 4 }, () => ({
   }
 
   /* Services */
-  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 24px; }
+  .services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  @media (max-width: 760px) {
+    .services { grid-template-columns: 1fr; }
+  }
   .services-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 48px; }
   .years { display: flex; align-items: center; gap: 20px; margin: 0; }
   .years-num { font-size: clamp(72px, 8vw, 120px); font-weight: 500; line-height: .9; color: var(--gold); }
