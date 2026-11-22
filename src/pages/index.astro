@@ -355,9 +355,9 @@ const projects = Array.from({ length: 4 }, () => ({
   /* Video first, then the copy rises in one line after another */
   @keyframes hero-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
   .hero-copy > * { animation: hero-rise .9s cubic-bezier(.2,.7,.2,1) both; }
-  .hero-copy > :nth-child(1) { animation-delay: 1.5s; }
-  .hero-copy > :nth-child(2) { animation-delay: 1.75s; }
-  .hero-copy > :nth-child(3) { animation-delay: 2s; }
+  .hero-copy > :nth-child(1) { animation-delay: 1s; }
+  .hero-copy > :nth-child(2) { animation-delay: 1.25s; }
+  .hero-copy > :nth-child(3) { animation-delay: 1.5s; }
   @media (prefers-reduced-motion: reduce) { .hero-copy > * { animation: none; } }
   @media (max-width: 760px) {
     .hero { min-height: 78svh; padding: 72px var(--gutter) 64px; align-items: flex-end; }
