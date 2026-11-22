@@ -7,10 +7,13 @@ import { url } from '../lib/url';
 interface Props {
   title: string;
   description?: string;
+  /** Header sits over the first section (homepage video) */
+  overlayHeader?: boolean;
 }
 
 const {
   title,
+  overlayHeader = false,
   description = 'זמורוד חסן הנדסת מבנים: תכנון קונסטרוקציה, בקרת תכן, בקרת יציבות ומיגון.',
 } = Astro.props;
 ---
@@ -33,7 +36,7 @@ const {
     <title>{title}</title>
   </head>
   <body>
-    <Header />
+    <Header overlay={overlayHeader} />
     <main>
       <slot />
     </main>
