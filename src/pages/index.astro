@@ -101,22 +101,19 @@ const projects = Array.from({ length: 4 }, () => ({
           וגיבוש פתרונות הנדסיים יעילים ואופטימליים.
         </p>
       </div>
+      <div class="stats hero-stats" aria-label="המשרד במספרים">
+        {stats.map((s) => (
+          <div class="stat">
+            <span class="stat-value" dir={s.suffix === '+' ? 'ltr' : undefined}>
+              {s.prefix && <span class="stat-suffix">{s.prefix}</span>}<span data-count={s.value}>{s.value}</span><span class="stat-suffix">{s.suffix}</span>
+            </span>
+            <span class="muted stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- Key numbers -->
-  <section class="stats-wrap" aria-label="המשרד במספרים">
-    <div class="container stats">
-      {stats.map((s) => (
-        <div class="stat">
-          <span class="stat-value" dir={s.suffix === '+' ? 'ltr' : undefined}>
-            {s.prefix && <span class="stat-suffix">{s.prefix}</span>}<span data-count={s.value}>{s.value}</span><span class="stat-suffix">{s.suffix}</span>
-          </span>
-          <span class="muted stat-label">{s.label}</span>
-        </div>
-      ))}
-    </div>
-  </section>
 
   <script>
     // Count each number up from 0 the first time the row scrolls into view.
@@ -125,13 +122,15 @@ const projects = Array.from({ length: 4 }, () => ({
     const run = (el: HTMLElement) => {
       const target = Number(el.dataset.count);
       const duration = 1600;
-      const start = performance.now();
+      let start = 0;
       const tick = (now: number) => {
+        if (!start) start = now;
         const p = Math.min((now - start) / duration, 1);
         el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
         if (p < 1) requestAnimationFrame(tick);
       };
-      requestAnimationFrame(tick);
+      const wait = el.closest('.hero') ? Math.max(0, 1900 - performance.now()) : 0;
+      setTimeout(() => requestAnimationFrame(tick), wait);
     };
     if (!reduce && 'IntersectionObserver' in window) {
       counters.forEach((el) => (el.textContent = '0'));
@@ -376,6 +375,15 @@ const projects = Array.from({ length: 4 }, () => ({
     .stat-value { font-size: 36px; }
     .stat-suffix { font-size: 24px; }
   }
+
+  /* Numbers inside the hero, over the video */
+  .hero-inner { display: flex; flex-direction: column; gap: clamp(48px, 7vh, 88px); }
+  .hero { padding-bottom: 56px; }
+  .hero .stat { border-top: 1px solid rgba(255,255,255,.24); }
+  .hero .stat-value { color: var(--gold); }
+  .hero .stat-label { color: var(--on-night-muted); }
+  .hero-stats { animation: hero-rise .9s cubic-bezier(.2,.7,.2,1) 1.75s both; }
+  @media (prefers-reduced-motion: reduce) { .hero-stats { animation: none; } }
 
   /* About */
   .about { background: var(--surface); border-top: 1px solid var(--line); }
