@@ -2,14 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../lib/projects';
-import { Image } from 'astro:assets';
+import HeadStats from '../components/HeadStats.astro';
 ---
 
 <BaseLayout
   title="פרויקטים | זמורוד חסן הנדסת מבנים"
   description="פרויקטים של זמורוד חסן הנדסת מבנים: מגורים, מבני ציבור ומגדלים, מהצפון ועד הדרום."
 >
-  <!-- Page head: light, with a small photo collage -->
+  <!-- Page head: light drawing grid, big numbers on the side -->
   <section class="ph ph-a">
     <div class="container ph-grid">
       <div class="stack gap-20 ph-copy">
@@ -17,11 +17,7 @@ import { Image } from 'astro:assets';
       <h1>מבנים שעומדים איתן</h1>
       <p class="lead">ממבני מגורים ומבני ציבור ועד מגדלים של 30 קומות, מהצפון ועד הדרום. כל אחד מהם תוכנן ונבדק בקפידה, מהיסודות ועד הקומה האחרונה.</p>
       </div>
-      <div class="collage" aria-hidden="true">
-        <Image src={projects[2].img} alt="" widths={[400, 700]} sizes="220px" class="c1" />
-        <Image src={projects[0].img} alt="" widths={[400, 700]} sizes="220px" class="c2" />
-        <Image src={projects[4].img} alt="" widths={[400, 700]} sizes="220px" class="c3" />
-      </div>
+      <HeadStats />
     </div>
   </section>
 
@@ -45,20 +41,13 @@ import { Image } from 'astro:assets';
   .ph-a::before { content: ''; position: absolute; inset: 0; pointer-events: none;
     background-image: linear-gradient(rgba(15,27,38,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.05) 1px, transparent 1px);
     background-size: 24px 24px; -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent); }
-  .ph-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: 48px 64px; align-items: center; }
+  .ph-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 48px 64px; align-items: center; }
   .ph-a h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
   .ph-a .eyebrow-mono { color: var(--bronze); }
   .ph-a .lead { max-width: 640px; color: #2B3742; }
-  .collage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
-  .collage :global(img) { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; box-shadow: 0 18px 40px rgba(15,27,38,.18); animation: float 7s ease-in-out infinite alternate both; }
-  .collage .c1 { margin-top: 56px; }
-  .collage .c2 { margin-top: 0; animation-delay: -2.5s; }
-  .collage .c3 { margin-top: 96px; animation-delay: -5s; }
-  @keyframes float { from { transform: translateY(0); } to { transform: translateY(-14px); } }
   @media (max-width: 900px) {
     .ph-grid { grid-template-columns: 1fr; gap: 36px; }
     .ph-a { padding: 56px var(--gutter) 40px; }
-    .collage .c1 { margin-top: 24px; } .collage .c3 { margin-top: 40px; }
     .all { padding-top: 48px; }
   }
 
