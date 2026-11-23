@@ -232,7 +232,7 @@ const projects = [
   <!-- Vision -->
   <section class="section vision">
     <Image class="vision-bg" src={visionBg} alt="" widths={[960, 1600, 2400]} sizes="100vw" aria-hidden="true" />
-    <div class="vision-shade" aria-hidden="true"></div>
+    <div class="hero-shade" aria-hidden="true"></div>
     <div class="container stack gap-24">
       <span class="vision-label"><span aria-hidden="true"></span>החזון שלנו</span>
       <p class="vision-text">
@@ -446,9 +446,8 @@ const projects = [
 
   /* Vision */
   .vision { position: relative; overflow: hidden; background: var(--night); color: #FFFFFF; }
-  /* City photo behind the vision and podcast, darkened so the text stays readable */
+  /* City photo behind the vision and podcast, with the same shade as the hero video */
   .vision-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-  .vision-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(6,11,17,.87) 0%, rgba(6,11,17,.82) 50%, rgba(6,11,17,.9) 100%); }
   .vision > .container { position: relative; }
   .vision-label { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--gold); }
   .vision-label span { width: 28px; height: 3px; background: var(--gold); }
