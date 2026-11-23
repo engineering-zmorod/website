@@ -4,6 +4,7 @@ import { url } from '../lib/url';
 import { contact } from '../lib/nav';
 import { Image } from 'astro:assets';
 import CraneHero from '../components/CraneHero.astro';
+import visionBg from '../assets/vision-bg.jpg';
 import portrait from '../assets/founder-cutout.png';
 import { podcast } from '../lib/press';
 
@@ -230,6 +231,8 @@ const projects = [
 
   <!-- Vision -->
   <section class="section vision">
+    <Image class="vision-bg" src={visionBg} alt="" widths={[960, 1600, 2400]} sizes="100vw" aria-hidden="true" />
+    <div class="vision-shade" aria-hidden="true"></div>
     <div class="container stack gap-24">
       <span class="vision-label"><span aria-hidden="true"></span>החזון שלנו</span>
       <p class="vision-text">
@@ -442,7 +445,11 @@ const projects = [
   .m-text { font-size: 16px; line-height: 1.55; }
 
   /* Vision */
-  .vision { background: var(--night); color: #FFFFFF; }
+  .vision { position: relative; overflow: hidden; background: var(--night); color: #FFFFFF; }
+  /* City photo behind the vision and podcast, darkened so the text stays readable */
+  .vision-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  .vision-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(6,11,17,.84) 0%, rgba(6,11,17,.78) 50%, rgba(6,11,17,.88) 100%); }
+  .vision > .container { position: relative; }
   .vision-label { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--gold); }
   .vision-label span { width: 28px; height: 3px; background: var(--gold); }
   .vision-text { font-size: clamp(24px, 2.5vw, 36px); font-weight: 500; line-height: 1.5; text-wrap: pretty; }
