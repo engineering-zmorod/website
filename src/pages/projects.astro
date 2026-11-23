@@ -1,14 +1,50 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../lib/projects';
 ---
 
-<!-- Placeholder: content comes in a later step. -->
-<BaseLayout title="פרויקטים | זמורוד חסן הנדסת מבנים">
-  <section class="section">
-    <div class="container stack" style="gap: 16px">
-      <span class="eyebrow">פרויקטים</span>
-      <h1 class="h2">פרויקטים</h1>
-      <p class="lead">העמוד בבנייה.</p>
+<BaseLayout
+  title="פרויקטים | זמורוד חסן הנדסת מבנים"
+  description="מבחר פרויקטים של זמורוד חסן הנדסת מבנים: מגורים, מבני ציבור ומגדלים, מנהריה ועד באר שבע."
+>
+  <!-- Page head -->
+  <section class="page-head">
+    <div class="container stack gap-20">
+      <span class="eyebrow-mono">PROJECTS</span>
+      <h1>פרויקטים</h1>
+      <p class="lead">מבחר מהפרויקטים שתכננו וליווינו, ממבני מגורים ומבני ציבור ועד מגדלים, מנהריה ועד באר שבע.</p>
+    </div>
+  </section>
+
+  <!-- All projects -->
+  <section class="section all">
+    <div class="container">
+      <div class="grid">
+        {projects.map((p) => <ProjectCard project={p} sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" />)}
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .page-head {
+    padding: 80px var(--gutter) 72px;
+    background-color: var(--night);
+    color: #FFFFFF;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .page-head h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
+  .page-head .eyebrow-mono { color: var(--gold); }
+  .page-head .lead { max-width: 760px; color: var(--on-night-muted); }
+
+  .all { background: var(--band); }
+  /* 3 per row on desktop, 2 on tablet, 1 on phone */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; --p-ratio: 1 / 1; --p-name: 30px; --p-place: 17px; --p-frame: 18px; }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; --p-ratio: 4 / 5; --p-name: 26px; --p-place: 16px; --p-frame: 16px; } }
+</style>
