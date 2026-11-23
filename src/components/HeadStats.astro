@@ -1,0 +1,49 @@
+---
+// Big numbers for the page headers (projects, press). They count up once when the page opens.
+const items = [
+  { value: 17, label: 'שנים של ניסיון' },
+  { value: 400, label: 'פרויקטים' },
+  { value: 300, label: 'לקוחות' },
+];
+---
+
+<dl class="head-stats">
+  {items.map((s) => (
+    <div class="hs-row">
+      <dt class="hs-num mono" dir="ltr"><span data-head-count={s.value}>{s.value}</span>+</dt>
+      <dd class="hs-label">{s.label}</dd>
+    </div>
+  ))}
+</dl>
+
+<script>
+  const els = document.querySelectorAll<HTMLElement>('[data-head-count]');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((el, i) => {
+      const target = Number(el.dataset.headCount);
+      el.textContent = '0';
+      setTimeout(() => {
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - start) / 1600, 1);
+          el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }, 300 + i * 150);
+    });
+  }
+</script>
+
+<style>
+  .head-stats { margin: 0; display: flex; flex-direction: column; width: min(100%, 440px); margin-inline-start: auto; }
+  .hs-row { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 18px 0; border-top: 1px solid rgba(15, 27, 38, .16); }
+  .hs-row:last-child { border-bottom: 1px solid rgba(15, 27, 38, .16); }
+  .hs-num { margin: 0; font-size: clamp(52px, 5.4vw, 84px); font-weight: 500; line-height: .95; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .hs-label { margin: 0; font-size: clamp(18px, 1.6vw, 22px); font-weight: 600; color: var(--ink); }
+  @media (max-width: 900px) {
+    .head-stats { width: 100%; }
+    .hs-row { padding: 14px 0; }
+    .hs-num { font-size: 52px; }
+  }
+</style>

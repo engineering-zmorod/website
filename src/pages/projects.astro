@@ -1,14 +1,59 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../lib/projects';
+import HeadStats from '../components/HeadStats.astro';
 ---
 
-<!-- Placeholder: content comes in a later step. -->
-<BaseLayout title="פרויקטים | זמורוד חסן הנדסת מבנים">
-  <section class="section">
-    <div class="container stack" style="gap: 16px">
-      <span class="eyebrow">פרויקטים</span>
-      <h1 class="h2">פרויקטים</h1>
-      <p class="lead">העמוד בבנייה.</p>
+<BaseLayout
+  title="פרויקטים | זמורוד חסן הנדסת מבנים"
+  description="פרויקטים של זמורוד חסן הנדסת מבנים: מגורים, מבני ציבור ומגדלים, מהצפון ועד הדרום."
+>
+  <!-- Page head: light drawing grid, big numbers on the side -->
+  <section class="ph ph-a">
+    <div class="container ph-grid">
+      <div class="stack gap-20 ph-copy">
+      <span class="eyebrow-mono">PROJECTS</span>
+      <h1>מבנים שעומדים איתן</h1>
+      <p class="lead">ממבני מגורים ומבני ציבור ועד מגדלים של 30 קומות, מהצפון ועד הדרום. כל אחד מהם תוכנן ונבדק בקפידה, מהיסודות ועד הקומה האחרונה.</p>
+      </div>
+      <HeadStats />
+    </div>
+  </section>
+
+  <!-- All projects -->
+  <section class="section all">
+    <div class="container">
+      <div class="grid">
+        {projects.map((p) => <ProjectCard project={p} sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw" />)}
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .ph-copy > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .ph-copy > :nth-child(2) { animation-delay: .15s; }
+  .ph-copy > :nth-child(3) { animation-delay: .3s; }
+  @media (prefers-reduced-motion: reduce) { .ph-copy > *, .ph * { animation: none !important; } }
+  .ph-a { position: relative; padding: 72px var(--gutter) 80px; background: var(--paper); overflow: hidden; }
+  .ph-a::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(15,27,38,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.05) 1px, transparent 1px);
+    background-size: 24px 24px; -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent); }
+  .ph-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 48px 64px; align-items: center; }
+  .ph-a h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
+  .ph-a .eyebrow-mono { color: var(--bronze); }
+  .ph-a .lead { max-width: 640px; color: #2B3742; }
+  @media (max-width: 900px) {
+    .ph-grid { grid-template-columns: 1fr; gap: 36px; }
+    .ph-a { padding: 56px var(--gutter) 40px; }
+    .all { padding-top: 48px; }
+  }
+
+  .all { background: var(--paper); }
+  /* 3 per row on desktop, 2 on tablet, 1 on phone */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; --p-ratio: 1 / 1; --p-name: 30px; --p-place: 17px; --p-frame: 18px; }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; --p-ratio: 4 / 5; --p-name: 26px; --p-place: 16px; --p-frame: 16px; } }
+</style>

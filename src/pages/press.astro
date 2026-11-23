@@ -4,6 +4,17 @@ import { getImage } from 'astro:assets';
 import posterSrc from '../assets/about-video-poster.jpg';
 import award from '../assets/award-2020.jpg';
 import { Image } from 'astro:assets';
+import HeadStats from '../components/HeadStats.astro';
+import clipYediot from '../assets/press/yediot-hatzafon-2016.jpg';
+import clipAward from '../assets/press/young-engineer-award.jpg';
+import clipBanner from '../assets/press/young-engineer-banner.jpg';
+
+// Old clippings (low resolution): shown small, full size on click
+const clips = [
+  { img: clipYediot, title: '"אני אגיע רחוק"', source: 'ידיעות הצפון, 2016' },
+  { img: clipAward, title: 'פרס מהנדס צעיר מצטיין', source: 'איגוד המהנדסים, תחום התכנון' },
+  { img: clipBanner, title: 'פרס מהנדס צעיר בתחום התכנון', source: 'איגוד המהנדסים' },
+];
 import { podcast, video } from '../lib/press';
 import { url } from '../lib/url';
 
@@ -14,12 +25,15 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   title="מן העיתונות | זמורוד חסן הנדסת מבנים"
   description="פודקאסטים, ראיונות ופרסים: זמורוד חסן, הנדסת מבנים."
 >
-  <!-- Page head -->
-  <section class="page-head">
-    <div class="container stack gap-20">
-      <span class="eyebrow-mono">PRESS</span>
-      <h1>מן העיתונות</h1>
-      <p class="lead">תכירו אותנו יותר: הכתבות, הראיונות והפודקאסטים שבהם השתתפנו.</p>
+  <!-- Page head: light drawing grid, like the projects page -->
+  <section class="ph">
+    <div class="container ph-grid">
+      <div class="stack gap-20 ph-copy">
+        <span class="eyebrow-mono">PRESS</span>
+        <h1>מן העיתונות</h1>
+        <p class="lead">תכירו אותנו יותר: הכתבות, הראיונות והפודקאסטים שבהם השתתפנו.</p>
+      </div>
+      <HeadStats />
     </div>
   </section>
 
@@ -70,6 +84,44 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
       </div>
     </div>
   </section>
+  <!-- Clippings -->
+  <section class="section clips-section">
+    <div class="container stack gap-40">
+      <div class="stack gap-12">
+        <span class="eyebrow">כתבות ופרסים</span>
+        <h2 class="h2">הכרה מקצועית</h2>
+      </div>
+      <div class="clips">
+        {clips.map((c) => (
+          <figure class="clip">
+            <button class="clip-frame" type="button" data-full={c.img.src} data-alt={`${c.title}, ${c.source}`} aria-label={`הגדלה: ${c.title}`}>
+              <Image src={c.img} alt={`${c.title}, ${c.source}`} />
+            </button>
+            <figcaption>
+              <strong>{c.title}</strong>
+              <span>{c.source}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+    <dialog class="clip-dialog" aria-label="תצוגה מוגדלת">
+      <button class="clip-close" type="button" aria-label="סגירה">×</button>
+      <img alt="" />
+    </dialog>
+  </section>
+
+  <script>
+    // Click a clipping to see it full size; click outside, × or Esc to close.
+    const dlg = document.querySelector<HTMLDialogElement>('.clip-dialog');
+    const big = dlg?.querySelector('img');
+    document.querySelectorAll<HTMLButtonElement>('.clip-frame').forEach((b) => b.addEventListener('click', () => {
+      if (!dlg || !big) return;
+      big.src = b.dataset.full ?? ''; big.alt = b.dataset.alt ?? '';
+      dlg.showModal();
+    }));
+    dlg?.addEventListener('click', (e) => { if (e.target === dlg || (e.target as HTMLElement).closest('.clip-close')) dlg.close(); });
+  </script>
 </BaseLayout>
 
 <style>
@@ -79,19 +131,23 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   .gap-24 { gap: 24px; }
   .gap-40 { gap: 40px; }
 
-  .page-head {
-    padding: 80px var(--gutter) 72px;
-    background-color: var(--night);
-    color: #FFFFFF;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-    background-image:
-      linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
-    background-size: 24px 24px;
+  .ph { position: relative; padding: 72px var(--gutter) 80px; background: var(--paper); overflow: hidden; }
+  .ph::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(15,27,38,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.05) 1px, transparent 1px);
+    background-size: 24px 24px; -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent); }
+  .ph-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 48px 64px; align-items: center; }
+  .ph h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
+  .ph .eyebrow-mono { color: var(--bronze); }
+  .ph .lead { max-width: 640px; color: #2B3742; }
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .ph-copy > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .ph-copy > :nth-child(2) { animation-delay: .15s; }
+  .ph-copy > :nth-child(3) { animation-delay: .3s; }
+  @media (prefers-reduced-motion: reduce) { .ph-copy > * { animation: none; } }
+  @media (max-width: 900px) {
+    .ph { padding: 56px var(--gutter) 40px; }
+    .ph-grid { grid-template-columns: 1fr; gap: 36px; }
   }
-  .page-head h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
-  .page-head .eyebrow-mono { color: var(--gold); }
-  .page-head .lead { max-width: 760px; color: var(--on-night-muted); }
 
   .podcast { background: var(--surface); }
   .podcast-inner { gap: 32px; }
@@ -102,7 +158,8 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   .credits { display: flex; flex-direction: column; gap: 4px; padding-top: 20px; border-top: 1px solid var(--line); }
   .credits p { font-size: 15px; color: var(--muted); }
 
-  .video-section { background: var(--band); }
+  .video-section { background: var(--surface); padding-top: 0; }
+  .video-section > .container { padding-top: 96px; border-top: 1px solid rgba(15, 27, 38, .12); }
   .video-grid {
     display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 32px; align-items: center;
@@ -115,4 +172,24 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   @media (max-width: 900px) {
     .video-grid { grid-template-columns: 1fr; }
   }
+  /* Clippings */
+  .clips-section { background: var(--surface); padding-top: 0; }
+  .clips-section > .container { padding-top: 96px; border-top: 1px solid rgba(15, 27, 38, .12); }
+  .clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; align-items: start; }
+  .clip { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .clip-frame {
+    position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; padding: 0;
+    background: #FFFFFF; border: 1px solid rgba(15, 27, 38, .12); cursor: zoom-in;
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+  .clip-frame:hover, .clip-frame:focus-visible { box-shadow: 0 16px 36px rgba(15, 27, 38, .14); transform: translateY(-3px); }
+  .clip-frame :global(img) { position: absolute; inset: 18px; display: block; width: calc(100% - 36px); height: calc(100% - 36px); object-fit: contain; }
+  .clip figcaption { display: flex; flex-direction: column; gap: 4px; }
+  .clip figcaption strong { font-size: 19px; font-weight: 600; }
+  .clip figcaption span { font-size: 15px; color: var(--muted); }
+  .clip-dialog { padding: 0; border: 0; background: transparent; max-width: 92vw; max-height: 92vh; overflow: visible; }
+  .clip-dialog::backdrop { background: rgba(6, 11, 17, .82); }
+  .clip-dialog img { display: block; max-width: 92vw; max-height: 88vh; width: auto; height: auto; background: #FFFFFF; }
+  .clip-close { position: absolute; top: -48px; inset-inline-end: 0; width: 44px; height: 44px; border: 0; background: transparent; color: #FFFFFF; font-size: 34px; line-height: 1; cursor: pointer; }
+  @media (max-width: 900px) { .clips { grid-template-columns: 1fr; } }
 </style>

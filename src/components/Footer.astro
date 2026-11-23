@@ -27,17 +27,25 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .site-footer { padding: 56px var(--gutter) 40px; background: var(--night); color: #FFFFFF; }
+  /* Light drawing-grid footer, same style as the projects and press headers */
+  .site-footer {
+    position: relative; padding: 56px var(--gutter) 40px; color: var(--ink);
+    background-color: var(--paper);
+    background-image: linear-gradient(rgba(15,27,38,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border-top: 1px solid rgba(15, 27, 38, .14);
+  }
   .inner { display: flex; flex-direction: column; gap: 40px; }
   .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 40px; }
   .brand { display: flex; flex-direction: column; line-height: 1.25; }
   .brand strong { font-size: 22px; font-weight: 700; }
-  .brand small { font-size: 14px; color: var(--on-night-muted); }
+  .brand small { font-size: 14px; color: var(--muted); }
   .links, .social { display: flex; flex-wrap: wrap; gap: 0 28px; font-size: 16px; }
   .links a, .social a { display: inline-flex; align-items: center; min-height: 44px; }
+  .links a:hover, .social a:hover { color: var(--bronze); opacity: 1; }
   .bottom {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 40px;
-    padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18);
-    font-size: 14px; color: var(--on-night-muted);
+    padding-top: 24px; border-top: 1px solid rgba(15, 27, 38, .14);
+    font-size: 14px; color: var(--muted);
   }
 </style>
