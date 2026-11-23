@@ -75,7 +75,16 @@
 <script>
   const fig = document.querySelector<HTMLElement>('[data-crane]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (fig && !reduce) fig.classList.add('play');
+  // Plays once, when the drawing scrolls into view
+  if (fig && !reduce) {
+    if ('IntersectionObserver' in window) {
+      fig.classList.add('wait');
+      const io = new IntersectionObserver((es) => {
+        if (es.some((e) => e.isIntersecting)) { fig.classList.remove('wait'); fig.classList.add('play'); io.disconnect(); }
+      }, { threshold: 0.35 });
+      io.observe(fig);
+    } else fig.classList.add('play');
+  }
 </script>
 
 <style>
@@ -88,6 +97,7 @@
 }
 .draw { position: relative; direction: ltr; flex: none; width: 340px; height: 584px; }
 .draw div { position: absolute; }
+.wait .draw { visibility: hidden; }
 .group { left: 0; top: 0; width: 340px; height: 584px; }
 .k { background: var(--ink); }
 .slabs { background:

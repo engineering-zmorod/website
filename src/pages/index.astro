@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { url } from '../lib/url';
 import { contact } from '../lib/nav';
 import { Image } from 'astro:assets';
+import CraneHero from '../components/CraneHero.astro';
 import portrait from '../assets/founder-cutout.png';
 import { podcast } from '../lib/press';
 
@@ -329,20 +330,20 @@ const projects = [
 
   <!-- Contact -->
   <section class="section contact" id="contact">
-    <div class="container two-col">
-      <div class="stack gap-28">
+    <div class="container contact-grid">
+      <div class="stack gap-28 contact-copy">
         <h2 class="contact-title">נשמח לשמוע על הפרויקט שלכם</h2>
-        <p class="contact-lead">ספרו לנו על הפרויקט ונחזור אליכם בהקדם.</p>
+        <p class="contact-lead">מתכננים פרויקט חדש, או צריכים בקרת תכן לפרויקט קיים? ספרו לנו במה מדובר, בכל שלב של הפרויקט, ונחזור אליכם בהקדם.</p>
         <div class="actions">
           <a class="btn btn-gold" href={contact.phoneHref}>התקשרו עכשיו</a>
           <a class="btn btn-outline" href={`mailto:${contact.email}`}>שלחו מייל</a>
         </div>
+        <dl class="contact-mini">
+          <div><dt>טלפון</dt><dd><a class="mono" dir="ltr" href={contact.phoneHref}>{contact.phone}</a></dd></div>
+          <div><dt>דוא"ל</dt><dd><a class="mono" dir="ltr" href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
+        </dl>
       </div>
-      <dl class="contact-list">
-        <div><dt>טלפון</dt><dd><a class="mono" dir="ltr" href={contact.phoneHref}>{contact.phone}</a></dd></div>
-        <div><dt>דוא"ל</dt><dd><a class="mono" dir="ltr" href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
-        <div><dt>כתובת</dt><dd>{contact.address}</dd></div>
-      </dl>
+      <div class="contact-art"><CraneHero /></div>
     </div>
   </section>
 </BaseLayout>
@@ -553,13 +554,15 @@ const projects = [
   .contact > .container::before { content: ''; position: absolute; top: -2px; inset-inline-start: 0; width: 72px; height: 3px; background: var(--gold); }
   .contact-list div, .contact-list div:last-child { border-color: rgba(15, 27, 38, .16) !important; }
   .contact-title { font-size: clamp(34px, 4.2vw, 60px); font-weight: 600; line-height: 1.1; }
-  .contact-lead { max-width: 520px; font-size: 20px; line-height: 1.6; }
-  .contact-list { margin: 0; display: flex; flex-direction: column; }
-  .contact-list div {
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px;
-    padding: 20px 0; border-top: 1px solid rgba(15, 27, 38, .4);
+  .contact-lead { max-width: 560px; font-size: 20px; line-height: 1.6; }
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 48px 80px; align-items: center; }
+  .contact-mini { margin: 8px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .contact-mini div { display: flex; gap: 16px; align-items: baseline; }
+  .contact-mini dt { width: 56px; font-size: 14px; font-weight: 600; color: var(--bronze); }
+  .contact-mini dd { margin: 0; font-size: 17px; }
+  .contact-art :global(.fig) { padding: 28px 0; }
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-art :global(.draw) { transform: scale(.82); transform-origin: 50% 0; margin-bottom: -105px; }
   }
-  .contact-list div:last-child { border-bottom: 1px solid rgba(15, 27, 38, .4); }
-  .contact-list dt { font-size: 16px; font-weight: 600; }
-  .contact-list dd { margin: 0; font-size: 18px; }
 </style>
