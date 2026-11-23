@@ -2,18 +2,26 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { projects } from '../lib/projects';
+import { Image } from 'astro:assets';
 ---
 
 <BaseLayout
   title="פרויקטים | זמורוד חסן הנדסת מבנים"
-  description="מבחר פרויקטים של זמורוד חסן הנדסת מבנים: מגורים, מבני ציבור ומגדלים, מנהריה ועד באר שבע."
+  description="פרויקטים של זמורוד חסן הנדסת מבנים: מגורים, מבני ציבור ומגדלים, מהצפון ועד הדרום."
 >
-  <!-- Page head -->
-  <section class="page-head">
-    <div class="container stack gap-20">
+  <!-- Page head: light, with a small photo collage -->
+  <section class="ph ph-a">
+    <div class="container ph-grid">
+      <div class="stack gap-20 ph-copy">
       <span class="eyebrow-mono">PROJECTS</span>
-      <h1>פרויקטים</h1>
-      <p class="lead">מבחר מהפרויקטים שתכננו וליווינו, ממבני מגורים ומבני ציבור ועד מגדלים, מנהריה ועד באר שבע.</p>
+      <h1>מבנים שעומדים איתן</h1>
+      <p class="lead">ממבני מגורים ומבני ציבור ועד מגדלים של 30 קומות, מהצפון ועד הדרום. כל אחד מהם תוכנן ונבדק בקפידה, מהיסודות ועד הקומה האחרונה.</p>
+      </div>
+      <div class="collage" aria-hidden="true">
+        <Image src={projects[2].img} alt="" widths={[400, 700]} sizes="220px" class="c1" />
+        <Image src={projects[0].img} alt="" widths={[400, 700]} sizes="220px" class="c2" />
+        <Image src={projects[4].img} alt="" widths={[400, 700]} sizes="220px" class="c3" />
+      </div>
     </div>
   </section>
 
@@ -28,19 +36,31 @@ import { projects } from '../lib/projects';
 </BaseLayout>
 
 <style>
-  .page-head {
-    padding: 80px var(--gutter) 72px;
-    background-color: var(--night);
-    color: #FFFFFF;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-    background-image:
-      linear-gradient(rgba(255, 255, 255, .04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, .04) 1px, transparent 1px);
-    background-size: 24px 24px;
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .ph-copy > * { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .ph-copy > :nth-child(2) { animation-delay: .15s; }
+  .ph-copy > :nth-child(3) { animation-delay: .3s; }
+  @media (prefers-reduced-motion: reduce) { .ph-copy > *, .ph * { animation: none !important; } }
+  .ph-a { position: relative; padding: 72px var(--gutter) 80px; background: var(--paper); overflow: hidden; }
+  .ph-a::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(15,27,38,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,38,.05) 1px, transparent 1px);
+    background-size: 24px 24px; -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent); mask-image: linear-gradient(to bottom, #000 40%, transparent); }
+  .ph-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: 48px 64px; align-items: center; }
+  .ph-a h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
+  .ph-a .eyebrow-mono { color: var(--bronze); }
+  .ph-a .lead { max-width: 640px; color: #2B3742; }
+  .collage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .collage :global(img) { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; box-shadow: 0 18px 40px rgba(15,27,38,.18); animation: float 7s ease-in-out infinite alternate both; }
+  .collage .c1 { margin-top: 56px; }
+  .collage .c2 { margin-top: 0; animation-delay: -2.5s; }
+  .collage .c3 { margin-top: 96px; animation-delay: -5s; }
+  @keyframes float { from { transform: translateY(0); } to { transform: translateY(-14px); } }
+  @media (max-width: 900px) {
+    .ph-grid { grid-template-columns: 1fr; gap: 36px; }
+    .ph-a { padding: 56px var(--gutter) 40px; }
+    .collage .c1 { margin-top: 24px; } .collage .c3 { margin-top: 40px; }
+    .all { padding-top: 48px; }
   }
-  .page-head h1 { font-size: clamp(44px, 5.2vw, 76px); font-weight: 600; line-height: 1.08; }
-  .page-head .eyebrow-mono { color: var(--gold); }
-  .page-head .lead { max-width: 760px; color: var(--on-night-muted); }
 
   .all { background: var(--band); }
   /* 3 per row on desktop, 2 on tablet, 1 on phone */
