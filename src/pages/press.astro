@@ -5,6 +5,16 @@ import posterSrc from '../assets/about-video-poster.jpg';
 import award from '../assets/award-2020.jpg';
 import { Image } from 'astro:assets';
 import HeadStats from '../components/HeadStats.astro';
+import clipYediot from '../assets/press/yediot-hatzafon-2016.jpg';
+import clipAward from '../assets/press/young-engineer-award.jpg';
+import clipBanner from '../assets/press/young-engineer-banner.jpg';
+
+// Old clippings (low resolution): shown small, full size on click
+const clips = [
+  { img: clipYediot, title: '"אני אגיע רחוק"', source: 'ידיעות הצפון, 2016' },
+  { img: clipAward, title: 'פרס מהנדס צעיר מצטיין', source: 'איגוד המהנדסים, תחום התכנון' },
+  { img: clipBanner, title: 'פרס מהנדס צעיר בתחום התכנון', source: 'איגוד המהנדסים' },
+];
 import { podcast, video } from '../lib/press';
 import { url } from '../lib/url';
 
@@ -74,6 +84,44 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
       </div>
     </div>
   </section>
+  <!-- Clippings -->
+  <section class="section clips-section">
+    <div class="container stack gap-40">
+      <div class="stack gap-12">
+        <span class="eyebrow">כתבות ופרסים</span>
+        <h2 class="h2">כתבו עלינו</h2>
+      </div>
+      <div class="clips">
+        {clips.map((c) => (
+          <figure class="clip">
+            <button class="clip-frame" type="button" data-full={c.img.src} data-alt={`${c.title}, ${c.source}`} aria-label={`הגדלה: ${c.title}`}>
+              <Image src={c.img} alt={`${c.title}, ${c.source}`} />
+            </button>
+            <figcaption>
+              <strong>{c.title}</strong>
+              <span>{c.source}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+    <dialog class="clip-dialog" aria-label="תצוגה מוגדלת">
+      <button class="clip-close" type="button" aria-label="סגירה">×</button>
+      <img alt="" />
+    </dialog>
+  </section>
+
+  <script>
+    // Click a clipping to see it full size; click outside, × or Esc to close.
+    const dlg = document.querySelector<HTMLDialogElement>('.clip-dialog');
+    const big = dlg?.querySelector('img');
+    document.querySelectorAll<HTMLButtonElement>('.clip-frame').forEach((b) => b.addEventListener('click', () => {
+      if (!dlg || !big) return;
+      big.src = b.dataset.full ?? ''; big.alt = b.dataset.alt ?? '';
+      dlg.showModal();
+    }));
+    dlg?.addEventListener('click', (e) => { if (e.target === dlg || (e.target as HTMLElement).closest('.clip-close')) dlg.close(); });
+  </script>
 </BaseLayout>
 
 <style>
@@ -124,4 +172,24 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   @media (max-width: 900px) {
     .video-grid { grid-template-columns: 1fr; }
   }
+  /* Clippings */
+  .clips-section { background: var(--surface); padding-top: 0; }
+  .clips-section > .container { padding-top: 96px; border-top: 1px solid rgba(15, 27, 38, .12); }
+  .clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; align-items: start; }
+  .clip { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .clip-frame {
+    position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; padding: 0;
+    background: #FFFFFF; border: 1px solid rgba(15, 27, 38, .12); cursor: zoom-in;
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+  .clip-frame:hover, .clip-frame:focus-visible { box-shadow: 0 16px 36px rgba(15, 27, 38, .14); transform: translateY(-3px); }
+  .clip-frame :global(img) { position: absolute; inset: 18px; display: block; width: calc(100% - 36px); height: calc(100% - 36px); object-fit: contain; }
+  .clip figcaption { display: flex; flex-direction: column; gap: 4px; }
+  .clip figcaption strong { font-size: 19px; font-weight: 600; }
+  .clip figcaption span { font-size: 15px; color: var(--muted); }
+  .clip-dialog { padding: 0; border: 0; background: transparent; max-width: 92vw; max-height: 92vh; overflow: visible; }
+  .clip-dialog::backdrop { background: rgba(6, 11, 17, .82); }
+  .clip-dialog img { display: block; max-width: 92vw; max-height: 88vh; width: auto; height: auto; background: #FFFFFF; }
+  .clip-close { position: absolute; top: -48px; inset-inline-end: 0; width: 44px; height: 44px; border: 0; background: transparent; color: #FFFFFF; font-size: 34px; line-height: 1; cursor: pointer; }
+  @media (max-width: 900px) { .clips { grid-template-columns: 1fr; } }
 </style>
