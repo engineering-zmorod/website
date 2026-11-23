@@ -110,7 +110,8 @@ const poster = await getImage({ src: posterSrc, width: 1280, format: 'webp', qua
   .credits { display: flex; flex-direction: column; gap: 4px; padding-top: 20px; border-top: 1px solid var(--line); }
   .credits p { font-size: 15px; color: var(--muted); }
 
-  .video-section { background: var(--band); }
+  .video-section { background: var(--surface); padding-top: 0; }
+  .video-section > .container { padding-top: 96px; border-top: 1px solid rgba(15, 27, 38, .12); }
   .video-grid {
     display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 32px; align-items: center;
