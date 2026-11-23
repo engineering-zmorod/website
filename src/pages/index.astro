@@ -334,7 +334,7 @@ const projects = [
         <h2 class="contact-title">נשמח לשמוע על הפרויקט שלכם</h2>
         <p class="contact-lead">ספרו לנו על הפרויקט ונחזור אליכם בהקדם.</p>
         <div class="actions">
-          <a class="btn btn-dark" href={contact.phoneHref}>התקשרו עכשיו</a>
+          <a class="btn btn-gold" href={contact.phoneHref}>התקשרו עכשיו</a>
           <a class="btn btn-outline" href={`mailto:${contact.email}`}>שלחו מייל</a>
         </div>
       </div>
@@ -547,7 +547,11 @@ const projects = [
   }
 
   /* Contact */
-  .contact { padding-block: 104px; background: var(--gold); }
+  /* Same background as the projects, split by a thin line with a short gold accent */
+  .contact { padding-block: 0 104px; background: var(--band); }
+  .contact > .container { position: relative; padding-top: 88px; border-top: 1px solid rgba(15, 27, 38, .14); }
+  .contact > .container::before { content: ''; position: absolute; top: -2px; inset-inline-start: 0; width: 72px; height: 3px; background: var(--gold); }
+  .contact-list div, .contact-list div:last-child { border-color: rgba(15, 27, 38, .16) !important; }
   .contact-title { font-size: clamp(34px, 4.2vw, 60px); font-weight: 600; line-height: 1.1; }
   .contact-lead { max-width: 520px; font-size: 20px; line-height: 1.6; }
   .contact-list { margin: 0; display: flex; flex-direction: column; }
