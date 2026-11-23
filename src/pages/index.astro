@@ -80,10 +80,18 @@ const steps = [
   { title: 'ליווי והתייעלות', text: 'ליווי היזם לאורך הביצוע, עם פתרונות שחוסכים זמן וכסף.' },
 ];
 
-const projects = Array.from({ length: 4 }, () => ({
-  name: '[שם הפרויקט]',
-  meta: '[עיר] · [מס׳ קומות] קומות · [שנה]',
-}));
+import pKiryatAta from '../assets/projects/kiryat-ata.jpg';
+import pFeichman from '../assets/projects/feichman-haifa.jpg';
+import pMedical from '../assets/projects/medical-beer-sheva.jpg';
+import pOrYam from '../assets/projects/or-yam.jpg';
+
+// Homepage picks: only the name and the place, shown on hover or tap
+const projects = [
+  { img: pKiryatAta, name: 'שכונת מגורים', place: 'קרית אתא', focus: '50% 50%' },
+  { img: pFeichman, name: 'פייכמן', place: 'חיפה', focus: '50% 50%' },
+  { img: pMedical, name: 'מרכז רפואי', place: 'באר שבע', focus: '62% 50%' },
+  { img: pOrYam, name: 'אור ים', place: 'עקיבה', focus: '30% 50%' },
+];
 ---
 
 <BaseLayout title="זמורוד חסן | הנדסת מבנים" overlayHeader>
@@ -140,6 +148,21 @@ const projects = Array.from({ length: 4 }, () => ({
         });
       }, { threshold: 0.5 });
       counters.forEach((el) => io.observe(el));
+    }
+  </script>
+
+  <script>
+    // Phones have no hover: a tap shows the name, tapping again or elsewhere hides it.
+    const cards = document.querySelectorAll<HTMLElement>('.p-card');
+    const touch = window.matchMedia('(hover: none)').matches;
+    if (touch) {
+      cards.forEach((c) => c.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = c.classList.contains('is-open');
+        cards.forEach((o) => o.classList.remove('is-open'));
+        if (!open) c.classList.add('is-open');
+      }));
+      document.addEventListener('click', () => cards.forEach((o) => o.classList.remove('is-open')));
     }
   </script>
 
@@ -292,11 +315,11 @@ const projects = Array.from({ length: 4 }, () => ({
       </div>
       <div class="project-grid">
         {projects.map((p) => (
-          <article class="stack gap-16">
-            <div class="placeholder project-photo"><span>תמונת פרויקט</span></div>
-            <div class="stack">
+          <article class="p-card" tabindex="0">
+            <Image class="p-img" src={p.img} alt={`${p.name}, ${p.place}`} widths={[480, 800, 1200]} sizes="(max-width: 760px) 100vw, 25vw" style={`object-position: ${p.focus}`} />
+            <div class="p-over" aria-hidden="true">
               <h3 class="p-name">{p.name}</h3>
-              <span class="muted p-meta">{p.meta}</span>
+              <span class="p-place">{p.place}</span>
             </div>
           </article>
         ))}
@@ -475,10 +498,32 @@ const projects = Array.from({ length: 4 }, () => ({
 
   /* Projects */
   .projects { background: var(--band); }
-  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 40px 24px; }
-  .project-photo { aspect-ratio: 3 / 4; background-color: #DFD9CC; border-color: #CBC4B4; }
-  .p-name { font-size: 21px; font-weight: 600; line-height: 1.3; }
-  .p-meta { font-size: 15px; }
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 24px; }
+  /* Photo cards: nothing on top until hover (desktop) or tap (phone) */
+  .p-card { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--night); cursor: pointer; outline: none; }
+  .p-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .p-over {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    padding: 24px; text-align: center; color: #FFFFFF;
+    background: rgba(168, 131, 44, .88);
+    opacity: 0; transition: opacity .45s ease;
+  }
+  /* thin white frame inside the gold */
+  .p-over::before {
+    content: ''; position: absolute; inset: 16px; border: 1px solid rgba(255,255,255,.7);
+    transform: scale(1.06); opacity: 0; transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease;
+  }
+  .p-name { font-size: 26px; font-weight: 700; line-height: 1.25; transform: translateY(14px); transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+  .p-place {
+    display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 500; letter-spacing: .02em;
+    transform: translateY(14px); transition: transform .55s cubic-bezier(.2,.7,.2,1) .06s;
+  }
+  .p-place::before, .p-place::after { content: ''; width: 22px; height: 1px; background: rgba(255,255,255,.8); }
+  .p-card:hover .p-img, .p-card:focus-visible .p-img, .p-card.is-open .p-img { transform: scale(1.06); }
+  .p-card:hover .p-over, .p-card:focus-visible .p-over, .p-card.is-open .p-over { opacity: 1; }
+  .p-card:hover .p-over::before, .p-card:focus-visible .p-over::before, .p-card.is-open .p-over::before { opacity: 1; transform: none; }
+  .p-card:hover :is(.p-name, .p-place), .p-card:focus-visible :is(.p-name, .p-place), .p-card.is-open :is(.p-name, .p-place) { transform: none; }
+  @media (prefers-reduced-motion: reduce) { .p-img, .p-over, .p-over::before, .p-name, .p-place { transition: none; } }
 
   /* Podcast, inside the vision band */
   .listen {
