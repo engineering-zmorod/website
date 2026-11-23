@@ -307,12 +307,15 @@ const projects = [
   <!-- Projects -->
   <section class="section projects">
     <div class="container stack gap-56">
-      <div class="section-head">
+      <div class="services-head">
         <div class="stack gap-16">
           <span class="eyebrow">פרויקטים</span>
-          <h2 class="h2">פרויקטים נבחרים</h2>
+          <h2 class="h2">מהשרטוט ועד קו הרקיע</h2>
         </div>
-        <a class="text-link" href={url('/projects')}>לכל הפרויקטים ←</a>
+        <p class="years">
+          <span class="years-num mono" dir="ltr">400+</span>
+          <span class="years-text">פרויקטים, מנהריה<br />ועד באר שבע</span>
+        </p>
       </div>
       <div class="project-grid">
         {projects.map((p) => (
@@ -325,6 +328,7 @@ const projects = [
           </article>
         ))}
       </div>
+      <a class="text-link all-projects" href={url('/projects')}>לכל הפרויקטים ←</a>
     </div>
   </section>
 
@@ -499,6 +503,7 @@ const projects = [
 
   /* Projects */
   .projects { background: var(--band); }
+  .all-projects { align-self: flex-start; margin-top: -16px; }
   .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr)); gap: 24px; }
   /* Photo cards: nothing on top until hover (desktop) or tap (phone) */
   .p-card { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--night); cursor: pointer; outline: none; }
