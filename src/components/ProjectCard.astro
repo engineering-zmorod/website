@@ -1,0 +1,64 @@
+---
+// Photo card: nothing on top until hover (desktop) or tap (phone),
+// then a gold layer with the project name and place in white.
+// The parent grid sets the card shape with --p-ratio (default 4 / 5).
+import { Image } from 'astro:assets';
+import type { Project } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  sizes?: string;
+}
+
+const { project: p, sizes = '(max-width: 760px) 100vw, 50vw' } = Astro.props;
+const label = p.place ? `${p.name}, ${p.place}` : p.name;
+---
+
+<article class="p-card" tabindex="0">
+  <Image class="p-img" src={p.img} alt={label} widths={[480, 800, 1200]} sizes={sizes} style={`object-position: ${p.focus ?? '50% 50%'}`} />
+  <div class="p-over" aria-hidden="true">
+    <h3 class="p-name">{p.name}</h3>
+    {p.place && <span class="p-place">{p.place}</span>}
+  </div>
+</article>
+
+<script>
+  // Phones have no hover: a tap shows the name, tapping again or elsewhere hides it.
+  const cards = document.querySelectorAll<HTMLElement>('.p-card');
+  if (window.matchMedia('(hover: none)').matches) {
+    cards.forEach((c) => c.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = c.classList.contains('is-open');
+      cards.forEach((o) => o.classList.remove('is-open'));
+      if (!open) c.classList.add('is-open');
+    }));
+    document.addEventListener('click', () => cards.forEach((o) => o.classList.remove('is-open')));
+  }
+</script>
+
+<style>
+  .p-card { position: relative; aspect-ratio: var(--p-ratio, 4 / 5); overflow: hidden; background: var(--night); cursor: pointer; outline: none; }
+  .p-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .p-over {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    padding: 24px; text-align: center; color: #FFFFFF;
+    background: rgba(168, 131, 44, .88);
+    opacity: 0; transition: opacity .45s ease;
+  }
+  /* thin white frame inside the gold */
+  .p-over::before {
+    content: ''; position: absolute; inset: var(--p-frame, 16px); border: 1px solid rgba(255,255,255,.7);
+    transform: scale(1.06); opacity: 0; transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease;
+  }
+  .p-name { font-size: var(--p-name, 26px); font-weight: 700; line-height: 1.25; transform: translateY(14px); transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+  .p-place {
+    display: inline-flex; align-items: center; gap: 10px; font-size: var(--p-place, 16px); font-weight: 500; letter-spacing: .02em;
+    transform: translateY(14px); transition: transform .55s cubic-bezier(.2,.7,.2,1) .06s;
+  }
+  .p-place::before, .p-place::after { content: ''; width: 22px; height: 1px; background: rgba(255,255,255,.8); }
+  .p-card:hover .p-img, .p-card:focus-visible .p-img, .p-card.is-open .p-img { transform: scale(1.06); }
+  .p-card:hover .p-over, .p-card:focus-visible .p-over, .p-card.is-open .p-over { opacity: 1; }
+  .p-card:hover .p-over::before, .p-card:focus-visible .p-over::before, .p-card.is-open .p-over::before { opacity: 1; transform: none; }
+  .p-card:hover :is(.p-name, .p-place), .p-card:focus-visible :is(.p-name, .p-place), .p-card.is-open :is(.p-name, .p-place) { transform: none; }
+  @media (prefers-reduced-motion: reduce) { .p-img, .p-over, .p-over::before, .p-name, .p-place { transition: none; } }
+</style>
